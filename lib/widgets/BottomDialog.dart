@@ -13,6 +13,7 @@ class BottomDialog {
   static void show(BuildContext context,
       {Widget? title, Widget? body, double height = 0.5}) {
     showMaterialModalBottomSheet(
+      backgroundColor: ColorResources.lightGrey,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(32),
       ),
