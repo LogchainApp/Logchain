@@ -22,7 +22,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_native_splash: 1.2.3
   google_fonts: ^2.1.0
-  hexcolor: ^1.0.4
+  modal_bottom_sheet: ^2.0.0
 
 
 flutter_icons:
@@ -36,3 +36,4 @@ flutter:
 
   assets:
     - assets/icon.png
+    - assets/icons/menu_icon.png
