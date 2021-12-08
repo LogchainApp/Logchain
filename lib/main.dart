@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/styles/TextStyles.dart';
 import 'package:logchain/styles/themes.dart';
-import 'package:logchain/widgets/CustomAppBar.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,7 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: <Widget>[
-            CustomAppBar("Logchain")
           ],
         ),
       ),
