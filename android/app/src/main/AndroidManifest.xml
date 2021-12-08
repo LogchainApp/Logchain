@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.logchain.logchain.logchain">
    <application
-        android:label="logchain"
+        android:label="Logchain"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
