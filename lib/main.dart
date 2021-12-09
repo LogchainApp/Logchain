@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
+import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
-import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
-
+import 'package:provider/provider.dart';
 import 'styles/themes.dart';
 
 void main() {
@@ -15,11 +15,21 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Logchain',
-      theme: light,
-      home: MainPage(title: 'Logchain'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider(light)),
+      ],
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Logchain',
+            theme: context.watch<ThemeProvider>().getTheme,
+            darkTheme: dark,
+            home: MainPage(title: 'Logchain'),
+          );
+        },
+      ),
     );
   }
 }
@@ -60,15 +70,13 @@ class _MainPageState extends State<MainPage> {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
-                ),
+                decoration:
+                    BoxDecoration(color: Theme.of(context).backgroundColor),
                 child: MainGrid(
                   onItemTapCallback: (currency) {
                     BottomDialog.show(
                       context,
                       title: Text("${currency.name} (${currency.symbol})"),
-                      height: 0.8,
                     );
                   },
                 ),

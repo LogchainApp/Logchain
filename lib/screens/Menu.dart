@@ -23,7 +23,6 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     var _themeProvider = Provider.of<ThemeProvider>(context);
-    this.isNightModeOn = _themeProvider.getTheme == dark;
 
     return Padding(
       padding: EdgeInsets.all(16),
@@ -38,10 +37,10 @@ class _MenuState extends State<Menu> {
                 isActive: this.isNightModeOn,
                 onChanged: () {
                   setState(() {
-                    this.isNightModeOn = !this.isNightModeOn;
                     _themeProvider.setTheme(
-                      this.isNightModeOn ? dark : light,
+                      _themeProvider.getTheme == light ? dark : light,
                     );
+                    this.isNightModeOn = !this.isNightModeOn;
                   });
                 },
               ),
