@@ -30,9 +30,9 @@ class CustomAppBar extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: SearchBar(onItemTapCallback: (currency) {
-                    BottomDialog.showWithTitle(
+                    BottomDialog.show(
                       context,
-                      "${currency.name} (${currency.symbol})",
+                      title: Text("${currency.name} (${currency.symbol})"),
                       height: 0.8,
                     );
                   }),
@@ -47,9 +47,9 @@ class CustomAppBar extends StatelessWidget {
                     "assets/icons/menu_icon.png",
                   ),
                   onPressed: () {
-                    BottomDialog.showWithTitle(
+                    BottomDialog.show(
                       context,
-                      "Menu",
+                      title: Text("Menu"),
                       body: Text("Menu Content", style: TextStyles.title),
                     );
                   },
