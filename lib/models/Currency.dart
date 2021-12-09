@@ -3,7 +3,7 @@ class Currency {
   final bool isFavourite;
 
   final double price, change;
-
+  
   late final String iconPath;
 
   Currency({
