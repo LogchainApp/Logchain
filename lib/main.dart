@@ -6,6 +6,8 @@ import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 
+import 'styles/themes.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -57,14 +59,19 @@ class _MainPageState extends State<MainPage> {
               periodType: this.periodType,
             ),
             Expanded(
-              child: MainGrid(
-                onItemTapCallback: (currency) {
-                  BottomDialog.show(
-                    context,
-                    title: Text("${currency.name} (${currency.symbol})"),
-                    height: 0.8,
-                  );
-                },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                ),
+                child: MainGrid(
+                  onItemTapCallback: (currency) {
+                    BottomDialog.show(
+                      context,
+                      title: Text("${currency.name} (${currency.symbol})"),
+                      height: 0.8,
+                    );
+                  },
+                ),
               ),
             ),
           ],
