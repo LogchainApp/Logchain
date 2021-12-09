@@ -8,8 +8,8 @@ import 'package:logchain/styles/TextStyles.dart';
 typedef OnSearchCallback = void Function();
 
 class SearchBar extends StatelessWidget {
-  late final OnSearchCallback? onSearchCallback;
-  late final OnItemTapCallback? onItemTapCallback;
+  final OnSearchCallback? onSearchCallback;
+  final OnItemTapCallback? onItemTapCallback;
 
   SearchBar({this.onSearchCallback, this.onItemTapCallback});
 

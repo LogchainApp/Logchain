@@ -8,9 +8,9 @@ import 'package:logchain/styles/TextStyles.dart';
 typedef DatePickerOnChangeCallback = void Function(Period priod);
 
 class DatePicker extends StatefulWidget {
-  late final DatePickerOnChangeCallback? onChanged;
+  final DatePickerOnChangeCallback? onChanged;
 
-  DatePicker(this.onChanged);
+  DatePicker({this.onChanged});
 
   @override
   State<DatePicker> createState() => _DatePickerState();

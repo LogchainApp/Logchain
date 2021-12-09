@@ -1,8 +1,8 @@
 import 'package:logchain/models/PeriodType.dart';
 
 class Period {
-  late final String label;
-  late final PeriodType periodType;
+  final String label;
+  final PeriodType periodType;
 
   Period(this.label, this.periodType);
 

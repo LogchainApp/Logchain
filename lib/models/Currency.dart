@@ -1,11 +1,9 @@
 class Currency {
-  late final String name;
-  late final String symbol;
-  late final bool isFavourite;
+  final String name, symbol;
+  final bool isFavourite;
 
-  late final double price;
-  late final double change;
-
+  final double price, change;
+  
   late final String iconPath;
 
   Currency({
