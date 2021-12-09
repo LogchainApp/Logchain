@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
-
-import 'ColorResources.dart';
 import 'TextStyles.dart';
 
 final light = ThemeData(
