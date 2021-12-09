@@ -1,9 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/styles/TextStyles.dart';
+
+import 'package:logchain/models/Currency.dart';
 import 'package:logchain/utils/extensions.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
@@ -20,7 +23,7 @@ class SearchList extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Colors.transparent,
+          color: Theme.of(context).backgroundColor,
           padding: const EdgeInsets.all(16.0),
           alignment: Alignment.topLeft,
           child: Column(
@@ -32,17 +35,17 @@ class SearchList extends StatelessWidget {
                   height: 40,
                   child: Material(
                     borderRadius: BorderRadius.circular(16),
-                    color: ColorResources.grey,
+                    color: Theme.of(context).primaryColorLight,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: TextField(
                         autofocus: false,
-                        cursorColor: ColorResources.darkGrey,
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
-                          focusColor: ColorResources.darkGrey,
+                          focusColor: Theme.of(context).primaryColor,
                           prefixIcon: Icon(
                             Icons.search,
-                            color: ColorResources.darkGrey,
+                            color: Theme.of(context).primaryColor,
                           ),
                           border: InputBorder.none,
                         ),
@@ -50,7 +53,7 @@ class SearchList extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    color: ColorResources.grey,
+                    color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
@@ -81,17 +84,20 @@ class SearchList extends StatelessWidget {
       child: Container(
         height: 72,
         decoration: BoxDecoration(
-            color: ColorResources.white,
+            color: Theme.of(context).canvasColor,
             borderRadius: BorderRadius.all(Radius.circular(32)),
             boxShadow: [
               BoxShadow(
-                color: ColorResources.black.withOpacity(0.1),
+                color: Theme.of(context).primaryColorDark.withOpacity(0.1),
                 blurRadius: 8,
                 spreadRadius: 0,
               )
             ]),
         child: Center(
-          child: Text(currency.symbol, style: TextStyles.bold),
+          child: Text(
+            currency.symbol,
+            style: Theme.of(context).textTheme.headline6!,
+          ),
         ),
       ),
     );

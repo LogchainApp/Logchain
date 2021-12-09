@@ -30,6 +30,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
       height: 160,
       child: Column(
         children: [
@@ -59,6 +60,7 @@ class CustomAppBar extends StatelessWidget {
                   iconSize: 48,
                   icon: Image.asset(
                     "assets/icons/menu_icon.png",
+                    color: Theme.of(context).primaryColorDark,
                   ),
                   onPressed: () {
                     BottomDialog.show(

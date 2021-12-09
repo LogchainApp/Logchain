@@ -6,6 +6,7 @@ import 'package:logchain/widgets/CustomAppBar.dart';
 
 import 'models/FilterType.dart';
 import 'models/PeriodType.dart';
+import 'styles/themes.dart';
 
 void main() {
   runApp(MyApp());
@@ -58,7 +59,11 @@ class _MainPageState extends State<MainPage> {
               periodType: this.periodType,
             ),
             Expanded(
-              child: MainGrid(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                ),
+                child: MainGrid(
                 onItemTapCallback: (currency) {
                   BottomDialog.show(
                     context,

@@ -1,15 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/styles/TextStyles.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class BottomDialog {
   static void show(BuildContext context,
       {Widget? title, Widget? body}) {
     showModalBottomSheet(
-      backgroundColor: ColorResources.lightGrey,
+      backgroundColor: Theme
+          .of(context)
+          .backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(32),
       ),
@@ -28,17 +28,20 @@ class BottomDialog {
                     width: 56,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                      color: ColorResources.grey,
+                      color: Theme
+                              .of(context)
+                              .primaryColorLight,
                     ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: DefaultTextStyle(
-                    style: TextStyles.title,
-                    child: title ?? Spacer(),
-                  ),
+                    SizedBox(height: 16),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: DefaultTextStyle(
+                        style: Theme.of(context).textTheme.headline1!,
+                        child: title ?? Spacer(),
+                      ),
+                    ),
+                    Expanded(child: Center(child: body)),
+                  ],
                 ),
                 Center(child: body),
               ],
