@@ -30,7 +30,8 @@ class MenuItem extends StatelessWidget {
           width: 72,
           child: GestureDetector(
               onTap: this.onChanged,
-              child: Container(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     boxShadow: [
