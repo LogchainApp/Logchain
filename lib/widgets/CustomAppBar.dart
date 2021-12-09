@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
-import 'package:logchain/styles/TextStyles.dart';
+
 import 'package:logchain/widgets/PeriodPicker.dart';
 import 'package:logchain/widgets/SearchBar.dart';
 
 import 'BottomDialog.dart';
 import 'FilterWidget.dart';
-import 'Menu.dart';
+import '../screens/Menu.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;

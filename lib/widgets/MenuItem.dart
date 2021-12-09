@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/styles/TextStyles.dart';
 
 class MenuItem extends StatelessWidget {
   final Widget icon;
@@ -22,37 +20,53 @@ class MenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: Container(
-            child: Column(
-      children: [
-        SizedBox(
-          height: 72,
-          width: 72,
-          child: GestureDetector(
-              onTap: this.onChanged,
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 300),
+      child: Container(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 72,
+              width: 72,
+              child: GestureDetector(
+                onTap: this.onChanged,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                     boxShadow: [
                       BoxShadow(
-                          color: ColorResources.black.withOpacity(0.1),
+                          color: Theme.of(context).shadowColor.withOpacity(0.1),
                           spreadRadius: 0,
                           blurRadius: 4),
                     ],
-                    color: this.isActive ? Colors.black : Colors.white,
+                    color: this.isActive
+                        ? Theme.of(context).primaryColorDark
+                        : Theme.of(context).canvasColor,
                   ),
                   child: IconTheme.merge(
                     data: IconThemeData(
-                      color: this.isActive ? Colors.white : Colors.black,
+                      color: this.isActive
+                          ? Theme.of(context).primaryColorLight
+                          : Theme.of(context).primaryColorDark,
                     ),
                     child: this.icon,
-                  ))),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              this.title,
+              style:
+                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 16),
+            ),
+            Text(
+              this.subtitle,
+              style:
+                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14),
+            )
+          ],
         ),
-        SizedBox(height: 8),
-        Text(this.title, style: TextStyles.bold.copyWith(fontSize: 16)),
-        Text(this.subtitle, style: TextStyles.regular.copyWith(fontSize: 14))
-      ],
-    )));
+      ),
+    );
   }
 }
