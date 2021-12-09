@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/styles/TextStyles.dart';
-import 'package:logchain/widgets/DatePicker.dart';
-import 'package:logchain/widgets/SearchBar.dart';
-
-import 'BottomDialog.dart';
 
 class FilterWidget extends StatelessWidget {
   @override

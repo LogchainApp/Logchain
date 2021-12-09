@@ -8,21 +8,21 @@ import 'package:logchain/styles/ColorResources.dart';
 class TextStyles {
   static const fontFamily = 'Inter';
 
-  static late final title = GoogleFonts.getFont(
+  static final title = GoogleFonts.getFont(
     fontFamily,
     fontSize: 32,
     fontWeight: FontWeight.w700,
     color: ColorResources.black,
   );
 
-  static late final regular = GoogleFonts.getFont(
+  static final regular = GoogleFonts.getFont(
     fontFamily,
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: ColorResources.darkGrey,
   );
 
-  static late final bold = title.copyWith(fontSize: 18);
+  static final bold = title.copyWith(fontSize: 18);
 
-  static late final small = regular.copyWith(fontSize: 13);
+  static final small = regular.copyWith(fontSize: 13);
 }
