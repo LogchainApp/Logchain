@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/styles/TextStyles.dart';
+import 'package:logchain/screens/MainGrid.dart';
 import 'package:logchain/styles/themes.dart';
+import 'package:logchain/widgets/BottomDialog.dart';
+import 'package:logchain/widgets/CustomAppBar.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,9 +33,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: Center(
+      body: SafeArea(
         child: Column(
-          children: <Widget>[
+          children: [
+            CustomAppBar("Logchain"),
+            Expanded(
+                child: MainGrid(
+              onItemTapCallback: (currency) => {
+                BottomDialog.showWithTitle(
+                  context,
+                  "${currency.name} (${currency.symbol})",
+                  height: 0.8,
+                )
+              },
+            )),
           ],
         ),
       ),
