@@ -11,8 +11,8 @@ class Currency {
 
   static List<Currency> presets = [
     Currency(
-      type: CurrencyType.USD,
-      label: "USD"
+      type: CurrencyType.USDT,
+      label: "USDT"
     ),
     Currency(
         type: CurrencyType.RUB,
@@ -26,7 +26,7 @@ class Currency {
 }
 
 enum CurrencyType {
-  USD,
+  USDT,
   RUB,
   EUR
 }
