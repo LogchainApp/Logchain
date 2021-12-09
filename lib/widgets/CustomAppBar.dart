@@ -46,8 +46,7 @@ class CustomAppBar extends StatelessWidget {
                     onItemTapCallback: (currency) {
                       BottomDialog.show(
                         context,
-                        title: Text("${currency.name} (${currency.symbol})"),
-                        height: 0.8,
+                        title: Text("${currency.name} (${currency.symbol})")
                       );
                     },
                   ),
@@ -65,7 +64,7 @@ class CustomAppBar extends StatelessWidget {
                     BottomDialog.show(
                       context,
                       title: Text("Menu"),
-                      body: Menu(),
+                      body: Menu()
                     );
                   },
                 ),

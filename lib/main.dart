@@ -62,8 +62,7 @@ class _MainPageState extends State<MainPage> {
                 onItemTapCallback: (currency) {
                   BottomDialog.show(
                     context,
-                    title: Text("${currency.name} (${currency.symbol})"),
-                    height: 0.8,
+                    title: Text("${currency.name} (${currency.symbol})")
                   );
                 },
               ),

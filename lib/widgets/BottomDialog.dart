@@ -7,17 +7,17 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class BottomDialog {
   static void show(BuildContext context,
-      {Widget? title, Widget? body, double height = 0.5}) {
-    showMaterialModalBottomSheet(
+      {Widget? title, Widget? body}) {
+    showModalBottomSheet(
       backgroundColor: ColorResources.lightGrey,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(32),
       ),
+      isScrollControlled: true,
       context: context,
-      builder: (context) => Container(
-        child: FractionallySizedBox(
-          heightFactor: height,
-          child: Padding(
+      builder: (context) => Wrap(
+        children: [
+          Padding(
             padding: EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,11 +40,11 @@ class BottomDialog {
                     child: title ?? Spacer(),
                   ),
                 ),
-                Expanded(child: Center(child: body)),
+                Center(child: body),
               ],
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
