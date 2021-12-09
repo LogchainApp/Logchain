@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
-import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/utils/extensions.dart';
+import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
-import 'package:provider/provider.dart';
-import 'network/network_provider.dart';
-import 'package:skeletons/skeletons.dart';
-import 'screens/CryptoPage.dart';
+
 import 'styles/themes.dart';
 
 void main() {
@@ -20,34 +15,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider(light)),
-      ],
-      child: Builder(
-        builder: (context) {
-          return SkeletonTheme(
-            shimmerGradient: LinearGradient(
-              colors: [
-                ColorResources.lightGrey.avgWith(ColorResources.grey),
-                ColorResources.grey,
-                ColorResources.lightGrey.avgWith(ColorResources.grey),
-              ],
-              stops: [0.1, 0.5, 0.9],
-            ),
-            themeMode: context.watch<ThemeProvider>().getTheme == dark
-                ? ThemeMode.dark
-                : ThemeMode.light,
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Logchain',
-              theme: context.watch<ThemeProvider>().getTheme,
-              darkTheme: dark,
-              home: MainPage(title: 'Logchain'),
-            ),
-          );
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Logchain',
+      theme: light,
+      home: MainPage(title: 'Logchain'),
     );
   }
 }
@@ -62,22 +34,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   FilterType filterType = FilterType.None;
-  FilterOrder filterOrder = FilterOrder.Increasing;
-
   PeriodType periodType = PeriodType.Hours24;
-
-  @override
-  void initState() {
-    super.initState();
-    NetworkProvider.init();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
       body: SafeArea(
-        bottom: false,
         child: Column(
           children: [
             CustomAppBar(
@@ -89,35 +52,22 @@ class _MainPageState extends State<MainPage> {
               },
               onFilterChangedCallback: (filterType) {
                 setState(() {
-                  if (this.filterType == filterType) {
-                    if (filterOrder == FilterOrder.Increasing) {
-                      this.filterOrder = FilterOrder.Decreasing;
-                    } else {
-                      this.filterOrder == FilterOrder.Increasing;
-                      this.filterType = FilterType.None;
-                    }
-                  } else {
-                    this.filterType = filterType;
-                    this.filterOrder = FilterOrder.Increasing;
-                  }
+                  this.filterType = filterType;
                 });
               },
               filterType: this.filterType,
-              filterOrder: this.filterOrder,
               periodType: this.periodType,
             ),
             Expanded(
               child: Container(
-                decoration:
-                    BoxDecoration(color: Theme.of(context).backgroundColor),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                ),
                 child: MainGrid(
                   onItemTapCallback: (currency) {
                     BottomDialog.show(
                       context,
-                      title: Text(
-                        "${currency.name} (${currency.symbol})",
-                      ),
-                      body: CryptoPage(currency: currency),
+                      title: Text("${currency.name} (${currency.symbol})"),
                       height: 0.8,
                     );
                   },

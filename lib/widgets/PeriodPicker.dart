@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logchain/models/period.dart';
+import 'package:logchain/models/Period.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
@@ -51,11 +51,11 @@ class PeriodPicker extends StatelessWidget {
                   .of(context)
                   .canvasColor,
               selected: this.periodType.index == index,
-              elevation: 4,
+              elevation: 2,
               shadowColor: Theme
                   .of(context)
                   .shadowColor
-                  .withOpacity(0.2),
+                  .withOpacity(0.4),
               pressElevation: 4,
               onSelected: (bool selected) {
                 if (this.periodType.index != index) {

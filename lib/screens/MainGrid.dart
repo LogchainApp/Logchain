@@ -1,12 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/network/network_provider.dart';
-import 'package:skeletons/skeletons.dart';
+import 'package:logchain/models/Currency.dart';
 
-import '../utils/extensions.dart';
-import '../widgets/CryptoCard.dart';
+import 'package:logchain/utils/extensions.dart';
 
-typedef OnItemTapCallback = void Function(CryptoCurrency currency);
+typedef OnItemTapCallback = void Function(Currency currency);
 
 class MainGrid extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
@@ -16,69 +15,83 @@ class MainGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      physics: BouncingScrollPhysics(),
-      slivers: [
-        buildTitle(context, "Favourites"),
-        buildGrid(
-          context,
-          CryptoCurrency.presets.where((it) => it.isFavourite).toList(),
-        ),
-        buildTitle(context, "Trending"),
-        buildGrid(
-          context,
-          CryptoCurrency.presets.sorted(
-            (a, b) => a.changePercents.compareTo(b.changePercents),
-          ).reversed.toList(),
-        ),
-      ],
-    );
+        physics: BouncingScrollPhysics(), slivers: [
+      buildTitle(context, "Favourites"),
+      buildGrid(
+        context,
+        Currency.presets
+            .shuffled()
+            .take(2)
+            .map((it) => it.copyWith(isFavourite: true))
+            .toList(),
+      ),
+      buildTitle(context, "Trending"),
+      buildGrid(
+        context,
+        Currency.presets
+            .shuffled()
+            .take(4)
+            .map((it) => it.copyWith(isFavourite: false))
+            .toList(),
+      ),
+    ]);
   }
 
   Widget buildTitle(BuildContext context, String text) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.only(left: 16, top: 32),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.headline1,
+        child: Text(text, style: Theme
+            .of(context)
+            .textTheme
+            .headline1,
         ),
       ),
     );
   }
 
-  Widget buildGrid(BuildContext context, List<CryptoCurrency> currencyList) {
+  Widget buildGrid(BuildContext context, List<Currency> currencyList) {
     return SliverPadding(
       padding: EdgeInsets.all(16.0),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
-          (context, index) => FutureBuilder<CryptoCurrency>(
-            future: NetworkProvider.instance.fetchCurrency(currencyList[index]),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return CryptoCard(
-                  currency: snapshot.data!,
-                  onItemTapCallback: onItemTapCallback,
-                );
-              }
-
-              return SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  borderRadius: BorderRadius.circular(32),
-                  shape: BoxShape.rectangle,
-                  width: 96,
-                  height: 96,
-                ),
-              );
-            },
-          ),
+              (context, index) =>
+              buildCurrencyCard(context, currencyList[index]),
           childCount: currencyList.length,
-          addAutomaticKeepAlives: true,
-          addSemanticIndexes: false,
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 24,
           crossAxisSpacing: 24,
+        ),
+      ),
+    );
+  }
+
+  Widget buildCurrencyCard(BuildContext context, Currency currency) {
+    return GestureDetector(
+      onTap: () => onItemTapCallback?.call(currency),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme
+                .of(context)
+                .canvasColor,
+            borderRadius: BorderRadius.all(Radius.circular(32)),
+            boxShadow: [
+              BoxShadow(
+                color: Theme
+                    .of(context)
+                    .shadowColor
+                    .withOpacity(0.1),
+                blurRadius: 8,
+                spreadRadius: 0,
+              )
+            ]),
+        child: Center(
+          child: Text(currency.symbol, style: Theme
+              .of(context)
+              .textTheme
+              .headline6),
         ),
       ),
     );

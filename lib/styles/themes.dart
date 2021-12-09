@@ -5,10 +5,9 @@ import 'package:logchain/styles/ColorResources.dart';
 import 'TextStyles.dart';
 
 final light = ThemeData(
-  platform: TargetPlatform.iOS,
   brightness: Brightness.light,
   visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
-  shadowColor: ColorResources.black,
+  shadowColor: ColorResources.black.withOpacity(0.1),
   primaryColorLight: ColorResources.grey,
   primaryColor: ColorResources.darkGrey,
   primaryColorDark: ColorResources.black,
