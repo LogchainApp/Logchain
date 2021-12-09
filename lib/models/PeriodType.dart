@@ -1,9 +1,1 @@
-enum PeriodType {
-  HOUR,
-  HOURS_24,
-  DAYS_3,
-  WEEK,
-  MONTH
-}
-
-
+enum PeriodType { Hour, Hours24, Days3, Week, Month }
