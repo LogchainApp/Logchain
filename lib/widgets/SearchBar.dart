@@ -49,9 +49,10 @@ class SearchBar extends StatelessWidget {
           onTap: () {
             onSearchCallback?.call();
             Navigator.of(context)
-                .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-              return SearchList(onItemTapCallback: onItemTapCallback);
-            }));
+                .push(PageRouteBuilder(
+                  opaque: false,
+                  pageBuilder: (_, __, ___) => SearchList(onItemTapCallback: onItemTapCallback)
+                ));
           },
         ),
       ),

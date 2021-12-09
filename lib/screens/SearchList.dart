@@ -21,7 +21,7 @@ class SearchList extends StatelessWidget {
       body: SafeArea(
         child: Container(
           color: Colors.transparent,
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.topLeft,
           child: Column(
             children: [
@@ -30,28 +30,36 @@ class SearchList extends StatelessWidget {
                 tag: "search",
                 child: Container(
                   height: 40,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(16),
-                    color: ColorResources.grey,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextField(
-                        autofocus: false,
-                        cursorColor: ColorResources.darkGrey,
-                        decoration: InputDecoration(
-                          focusColor: ColorResources.darkGrey,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: ColorResources.darkGrey,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Material(
+                          borderRadius: BorderRadius.circular(16),
+                          color: ColorResources.grey,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: TextField(
+                              autofocus: false,
+                              cursorColor: ColorResources.darkGrey,
+                              decoration: InputDecoration(
+                                focusColor: ColorResources.darkGrey,
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: ColorResources.darkGrey,
+                                ),
+                                border: InputBorder.none,
+                              ),
+                            ),
                           ),
-                          border: InputBorder.none,
                         ),
                       ),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorResources.grey,
-                    borderRadius: BorderRadius.circular(16),
+                      Material(
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

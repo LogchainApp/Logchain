@@ -4,6 +4,9 @@ import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 
+import 'models/FilterType.dart';
+import 'models/PeriodType.dart';
+
 void main() {
   runApp(MyApp());
 }
