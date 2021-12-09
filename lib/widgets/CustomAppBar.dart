@@ -57,7 +57,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 40, child: DatePicker((value) => {})),
+          SizedBox(height: 40, child: DatePicker(onChanged: (value) => {})),
           SizedBox(height: 8),
           FilterWidget(),
         ],

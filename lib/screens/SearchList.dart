@@ -9,7 +9,7 @@ import 'package:logchain/utils/extensions.dart';
 typedef OnItemTapCallback = void Function(Currency currency);
 
 class SearchList extends StatelessWidget {
-  late final OnItemTapCallback? onItemTapCallback;
+  final OnItemTapCallback? onItemTapCallback;
 
   SearchList({this.onItemTapCallback});
 
