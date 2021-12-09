@@ -40,9 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
                 child: MainGrid(
               onItemTapCallback: (currency) => {
-                BottomDialog.showWithTitle(
+                BottomDialog.show(
                   context,
-                  "${currency.name} (${currency.symbol})",
+                  title: Text("${currency.name} (${currency.symbol})"),
                   height: 0.8,
                 )
               },
