@@ -1,10 +1,8 @@
 class Currency {
-  final String name, symbol;
+  final String name, symbol, iconPath;
   final bool isFavourite;
 
   final double price, change;
-
-  late final String iconPath;
 
   Currency({
     this.name = "Name",
@@ -12,9 +10,7 @@ class Currency {
     this.isFavourite = false,
     this.price = 100.0,
     this.change = 5.0,
-  }) {
-    this.iconPath = "assets/icons/logo/${symbol.toLowerCase()}";
-  }
+  }) : this.iconPath = "assets/icons/logo/${symbol.toLowerCase()}";
 
   Currency copyWith({
     name = "Name",
