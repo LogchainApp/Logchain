@@ -57,8 +57,8 @@ class MenuItem extends StatelessWidget {
                     )
                 ),
                 SizedBox(height: 8),
-                Text(this.title, style: TextStyles.bold),
-                Text(this.subtitle, style: TextStyles.regular)
+                Text(this.title, style: TextStyles.bold.copyWith(fontSize: 16)),
+                Text(this.subtitle, style: TextStyles.regular.copyWith(fontSize: 14))
               ],
             )
         )
