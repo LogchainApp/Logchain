@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logchain/models/currency.dart';
 import 'package:logchain/widgets/MenuItem.dart';
 import 'package:logchain/widgets/MenuButton.dart';
 
@@ -13,7 +14,8 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   bool isNightModeOn = false;
   bool isLiveUpdateOn = false;
-  String currentCurrency = "ABC";
+  int currentCurrencyIndex = 0;
+  List<Currency> currencies = Currency.presets;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +46,11 @@ class _MenuState extends State<Menu> {
             MenuItem(
                 icon: Icon(Icons.attach_money),
                 title: "Currency",
-                subtitle: this.currentCurrency,
+                subtitle: this.currencies[this.currentCurrencyIndex].label,
                 isActive: false,
                 onChanged: () {
                   setState(() {
-                    // todo
+                    this.currentCurrencyIndex = (this.currentCurrencyIndex + 1) % this.currencies.length;
                   });
                 }),
           ]),
