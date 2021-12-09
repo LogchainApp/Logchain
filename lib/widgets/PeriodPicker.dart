@@ -5,19 +5,16 @@ import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
-typedef DatePickerOnChangeCallback = void Function(Period priod);
+typedef PeriodPickerOnChangeCallback = Function(Period priod);
 
-class DatePicker extends StatefulWidget {
-  final DatePickerOnChangeCallback? onChanged;
+class PeriodPicker extends StatelessWidget {
+  final PeriodPickerOnChangeCallback? onPeriodChanged;
+  final PeriodType periodType;
 
-  DatePicker({this.onChanged});
-
-  @override
-  State<DatePicker> createState() => _DatePickerState();
-}
-
-class _DatePickerState extends State<DatePicker> {
-  int _value = 1;
+  PeriodPicker({
+    this.onPeriodChanged,
+    this.periodType = PeriodType.Hours24,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,32 +29,26 @@ class _DatePickerState extends State<DatePicker> {
             label: Text(
               Period.from(PeriodType.values[index]).label,
               style: TextStyles.regular.copyWith(
-                color: _value == index
+                color: this.periodType.index == index
                     ? ColorResources.white
                     : ColorResources.darkGrey,
               ),
             ),
             selectedColor: ColorResources.black,
             backgroundColor: ColorResources.white,
-            selected: _value == index,
-            elevation: 1,
+            selected: this.periodType.index == index,
+            elevation: 4,
+            shadowColor: ColorResources.black.withOpacity(0.2),
             pressElevation: 4,
             onSelected: (bool selected) {
-              if (_value == index) {
-                return;
+              if (this.periodType.index != index) {
+                onPeriodChanged?.call(Period.from(PeriodType.values[index]));
               }
-              setState(() {
-                widget.onChanged?.call(Period.from(PeriodType.values[index]));
-                _value = index;
-              });
             },
           );
         },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
-            width: 8,
-          );
-        },
+        separatorBuilder: (BuildContext context, int index) =>
+            SizedBox(width: 8),
       ),
     );
   }
