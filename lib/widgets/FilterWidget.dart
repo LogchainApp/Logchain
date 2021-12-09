@@ -1,6 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
-import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
 typedef OnFilterChangedCallback = void Function(FilterType filterType);
@@ -18,7 +19,7 @@ class FilterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(color: ColorResources.grey),
+        decoration: BoxDecoration(color: Theme.of(context).primaryColorLight),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
@@ -33,7 +34,7 @@ class FilterWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Icon(
                   Icons.view_agenda_outlined,
-                  color: ColorResources.darkGrey,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ],
@@ -55,17 +56,23 @@ class FilterWidget extends StatelessWidget {
         Icon(
           iconData,
           color: filterType == this.filterType
-              ? ColorResources.black
-              : ColorResources.grey,
+              ? Theme.of(context).primaryColorDark
+              : Theme.of(context).primaryColorLight,
         ),
         SizedBox(width: 2),
         Text(
           label,
-          style: TextStyles.regular.copyWith(
-            color: filterType == this.filterType
-                ? ColorResources.black
-                : ColorResources.darkGrey,
-          ),
+          style: TextStyles.regular
+              .copyWith(
+                color: filterType == this.filterType
+                    ? Theme.of(context).primaryColorDark
+                    : Theme.of(context).primaryColor,
+              )
+              .copyWith(
+                fontWeight: filterType == this.filterType
+                    ? FontWeight.w600
+                    : FontWeight.w400,
+              ),
         ),
       ]),
     );

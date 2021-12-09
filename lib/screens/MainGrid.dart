@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:logchain/models/Currency.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/styles/TextStyles.dart';
 
 import 'package:logchain/utils/extensions.dart';
 
@@ -15,7 +13,8 @@ class MainGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
+    return CustomScrollView(
+        physics: BouncingScrollPhysics(), slivers: [
       buildTitle(context, "Favourites"),
       buildGrid(
         context,
@@ -41,7 +40,11 @@ class MainGrid extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.only(left: 16, top: 32),
-        child: Text(text, style: TextStyles.title),
+        child: Text(text, style: Theme
+            .of(context)
+            .textTheme
+            .headline1,
+        ),
       ),
     );
   }
@@ -51,7 +54,8 @@ class MainGrid extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
-          (context, index) => buildCurrencyCard(context, currencyList[index]),
+              (context, index) =>
+              buildCurrencyCard(context, currencyList[index]),
           childCount: currencyList.length,
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -68,17 +72,25 @@ class MainGrid extends StatelessWidget {
       onTap: () => onItemTapCallback?.call(currency),
       child: Container(
         decoration: BoxDecoration(
-            color: ColorResources.white,
+            color: Theme
+                .of(context)
+                .canvasColor,
             borderRadius: BorderRadius.all(Radius.circular(32)),
             boxShadow: [
               BoxShadow(
-                color: ColorResources.black.withOpacity(0.1),
+                color: Theme
+                    .of(context)
+                    .shadowColor
+                    .withOpacity(0.1),
                 blurRadius: 8,
                 spreadRadius: 0,
               )
             ]),
         child: Center(
-          child: Text(currency.symbol, style: TextStyles.bold),
+          child: Text(currency.symbol, style: Theme
+              .of(context)
+              .textTheme
+              .headline6),
         ),
       ),
     );
