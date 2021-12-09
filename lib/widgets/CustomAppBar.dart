@@ -7,6 +7,7 @@ import 'package:logchain/widgets/SearchBar.dart';
 
 import 'BottomDialog.dart';
 import 'FilterWidget.dart';
+import 'Menu.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -64,7 +65,7 @@ class CustomAppBar extends StatelessWidget {
                     BottomDialog.show(
                       context,
                       title: Text("Menu"),
-                      body: Text("Menu Content", style: TextStyles.title),
+                      body: Menu(),
                     );
                   },
                 ),
