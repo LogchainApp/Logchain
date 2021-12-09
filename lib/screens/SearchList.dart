@@ -1,10 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+import 'package:logchain/models/crypto_currency.dart';
+import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/styles/TextStyles.dart';
+
 import 'package:logchain/models/Currency.dart';
 import 'package:logchain/utils/extensions.dart';
 
-typedef OnItemTapCallback = void Function(Currency currency);
+typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class SearchList extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
@@ -13,7 +18,7 @@ class SearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var currencyList = Currency.presets.shuffled();
+    var currencyList = CryptoCurrency.presets.shuffled();
 
     return Scaffold(
       body: SafeArea(
@@ -73,7 +78,7 @@ class SearchList extends StatelessWidget {
     );
   }
 
-  Widget buildCurrencyCard(BuildContext context, Currency currency) {
+  Widget buildCurrencyCard(BuildContext context, CryptoCurrency currency) {
     return GestureDetector(
       onTap: () => onItemTapCallback?.call(currency),
       child: Container(
