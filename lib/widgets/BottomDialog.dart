@@ -8,7 +8,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class BottomDialog {
   static void showWithTitle(BuildContext context, String title,
           {Widget? body, double height = 0.5}) =>
-      show(context, title: Text(title, style: TextStyles.title), body: body);
+      show(
+        context,
+        title: Text(title, style: TextStyles.title),
+        body: body,
+        height: height,
+      );
 
   static void show(BuildContext context,
       {Widget? title, Widget? body, double height = 0.5}) {
