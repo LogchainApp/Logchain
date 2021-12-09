@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:logchain/models/FilterType.dart';
+import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/styles/TextStyles.dart';
-import 'package:logchain/widgets/DatePicker.dart';
+import 'package:logchain/widgets/PeriodPicker.dart';
 import 'package:logchain/widgets/SearchBar.dart';
 
 import 'BottomDialog.dart';
@@ -9,8 +11,18 @@ import 'FilterWidget.dart';
 class CustomAppBar extends StatelessWidget {
   final String title;
 
+  final FilterType filterType;
+  final PeriodType periodType;
+
+  final PeriodPickerOnChangeCallback? onPeriodChanged;
+  final OnFilterChangedCallback? onFilterChangedCallback;
+
   const CustomAppBar(
     this.title, {
+    this.filterType = FilterType.None,
+    this.periodType = PeriodType.Hours24,
+    this.onPeriodChanged,
+    this.onFilterChangedCallback,
     key: const Key("appBar"),
   }) : super(key: key);
 
@@ -29,13 +41,15 @@ class CustomAppBar extends StatelessWidget {
                 fit: FlexFit.tight,
                 child: Padding(
                   padding: EdgeInsets.only(left: 8),
-                  child: SearchBar(onItemTapCallback: (currency) {
-                    BottomDialog.show(
-                      context,
-                      title: Text("${currency.name} (${currency.symbol})"),
-                      height: 0.8,
-                    );
-                  }),
+                  child: SearchBar(
+                    onItemTapCallback: (currency) {
+                      BottomDialog.show(
+                        context,
+                        title: Text("${currency.name} (${currency.symbol})"),
+                        height: 0.8,
+                      );
+                    },
+                  ),
                 ),
               ),
               Flexible(
@@ -57,9 +71,18 @@ class CustomAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 40, child: DatePicker(onChanged: (value) => {})),
+          SizedBox(
+            height: 40,
+            child: PeriodPicker(
+              onPeriodChanged: onPeriodChanged,
+              periodType: this.periodType,
+            ),
+          ),
           SizedBox(height: 8),
-          FilterWidget(),
+          FilterWidget(
+            onFilterChangedCallback: onFilterChangedCallback,
+            filterType: this.filterType,
+          ),
         ],
       ),
     );
