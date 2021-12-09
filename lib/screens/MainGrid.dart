@@ -1,13 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:logchain/models/Currency.dart';
+import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
 import 'package:logchain/utils/extensions.dart';
 
-typedef OnItemTapCallback = void Function(Currency currency);
+typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class MainGrid extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
@@ -19,7 +19,7 @@ class MainGrid extends StatelessWidget {
       buildTitle(context, "Favourites"),
       buildGrid(
         context,
-        Currency.presets
+        CryptoCurrency.presets
             .shuffled()
             .take(2)
             .map((it) => it.copyWith(isFavourite: true))
@@ -28,7 +28,7 @@ class MainGrid extends StatelessWidget {
       buildTitle(context, "Trending"),
       buildGrid(
         context,
-        Currency.presets
+        CryptoCurrency.presets
             .shuffled()
             .take(4)
             .map((it) => it.copyWith(isFavourite: false))
@@ -46,7 +46,7 @@ class MainGrid extends StatelessWidget {
     );
   }
 
-  Widget buildGrid(BuildContext context, List<Currency> currencyList) {
+  Widget buildGrid(BuildContext context, List<CryptoCurrency> currencyList) {
     return SliverPadding(
       padding: EdgeInsets.all(16.0),
       sliver: SliverGrid(
@@ -63,7 +63,7 @@ class MainGrid extends StatelessWidget {
     );
   }
 
-  Widget buildCurrencyCard(BuildContext context, Currency currency) {
+  Widget buildCurrencyCard(BuildContext context, CryptoCurrency currency) {
     return GestureDetector(
       onTap: () => onItemTapCallback?.call(currency),
       child: Container(
