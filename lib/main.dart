@@ -4,6 +4,8 @@ import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 
+import 'models/FilterType.dart';
+import 'models/PeriodType.dart';
 import 'styles/themes.dart';
 
 void main() {
@@ -62,14 +64,12 @@ class _MainPageState extends State<MainPage> {
                   color: Theme.of(context).backgroundColor,
                 ),
                 child: MainGrid(
-                  onItemTapCallback: (currency) {
-                    BottomDialog.show(
-                      context,
-                      title: Text("${currency.name} (${currency.symbol})"),
-                      height: 0.8,
-                    );
-                  },
-                ),
+                onItemTapCallback: (currency) {
+                  BottomDialog.show(
+                    context,
+                    title: Text("${currency.name} (${currency.symbol})")
+                  );
+                },
               ),
             ),
           ],
