@@ -15,20 +15,23 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Logchain',
       theme: light,
-      home: MyHomePage(title: 'Logchain'),
+      home: MainPage(title: 'Logchain'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainPageState extends State<MainPage> {
+  FilterType filterType = FilterType.None;
+  PeriodType periodType = PeriodType.Hours24;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,17 +39,32 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            CustomAppBar("Logchain"),
-            Expanded(
-                child: MainGrid(
-              onItemTapCallback: (currency) => {
-                BottomDialog.show(
-                  context,
-                  title: Text("${currency.name} (${currency.symbol})"),
-                  height: 0.8,
-                )
+            CustomAppBar(
+              "Logchain",
+              onPeriodChanged: (period) {
+                setState(() {
+                  this.periodType = period.periodType;
+                });
               },
-            )),
+              onFilterChangedCallback: (filterType) {
+                setState(() {
+                  this.filterType = filterType;
+                });
+              },
+              filterType: this.filterType,
+              periodType: this.periodType,
+            ),
+            Expanded(
+              child: MainGrid(
+                onItemTapCallback: (currency) {
+                  BottomDialog.show(
+                    context,
+                    title: Text("${currency.name} (${currency.symbol})"),
+                    height: 0.8,
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

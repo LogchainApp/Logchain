@@ -11,7 +11,6 @@ typedef OnItemTapCallback = void Function(Currency currency);
 
 class MainGrid extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
-  
   MainGrid({this.onItemTapCallback});
 
   @override
