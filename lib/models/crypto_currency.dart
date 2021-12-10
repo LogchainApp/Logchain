@@ -1,5 +1,8 @@
+import 'package:meta/meta.dart';
+
+@immutable
 class CryptoCurrency {
-  final String name, symbol, iconPath;
+  final String name, symbol, iconPath, link;
   final bool isFavourite;
 
   final double price, change;
@@ -10,7 +13,12 @@ class CryptoCurrency {
     this.isFavourite = false,
     this.price = 100.0,
     this.change = 5.0,
-  }) : this.iconPath = "assets/icons/logo/${symbol.toLowerCase()}";
+    link = "",
+  })  : this.iconPath = "assets/icons/logo/${symbol.toLowerCase()}",
+        this.link = (link == ""
+            ? "https://cryptologos.cc/logos/"
+                "${name.toLowerCase()}-${symbol.toLowerCase()}-logo.png"
+            : link);
 
   CryptoCurrency copyWith({
     name = "Name",
@@ -18,6 +26,7 @@ class CryptoCurrency {
     isFavourite = false,
     price = 100.0,
     change = 5.0,
+    link = "",
   }) =>
       CryptoCurrency(
         name: this.name,
@@ -25,6 +34,7 @@ class CryptoCurrency {
         isFavourite: this.isFavourite,
         price: this.price,
         change: this.change,
+        link: this.link,
       );
 
   static List<CryptoCurrency> presets = [
@@ -48,14 +58,15 @@ class CryptoCurrency {
       isFavourite: true,
       price: 1.04,
       change: 0.08,
+      link: "https://cryptologos.cc/logos/xrp-xrp-logo.png",
     ),
     CryptoCurrency(
-      name: "Polkadot",
-      symbol: "DOT",
-      isFavourite: false,
-      price: 23.04,
-      change: -3.78,
-    ),
+        name: "Polkadot",
+        symbol: "DOT",
+        isFavourite: false,
+        price: 23.04,
+        change: -3.78,
+        link: "https://cryptologos.cc/logos/polkadot-new-dot-logo.png"),
   ];
 }
 

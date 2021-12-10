@@ -6,6 +6,7 @@ import 'package:logchain/screens/MainGrid.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 import 'package:provider/provider.dart';
+import 'screens/CryptoPage.dart';
 import 'styles/themes.dart';
 
 void main() {
@@ -44,6 +45,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   FilterType filterType = FilterType.None;
+  FilterOrder filterOrder = FilterOrder.Increasing;
+
   PeriodType periodType = PeriodType.Hours24;
 
   @override
@@ -62,10 +65,21 @@ class _MainPageState extends State<MainPage> {
               },
               onFilterChangedCallback: (filterType) {
                 setState(() {
-                  this.filterType = filterType;
+                  if (this.filterType == filterType) {
+                    if (filterOrder == FilterOrder.Increasing) {
+                      this.filterOrder = FilterOrder.Decreasing;
+                    } else {
+                      this.filterOrder == FilterOrder.Increasing;
+                      this.filterType = FilterType.None;
+                    }
+                  } else {
+                    this.filterType = filterType;
+                    this.filterOrder = FilterOrder.Increasing;
+                  }
                 });
               },
               filterType: this.filterType,
+              filterOrder: this.filterOrder,
               periodType: this.periodType,
             ),
             Expanded(
@@ -76,7 +90,10 @@ class _MainPageState extends State<MainPage> {
                   onItemTapCallback: (currency) {
                     BottomDialog.show(
                       context,
-                      title: Text("${currency.name} (${currency.symbol})"),
+                      title: Text(
+                        "${currency.name} (${currency.symbol})",
+                      ),
+                      body: CryptoPage(currency: currency),
                     );
                   },
                 ),

@@ -3,11 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/styles/TextStyles.dart';
-
-import 'package:logchain/models/Currency.dart';
 import 'package:logchain/utils/extensions.dart';
+
+import '../widgets/CryptoRow.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
@@ -63,8 +61,12 @@ class SearchList extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 24.0),
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) =>
-                        buildCurrencyCard(context, currencyList[index]),
+                    itemBuilder: (BuildContext context, int index) {
+                      return CryptoRow(
+                        currency: currencyList[index],
+                        onItemTapCallback: onItemTapCallback,
+                      );
+                    },
                     separatorBuilder: (BuildContext context, int index) =>
                         SizedBox(height: 16),
                     itemCount: currencyList.length,
@@ -84,15 +86,16 @@ class SearchList extends StatelessWidget {
       child: Container(
         height: 72,
         decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: BorderRadius.all(Radius.circular(32)),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).primaryColorDark.withOpacity(0.1),
-                blurRadius: 8,
-                spreadRadius: 0,
-              )
-            ]),
+          color: Theme.of(context).canvasColor,
+          borderRadius: BorderRadius.all(Radius.circular(32)),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).primaryColorDark.withOpacity(0.1),
+              blurRadius: 8,
+              spreadRadius: 0,
+            )
+          ],
+        ),
         child: Center(
           child: Text(
             currency.symbol,

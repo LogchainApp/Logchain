@@ -1,5 +1,8 @@
 import 'package:logchain/models/PeriodType.dart';
 
+import 'package:meta/meta.dart';
+
+@immutable
 class Period {
   final String label;
   final PeriodType periodType;
