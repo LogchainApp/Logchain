@@ -3,6 +3,7 @@ import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
+import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 import 'package:provider/provider.dart';
