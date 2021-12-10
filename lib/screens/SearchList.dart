@@ -40,6 +40,7 @@ class SearchList extends StatelessWidget {
                         autofocus: false,
                         cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
+                          fillColor: Theme.of(context).primaryColorLight,
                           focusColor: Theme.of(context).primaryColor,
                           prefixIcon: Icon(
                             Icons.search,

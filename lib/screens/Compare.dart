@@ -4,6 +4,7 @@ import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/widgets/CompareCrypto.dart';
 import 'package:logchain/widgets/CompareRow.dart';
+import 'package:logchain/widgets/Exchange.dart';
 import 'package:logchain/widgets/PeriodPicker.dart';
 
 class _CustomScrollBehavior extends MaterialScrollBehavior {
@@ -27,7 +28,7 @@ class _CustomScrollPhysics extends ScrollPhysics {
   }
 }
 
-class Compare extends StatelessWidget {
+class Compare extends StatefulWidget {
   final CryptoCurrency cryptoCurrencyLeft;
   final CryptoCurrency cryptoCurrencyRight;
 
@@ -37,27 +38,39 @@ class Compare extends StatelessWidget {
       Key? key})
       : super(key: key);
 
+  @override
+  State<Compare> createState() => _CompareState();
+}
+
+class _CompareState extends State<Compare> {
+  double exchangeLeftValue = 0;
+  double exchangeRightValue = 0;
+
   String calcChange(CryptoCurrency currency) {
     return (currency.change > 0 ? "\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
         " (${(currency.change / currency.price).toStringAsFixed(2)}%)";
   }
 
+  double calcExchange(double value, double priceFirst, double priceSecond) {
+    return value * priceFirst / priceSecond;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var changeLeft = calcChange(cryptoCurrencyLeft);
-    var changeRight = calcChange(cryptoCurrencyRight);
+    var changeLeft = calcChange(widget.cryptoCurrencyLeft);
+    var changeRight = calcChange(widget.cryptoCurrencyRight);
     print(changeLeft);
     return ScrollConfiguration(
       behavior: _CustomScrollBehavior(),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 24),
+            SizedBox(height: 32),
             Row(
               children: [
-                CompareCrypto(currency: cryptoCurrencyLeft),
-                CompareCrypto(currency: cryptoCurrencyRight)
+                CompareCrypto(currency: widget.cryptoCurrencyLeft),
+                CompareCrypto(currency: widget.cryptoCurrencyRight)
               ],
             ),
             Padding(
@@ -66,21 +79,21 @@ class Compare extends StatelessWidget {
             ),
             CompareRow(
                 title: "Price",
-                leftValue: Text("\$${cryptoCurrencyLeft.price}",
+                leftValue: Text("\$${widget.cryptoCurrencyLeft.price}",
                     style: Theme.of(context).textTheme.headline6),
-                rightValue: Text("\$${cryptoCurrencyRight.price}",
+                rightValue: Text("\$${widget.cryptoCurrencyRight.price}",
                     style: Theme.of(context).textTheme.headline6)),
             CompareRow(
                 title: "Change",
                 leftValue: Text("${changeLeft}",
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: cryptoCurrencyLeft.change >= 0
+                          color: widget.cryptoCurrencyLeft.change >= 0
                               ? ColorResources.green
                               : ColorResources.red,
                         )),
                 rightValue: Text("${changeRight}",
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: cryptoCurrencyRight.change >= 0
+                          color: widget.cryptoCurrencyRight.change >= 0
                               ? ColorResources.green
                               : ColorResources.red,
                         ))),
@@ -119,9 +132,30 @@ class Compare extends StatelessWidget {
               leftValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6),
               rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6),
-              showDivider: false,
+                  Text("todo", style: Theme.of(context).textTheme.headline6)
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 0),
+              child: Text("Exchange cryptos", style: Theme.of(context).textTheme.bodyText1),
+            ),
+            Exchange(
+              firstCryptoCurrency: widget.cryptoCurrencyLeft,
+              secondCryptoCurrency: widget.cryptoCurrencyRight,
+              firstValue: this.exchangeLeftValue,
+              secondValue: this.exchangeRightValue,
+              onFirstValueChanged: (value) {
+                setState(() {
+                  // this.exchangeLeftValue = value;
+                  this.exchangeRightValue = calcExchange(value, widget.cryptoCurrencyLeft.price, widget.cryptoCurrencyRight.price);
+                });
+              },
+              onSecondValueChanged: (value) {
+                setState(() {
+                  this.exchangeLeftValue = calcExchange(value, widget.cryptoCurrencyRight.price, widget.cryptoCurrencyLeft.price);
+                  // this.exchangeRightValue = value;
+                });
+              },
+            )
           ],
         ),
       ),
