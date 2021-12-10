@@ -45,6 +45,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   FilterType filterType = FilterType.None;
+  FilterOrder filterOrder = FilterOrder.Increasing;
+
   PeriodType periodType = PeriodType.Hours24;
 
   @override
@@ -63,10 +65,21 @@ class _MainPageState extends State<MainPage> {
               },
               onFilterChangedCallback: (filterType) {
                 setState(() {
-                  this.filterType = filterType;
+                  if (this.filterType == filterType) {
+                    if (filterOrder == FilterOrder.Increasing) {
+                      this.filterOrder = FilterOrder.Decreasing;
+                    } else {
+                      this.filterOrder == FilterOrder.Increasing;
+                      this.filterType = FilterType.None;
+                    }
+                  } else {
+                    this.filterType = filterType;
+                    this.filterOrder = FilterOrder.Increasing;
+                  }
                 });
               },
               filterType: this.filterType,
+              filterOrder: this.filterOrder,
               periodType: this.periodType,
             ),
             Expanded(
