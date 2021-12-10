@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:logchain/models/Currency.dart';
+
+import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/utils/extensions.dart';
 
-typedef OnItemTapCallback = void Function(Currency currency);
+import '../widgets/CryptoRow.dart';
+
+typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class SearchList extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
@@ -13,7 +16,7 @@ class SearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var currencyList = Currency.presets.shuffled();
+    var currencyList = CryptoCurrency.presets.shuffled();
 
     return Scaffold(
       body: SafeArea(
@@ -58,8 +61,12 @@ class SearchList extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 24.0),
                   child: ListView.separated(
                     physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) =>
-                        buildCurrencyCard(context, currencyList[index]),
+                    itemBuilder: (BuildContext context, int index) {
+                      return CryptoRow(
+                        currency: currencyList[index],
+                        onItemTapCallback: onItemTapCallback,
+                      );
+                    },
                     separatorBuilder: (BuildContext context, int index) =>
                         SizedBox(height: 16),
                     itemCount: currencyList.length,
@@ -73,21 +80,22 @@ class SearchList extends StatelessWidget {
     );
   }
 
-  Widget buildCurrencyCard(BuildContext context, Currency currency) {
+  Widget buildCurrencyCard(BuildContext context, CryptoCurrency currency) {
     return GestureDetector(
       onTap: () => onItemTapCallback?.call(currency),
       child: Container(
         height: 72,
         decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: BorderRadius.all(Radius.circular(32)),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).primaryColorDark.withOpacity(0.1),
-                blurRadius: 8,
-                spreadRadius: 0,
-              )
-            ]),
+          color: Theme.of(context).canvasColor,
+          borderRadius: BorderRadius.all(Radius.circular(32)),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).primaryColorDark.withOpacity(0.1),
+              blurRadius: 8,
+              spreadRadius: 0,
+            )
+          ],
+        ),
         child: Center(
           child: Text(
             currency.symbol,

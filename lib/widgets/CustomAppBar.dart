@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
+import 'package:logchain/screens/CryptoPage.dart';
 
 import 'package:logchain/widgets/PeriodPicker.dart';
 import 'package:logchain/widgets/SearchBar.dart';
@@ -47,7 +48,10 @@ class CustomAppBar extends StatelessWidget {
                     onItemTapCallback: (currency) {
                       BottomDialog.show(
                         context,
-                        title: Text("${currency.name} (${currency.symbol})")
+                        title: Text(
+                          "${currency.name} (${currency.symbol})",
+                        ),
+                        body: CryptoPage(currency: currency),
                       );
                     },
                   ),
@@ -73,8 +77,8 @@ class CustomAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 40,
+          Container(
+            height: 48,
             child: PeriodPicker(
               onPeriodChanged: onPeriodChanged,
               periodType: this.periodType,
