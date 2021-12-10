@@ -7,7 +7,6 @@ import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 import 'package:provider/provider.dart';
 import 'screens/CryptoPage.dart';
-import 'styles/themes.dart';
 
 void main() {
   runApp(MyApp());
