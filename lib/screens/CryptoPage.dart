@@ -102,6 +102,7 @@ class CryptoPage extends StatelessWidget {
               CryptoCurrency cryptoCurrencySecond = CryptoCurrency.presets.shuffled().first;
               BottomDialog.show(
                   context,
+                  height: 0.9,
                   title: Text("Compare"),
                   body: Compare(
                       cryptoCurrencyLeft: cryptoCurrencyFirst,
