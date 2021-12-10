@@ -51,11 +51,11 @@ class PeriodPicker extends StatelessWidget {
                   .of(context)
                   .canvasColor,
               selected: this.periodType.index == index,
-              elevation: 2,
+              elevation: 4,
               shadowColor: Theme
                   .of(context)
                   .shadowColor
-                  .withOpacity(0.4),
+                  .withOpacity(0.2),
               pressElevation: 4,
               onSelected: (bool selected) {
                 if (this.periodType.index != index) {
