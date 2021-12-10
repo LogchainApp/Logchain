@@ -1,3 +1,6 @@
+import 'package:meta/meta.dart';
+
+@immutable
 class CryptoCurrency {
   final String name, symbol, iconPath, link;
   final bool isFavourite;

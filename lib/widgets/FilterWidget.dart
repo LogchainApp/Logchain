@@ -9,10 +9,12 @@ typedef OnFilterChangedCallback = void Function(FilterType filterType);
 class FilterWidget extends StatelessWidget {
   final OnFilterChangedCallback? onFilterChangedCallback;
   final FilterType filterType;
+  final FilterOrder filterOrder;
 
   FilterWidget({
     this.onFilterChangedCallback,
     this.filterType = FilterType.None,
+    this.filterOrder = FilterOrder.Increasing,
   });
 
   @override
@@ -25,11 +27,10 @@ class FilterWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              rowGroup(context, Icons.arrow_drop_up, "Name", FilterType.Name),
-              rowGroup(context, Icons.arrow_drop_down, "Vol", FilterType.Vol),
-              rowGroup(
-                  context, Icons.arrow_drop_down, "Price", FilterType.Price),
-              rowGroup(context, Icons.arrow_drop_up, "Chg", FilterType.Chg),
+              rowGroup(context, "Name", FilterType.Name),
+              rowGroup(context, "Vol", FilterType.Vol),
+              rowGroup(context, "Price", FilterType.Price),
+              rowGroup(context, "Chg", FilterType.Chg),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Icon(
@@ -46,7 +47,6 @@ class FilterWidget extends StatelessWidget {
 
   Widget rowGroup(
     BuildContext context,
-    IconData iconData,
     String label,
     FilterType filterType,
   ) {
@@ -54,7 +54,9 @@ class FilterWidget extends StatelessWidget {
       onTap: () => onFilterChangedCallback?.call(filterType),
       child: Row(children: [
         Icon(
-          iconData,
+          filterOrder == FilterOrder.Increasing
+              ? Icons.arrow_drop_up
+              : Icons.arrow_drop_down,
           color: filterType == this.filterType
               ? Theme.of(context).primaryColorDark
               : Theme.of(context).primaryColorLight,
