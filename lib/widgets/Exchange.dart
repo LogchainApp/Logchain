@@ -40,6 +40,7 @@ class Exchange extends StatelessWidget {
                       child: TextFormField(
                           initialValue: "0",
                           autofocus: false,
+                          style: Theme.of(context).textTheme.headline6,
                           onChanged: (String value) {
                             double? doubleValue = double.tryParse(value);
                             if (doubleValue != null) {
@@ -61,10 +62,7 @@ class Exchange extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(secondValue.toStringAsFixed(FRACTION_DIGITS),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: Theme.of(context).primaryColorDark),
+                      style: Theme.of(context).textTheme.headline6,
                       maxLines: 1),
                 ),
               ),
@@ -77,10 +75,7 @@ class Exchange extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
                     firstValue.toStringAsFixed(FRACTION_DIGITS),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: Theme.of(context).primaryColorDark),
+                    style: Theme.of(context).textTheme.headline6,
                     maxLines: 1,
                   ),
                 ),
@@ -96,6 +91,7 @@ class Exchange extends StatelessWidget {
                       child: TextFormField(
                           initialValue: "0",
                           autofocus: false,
+                          style: Theme.of(context).textTheme.headline6,
                           onChanged: (String value) {
                             double? doubleValue = double.tryParse(value);
                             if (doubleValue != null) {
