@@ -1,113 +1,69 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meta/meta.dart';
+class CryptoCurrency {
+  final String name, symbol, iconPath, link;
+  final bool isFavourite;
 
-part 'crypto_currency.freezed.dart';
+  final double price, change;
 
-@immutable
-@freezed
-class CryptoCurrency with _$CryptoCurrency {
-  CryptoCurrency._();
+  CryptoCurrency({
+    this.name = "Name",
+    this.symbol = "SYM",
+    this.isFavourite = false,
+    this.price = 100.0,
+    this.change = 5.0,
+    link = "",
+  })  : this.iconPath = "assets/icons/logo/${symbol.toLowerCase()}",
+        this.link = (link == ""
+            ? "https://cryptologos.cc/logos/"
+                "${name.toLowerCase()}-${symbol.toLowerCase()}-logo.png"
+            : link);
 
-  String get pictureLink =>
-      "https://cryptologos.cc/logos/" +
-      "${this.customName == "" ? this.name.replaceAll(" ", "-").toLowerCase() : this.customName}" +
-      "-${this.symbol.toLowerCase()}-logo.png";
-
-  double get changePercents => change * 100 / price;
-
-  factory CryptoCurrency({
-    @Default("") String name,
-    @Default("") String symbol,
-    @Default(false) bool isFavourite,
-    @Default(0) double price,
-    @Default(0) double change,
-    @Default("ethereum") String id,
-    @Default("") String customName,
-  }) = _CryptoCurrency;
-
-  static CryptoCurrency byId(String id) =>
-      presets.firstWhere((element) => element.id == id);
+  CryptoCurrency copyWith({
+    name = "Name",
+    symbol = "SYM",
+    isFavourite = false,
+    price = 100.0,
+    change = 5.0,
+    link = "",
+  }) =>
+      CryptoCurrency(
+        name: this.name,
+        symbol: this.symbol,
+        isFavourite: this.isFavourite,
+        price: this.price,
+        change: this.change,
+        link: this.link,
+      );
 
   static List<CryptoCurrency> presets = [
     CryptoCurrency(
       name: "Bitcoin",
       symbol: "BTC",
-      isFavourite: false,
-      id: "bitcoin",
+      isFavourite: true,
+      price: 51450.04,
+      change: -1304.78,
     ),
     CryptoCurrency(
       name: "Ethereum",
       symbol: "ETH",
       isFavourite: false,
-      id: "ethereum",
+      price: 3409.04,
+      change: 324.78,
     ),
     CryptoCurrency(
       name: "Ripple",
       symbol: "XRP",
       isFavourite: true,
-      customName: "xrp",
-      id: "ripple",
+      price: 1.04,
+      change: 0.08,
+      link: "https://cryptologos.cc/logos/xrp-xrp-logo.png",
     ),
     CryptoCurrency(
-      name: "Polkadot",
-      symbol: "DOT",
-      isFavourite: false,
-      price: 23.04,
-      change: -3.78,
-      customName: "polkadot-new",
-      id: "polkadot",
-    ),
-    CryptoCurrency(
-      name: "Dogecoin",
-      symbol: "DOGE",
-      isFavourite: true,
-      price: 0.73,
-      change: 0.1,
-      id: "dogecoin",
-    ),
-    CryptoCurrency(
-      name: "Shiba Inu",
-      symbol: "SHIB",
-      isFavourite: false,
-      price: 0.02,
-      change: -0.008,
-      id: "shiba-inu",
-    ),
-    CryptoCurrency(
-      name: "Uniswap",
-      symbol: "UNI",
-      isFavourite: false,
-      price: 34.2,
-      change: 2.5,
-      id: "uniswap",
-    ),
-    CryptoCurrency(
-      name: "Monero",
-      symbol: "XMR",
-      isFavourite: false,
-      price: 75.4,
-      change: 4.9,
-      id: "monero",
-    ),
-    CryptoCurrency(
-      name: "PancakeSwap",
-      symbol: "CAKE",
-      isFavourite: false,
-      price: 32.45,
-      change: -2.9,
-      id: "pancakeswap-token",
-    ),
-    CryptoCurrency(name: "Cosmos", symbol: "ATOM", id: "cosmos"),
-    CryptoCurrency(name: "BakeryToken", symbol: "BAKE", id: "bakerytoken"),
-    CryptoCurrency(name: "PooCoin", symbol: "POOCOIN", id: "poocoin"),
-    CryptoCurrency(name: "Cardano", symbol: "ADA", id: "cardano"),
-    CryptoCurrency(name: "Solana", symbol: "SOL", id: "solana"),
-    CryptoCurrency(
-      name: "Terra",
-      symbol: "LUNA",
-      id: "terra-luna",
-      customName: "terra-luna",
-    ),
+        name: "Polkadot",
+        symbol: "DOT",
+        isFavourite: false,
+        price: 23.04,
+        change: -3.78,
+        link: "https://cryptologos.cc/logos/polkadot-new-dot-logo.png"),
   ];
 }
 
