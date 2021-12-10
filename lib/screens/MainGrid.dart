@@ -2,52 +2,52 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/styles/ColorResources.dart';
-
-import 'package:logchain/styles/TextStyles.dart';
-import 'package:logchain/models/Currency.dart';
 
 import 'package:logchain/utils/extensions.dart';
+
+import '../widgets/CryptoCard.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class MainGrid extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
+
   MainGrid({this.onItemTapCallback});
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-        physics: BouncingScrollPhysics(), slivers: [
-      buildTitle(context, "Favourites"),
-      buildGrid(
-        context,
-        CryptoCurrency.presets
-            .shuffled()
-            .take(2)
-            .map((it) => it.copyWith(isFavourite: true))
-            .toList(),
-      ),
-      buildTitle(context, "Trending"),
-      buildGrid(
-        context,
-        CryptoCurrency.presets
-            .shuffled()
-            .take(4)
-            .map((it) => it.copyWith(isFavourite: false))
-            .toList(),
-      ),
-    ]);
+      physics: BouncingScrollPhysics(),
+      slivers: [
+        buildTitle(context, "Favourites"),
+        buildGrid(
+          context,
+          CryptoCurrency.presets
+              .shuffled()
+              .take(2)
+              .map((it) => it.copyWith(isFavourite: true))
+              .toList(),
+        ),
+        buildTitle(context, "Trending"),
+        buildGrid(
+          context,
+          CryptoCurrency.presets
+              .shuffled()
+              .take(4)
+              .map((it) => it.copyWith(isFavourite: false))
+              .toList(),
+        ),
+      ],
+    );
   }
 
   Widget buildTitle(BuildContext context, String text) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.only(left: 16, top: 32),
-        child: Text(text, style: Theme
-            .of(context)
-            .textTheme
-            .headline1,
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.headline1,
         ),
       ),
     );
@@ -58,8 +58,10 @@ class MainGrid extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
-              (context, index) =>
-              buildCurrencyCard(context, currencyList[index]),
+          (context, index) => CryptoCard(
+            currency: currencyList[index],
+            onItemTapCallback: onItemTapCallback,
+          ),
           childCount: currencyList.length,
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -76,25 +78,18 @@ class MainGrid extends StatelessWidget {
       onTap: () => onItemTapCallback?.call(currency),
       child: Container(
         decoration: BoxDecoration(
-            color: Theme
-                .of(context)
-                .canvasColor,
+            color: Theme.of(context).canvasColor,
             borderRadius: BorderRadius.all(Radius.circular(32)),
             boxShadow: [
               BoxShadow(
-                color: Theme
-                    .of(context)
-                    .shadowColor
-                    .withOpacity(0.1),
+                color: Theme.of(context).shadowColor.withOpacity(0.1),
                 blurRadius: 8,
                 spreadRadius: 0,
               )
             ]),
         child: Center(
-          child: Text(currency.symbol, style: Theme
-              .of(context)
-              .textTheme
-              .headline6),
+          child: Text(currency.symbol,
+              style: Theme.of(context).textTheme.headline6),
         ),
       ),
     );

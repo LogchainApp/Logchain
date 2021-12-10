@@ -6,7 +6,7 @@ import 'package:logchain/screens/MainGrid.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 import 'package:provider/provider.dart';
-import 'styles/themes.dart';
+import 'screens/CryptoPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -76,7 +76,10 @@ class _MainPageState extends State<MainPage> {
                   onItemTapCallback: (currency) {
                     BottomDialog.show(
                       context,
-                      title: Text("${currency.name} (${currency.symbol})"),
+                      title: Text(
+                        "${currency.name} (${currency.symbol})",
+                      ),
+                      body: CryptoPage(currency: currency),
                     );
                   },
                 ),
