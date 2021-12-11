@@ -3,12 +3,12 @@ import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/screens/CryptoPage.dart';
 
-import 'package:logchain/widgets/PeriodPicker.dart';
-import 'package:logchain/widgets/SearchBar.dart';
+import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
+import 'package:logchain/widgets/ui_components/FilterWidget.dart';
+import 'package:logchain/widgets/ui_components/SearchBar.dart';
+import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 
-import 'BottomDialog.dart';
-import 'FilterWidget.dart';
-import '../screens/Menu.dart';
+import '../../screens/Menu.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -70,12 +70,8 @@ class CustomAppBar extends StatelessWidget {
                     color: Theme.of(context).primaryColorDark,
                   ),
                   onPressed: () {
-                    BottomDialog.show(
-                      context,
-                      title: Text("Menu"),
-                      body: Menu(),
-                      height: 0.55
-                    );
+                    BottomDialog.show(context,
+                        title: Text("Menu"), body: Menu(), height: 0.55);
                   },
                 ),
               ),

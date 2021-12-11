@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
+import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/utils/extensions.dart';
-import 'package:logchain/widgets/BottomDialog.dart';
-import 'package:logchain/widgets/CustomAppBar.dart';
+import 'package:logchain/widgets/ui_components/BottomDialog.dart';
+import 'package:logchain/widgets/ui_components/CustomAppBar.dart';
 import 'package:provider/provider.dart';
 import 'network/network_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'screens/CryptoPage.dart';
 import 'styles/themes.dart';
 
-void main() {
+void main() async {
+  await NetworkProvider.init();
   runApp(MyApp());
 }
 
@@ -69,7 +71,6 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    NetworkProvider.init();
   }
 
   @override
@@ -120,6 +121,14 @@ class _MainPageState extends State<MainPage> {
                       body: CryptoPage(currency: currency),
                       height: 0.8,
                     );
+                  },
+                  onFavouriteTapCallback: (currency) {
+                    setState(() {
+                      UserDataProvider.instance.isFavourite(currency)
+                          ? UserDataProvider.instance
+                              .removeFromFavourite(currency)
+                          : UserDataProvider.instance.addToFavourite(currency);
+                    });
                   },
                 ),
               ),

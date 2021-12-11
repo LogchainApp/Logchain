@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/widgets/CompareCrypto.dart';
 import 'package:logchain/widgets/CompareRow.dart';
 import 'package:logchain/widgets/Exchange.dart';
-import 'package:logchain/widgets/PeriodPicker.dart';
+import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
 
 class _CustomScrollBehavior extends MaterialScrollBehavior {
 

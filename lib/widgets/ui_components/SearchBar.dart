@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:logchain/screens/search_screen.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
+import '../../utils/page_routes/fade_page_route.dart';
+
 typedef OnSearchCallback = void Function();
 
 class SearchBar extends StatelessWidget {
@@ -44,10 +46,12 @@ class SearchBar extends StatelessWidget {
           ),
           onTap: () {
             onSearchCallback?.call();
-            Navigator.of(context)
-                .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-              return SearchList(onItemTapCallback: onItemTapCallback);
-            }));
+            Navigator.of(context).push(
+              FadePageRoute(
+                SearchList(onItemTapCallback: onItemTapCallback),
+                context: context
+              ),
+            );
           },
         ),
       ),
