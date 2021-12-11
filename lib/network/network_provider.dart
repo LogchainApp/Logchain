@@ -3,24 +3,30 @@ import 'package:logchain/models/crypto_currency.dart';
 import 'package:dio/dio.dart';
 
 import '../models/dao/coingecko_dao.dart';
+import '../providers/UserDataProvider.dart';
 
 @singleton
 class NetworkProvider {
   static NetworkProvider get instance => _instance;
 
   static String baseUrl = "https://api.coingecko.com/api/v3";
+
   static late NetworkProvider _instance;
   late final Dio _dio;
+  late final UserDataProvider _userDataProvider;
 
   late Map<String, CryptoCurrency> _savedData = {};
 
-  NetworkProvider._({required dio}) : this._dio = dio;
+  NetworkProvider._({required dio, required userDataProvider})
+      : this._dio = dio,
+        this._userDataProvider = userDataProvider;
 
   static Future<NetworkProvider> init() async {
     return _instance = NetworkProvider._(
       dio: Dio(
         BaseOptions(baseUrl: baseUrl, responseType: ResponseType.json),
       ),
+      userDataProvider: await UserDataProvider.init(),
     );
   }
 

@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/widgets/PeriodPicker.dart';
+import 'package:logchain/utils/extensions.dart';
+import 'package:logchain/widgets/ui_components/BottomDialog.dart';
+import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
