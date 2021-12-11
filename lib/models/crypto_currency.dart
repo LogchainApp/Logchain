@@ -13,6 +13,8 @@ class CryptoCurrency with _$CryptoCurrency {
       "${this.customName == "" ? this.name.replaceAll(" ", "-").toLowerCase() : this.customName}" +
       "-${this.symbol.toLowerCase()}-logo.png";
 
+  double get changePercents => change * 100 / price;
+
   factory CryptoCurrency({
     @Default("") String name,
     @Default("") String symbol,
@@ -31,23 +33,18 @@ class CryptoCurrency with _$CryptoCurrency {
       name: "Bitcoin",
       symbol: "BTC",
       isFavourite: false,
-      price: 51450.04,
-      change: -1304.78,
       id: "bitcoin",
     ),
     CryptoCurrency(
-        name: "Ethereum",
-        symbol: "ETH",
-        isFavourite: false,
-        price: 3409.04,
-        change: 324.78,
-        id: "ethereum"),
+      name: "Ethereum",
+      symbol: "ETH",
+      isFavourite: false,
+      id: "ethereum",
+    ),
     CryptoCurrency(
       name: "Ripple",
       symbol: "XRP",
       isFavourite: true,
-      price: 1.04,
-      change: 0.08,
       customName: "xrp",
       id: "ripple",
     ),

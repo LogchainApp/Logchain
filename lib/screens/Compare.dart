@@ -61,103 +61,101 @@ class _CompareState extends State<Compare> {
     var changeLeft = calcChange(widget.cryptoCurrencyLeft);
     var changeRight = calcChange(widget.cryptoCurrencyRight);
     print(changeLeft);
-    return ScrollConfiguration(
-      behavior: _CustomScrollBehavior(),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 32),
-            Row(
-              children: [
-                CompareCrypto(currency: widget.cryptoCurrencyLeft),
-                CompareCrypto(currency: widget.cryptoCurrencyRight)
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Container(child: PeriodPicker(), height: 80),
-            ),
-            CompareRow(
-                title: "Price",
-                leftValue: Text("\$${widget.cryptoCurrencyLeft.price}",
-                    style: Theme.of(context).textTheme.headline6),
-                rightValue: Text("\$${widget.cryptoCurrencyRight.price}",
-                    style: Theme.of(context).textTheme.headline6)),
-            CompareRow(
-                title: "Change",
-                leftValue: Text("${changeLeft}",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: widget.cryptoCurrencyLeft.change >= 0
-                              ? ColorResources.green
-                              : ColorResources.red,
-                        )),
-                rightValue: Text("${changeRight}",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: widget.cryptoCurrencyRight.change >= 0
-                              ? ColorResources.green
-                              : ColorResources.red,
-                        ))),
-            CompareRow(
-                title: "Volume (USDT)",
-                leftValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6),
-                rightValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6)),
-            CompareRow(
-                title: "24h High",
-                leftValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6),
-                rightValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6)),
-            CompareRow(
-                title: "24h High",
-                leftValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6),
-                rightValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6)),
-            CompareRow(
-                title: "24h High",
-                leftValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6),
-                rightValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6)),
-            CompareRow(
-                title: "24h High",
-                leftValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6),
-                rightValue:
-                    Text("todo", style: Theme.of(context).textTheme.headline6)),
-            CompareRow(
-              title: "24h Low",
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          SizedBox(height: 32),
+          Row(
+            children: [
+              CompareCrypto(currency: widget.cryptoCurrencyLeft),
+              CompareCrypto(currency: widget.cryptoCurrencyRight)
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            child: Container(child: PeriodPicker(), height: 80),
+          ),
+          CompareRow(
+              title: "Price",
+              leftValue: Text("\$${widget.cryptoCurrencyLeft.price}",
+                  style: Theme.of(context).textTheme.headline6),
+              rightValue: Text("\$${widget.cryptoCurrencyRight.price}",
+                  style: Theme.of(context).textTheme.headline6)),
+          CompareRow(
+              title: "Change",
+              leftValue: Text("${changeLeft}",
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        color: widget.cryptoCurrencyLeft.change >= 0
+                            ? ColorResources.green
+                            : ColorResources.red,
+                      )),
+              rightValue: Text("${changeRight}",
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        color: widget.cryptoCurrencyRight.change >= 0
+                            ? ColorResources.green
+                            : ColorResources.red,
+                      ))),
+          CompareRow(
+              title: "Volume (USDT)",
               leftValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6),
               rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6)
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 0),
-              child: Text("Exchange cryptos", style: Theme.of(context).textTheme.bodyText1),
-            ),
-            Exchange(
-              firstCryptoCurrency: widget.cryptoCurrencyLeft,
-              secondCryptoCurrency: widget.cryptoCurrencyRight,
-              firstValue: widget.exchangeLeftValue,
-              secondValue: widget.exchangeRightValue,
-              onFirstValueChanged: (value) {
-                setState(() {
-                  // this.exchangeLeftValue = value;
-                  widget.exchangeRightValue = calcExchange(value, widget.cryptoCurrencyLeft.price, widget.cryptoCurrencyRight.price);
-                });
-              },
-              onSecondValueChanged: (value) {
-                setState(() {
-                  widget.exchangeLeftValue = calcExchange(value, widget.cryptoCurrencyRight.price, widget.cryptoCurrencyLeft.price);
-                  // this.exchangeRightValue = value;
-                });
-              },
-            )
-          ],
-        ),
+                  Text("todo", style: Theme.of(context).textTheme.headline6)),
+          CompareRow(
+              title: "24h High",
+              leftValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6),
+              rightValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6)),
+          CompareRow(
+              title: "24h High",
+              leftValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6),
+              rightValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6)),
+          CompareRow(
+              title: "24h High",
+              leftValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6),
+              rightValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6)),
+          CompareRow(
+              title: "24h High",
+              leftValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6),
+              rightValue:
+                  Text("todo", style: Theme.of(context).textTheme.headline6)),
+          CompareRow(
+            title: "24h Low",
+            leftValue:
+                Text("todo", style: Theme.of(context).textTheme.headline6),
+            rightValue:
+                Text("todo", style: Theme.of(context).textTheme.headline6)
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 0),
+            child: Text("Exchange cryptos", style: Theme.of(context).textTheme.bodyText1),
+          ),
+          Exchange(
+            firstCryptoCurrency: widget.cryptoCurrencyLeft,
+            secondCryptoCurrency: widget.cryptoCurrencyRight,
+            firstValue: widget.exchangeLeftValue,
+            secondValue: widget.exchangeRightValue,
+            onFirstValueChanged: (value) {
+              setState(() {
+                // this.exchangeLeftValue = value;
+                widget.exchangeRightValue = calcExchange(value, widget.cryptoCurrencyLeft.price, widget.cryptoCurrencyRight.price);
+              });
+            },
+            onSecondValueChanged: (value) {
+              setState(() {
+                widget.exchangeLeftValue = calcExchange(value, widget.cryptoCurrencyRight.price, widget.cryptoCurrencyLeft.price);
+                // this.exchangeRightValue = value;
+              });
+            },
+          )
+        ],
       ),
     );
   }
