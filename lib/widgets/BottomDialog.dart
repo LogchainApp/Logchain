@@ -22,7 +22,7 @@ class BottomDialog {
       context: context,
       builder: (context) {
         return Container(
-          height: MediaQuery.of(context).size.height * height,
+          height: MediaQuery.of(context).size.height * height + MediaQuery.of(context).viewInsets.bottom / 2,
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.only(
@@ -31,7 +31,7 @@ class BottomDialog {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(top: 8.0, bottom: MediaQuery.of(context).viewInsets.bottom, left: 8, right: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logchain/models/crypto_currency.dart';
 
@@ -38,7 +39,7 @@ class Exchange extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: TextFormField(
-                          initialValue: "0",
+                          keyboardType: TextInputType.number,
                           autofocus: false,
                           style: Theme.of(context).textTheme.headline6,
                           onChanged: (String value) {
@@ -46,13 +47,14 @@ class Exchange extends StatelessWidget {
                             if (doubleValue != null) {
                               onFirstValueChanged?.call(doubleValue);
                             } else if (value == "") {
-                              onFirstValueChanged?.call(0);
+                              onFirstValueChanged?.call(1);
                             }
                           },
                           cursorColor: Theme.of(context).primaryColor,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: InputBorder.none,
+                            hintText: "1"
                           ))),
                 ),
               ),
@@ -89,7 +91,6 @@ class Exchange extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: TextFormField(
-                          initialValue: "0",
                           autofocus: false,
                           style: Theme.of(context).textTheme.headline6,
                           onChanged: (String value) {
@@ -97,13 +98,14 @@ class Exchange extends StatelessWidget {
                             if (doubleValue != null) {
                               onSecondValueChanged?.call(doubleValue);
                             } else if (value == "") {
-                              onSecondValueChanged?.call(0);
+                              onSecondValueChanged?.call(1);
                             }
                           },
                           cursorColor: Theme.of(context).primaryColor,
                           decoration: InputDecoration(
                             focusColor: Theme.of(context).primaryColor,
                             border: InputBorder.none,
+                            hintText: "1"
                           ))),
                 ),
               ),
