@@ -27,8 +27,8 @@ class MainGrid extends StatelessWidget {
         buildGrid(
           context,
           CryptoCurrency.presets.sorted(
-            (a, b) => a.changePercents.compareTo(b.changePercents),
-          ).reversed.toList(),
+            (a, b) => -a.change.compareTo(b.change),
+          ),
         ),
       ],
     );

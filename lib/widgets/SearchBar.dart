@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:logchain/screens/search_screen.dart';
+import 'package:logchain/screens/SearchList.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
 typedef OnSearchCallback = void Function();

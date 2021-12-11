@@ -54,7 +54,6 @@ class CustomAppBar extends StatelessWidget {
                           "${currency.name} (${currency.symbol})",
                         ),
                         body: CryptoPage(currency: currency),
-                        height: 0.8,
                       );
                     },
                   ),
@@ -70,12 +69,8 @@ class CustomAppBar extends StatelessWidget {
                     color: Theme.of(context).primaryColorDark,
                   ),
                   onPressed: () {
-                    BottomDialog.show(
-                      context,
-                      title: Text("Menu"),
-                      body: Menu(),
-                      height: 0.55
-                    );
+                    BottomDialog.show(context,
+                        title: Text("Menu"), body: Menu());
                   },
                 ),
               ),

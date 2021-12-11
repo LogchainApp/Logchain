@@ -3,11 +3,7 @@ import 'dart:ui';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/utils/extensions.dart';
-import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/PeriodPicker.dart';
-
-import 'Compare.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
@@ -102,22 +98,6 @@ class CryptoPage extends StatelessWidget {
           ),
           Container(height: 64, child: PeriodPicker()),
           Divider(),
-          GestureDetector(
-            onTap: () {
-              CryptoCurrency cryptoCurrencyFirst = CryptoCurrency.presets.shuffled().first;
-              CryptoCurrency cryptoCurrencySecond = CryptoCurrency.presets.shuffled().first;
-              BottomDialog.show(
-                  context,
-                  title: Text("Compare"),
-                  body: Compare(
-                      cryptoCurrencyLeft: cryptoCurrencyFirst,
-                      cryptoCurrencyRight: cryptoCurrencySecond
-                  ),
-                height: 0.6,
-              );
-            },
-            child: Text("compare")
-          )
         ],
       ),
     );

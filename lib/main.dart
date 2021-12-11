@@ -118,7 +118,6 @@ class _MainPageState extends State<MainPage> {
                         "${currency.name} (${currency.symbol})",
                       ),
                       body: CryptoPage(currency: currency),
-                      height: 0.8,
                     );
                   },
                 ),
