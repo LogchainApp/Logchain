@@ -20,22 +20,24 @@ class SearchList extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          color: Theme.of(context).backgroundColor,
-          padding: const EdgeInsets.all(16.0),
-          alignment: Alignment.topLeft,
-          child: Column(
-            children: [
-              SizedBox(height: 4),
-              Hero(
-                tag: "search",
-                child: Container(
-                  height: 40,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Theme.of(context).primaryColorLight,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Container(
+            color: Theme.of(context).backgroundColor,
+            padding: const EdgeInsets.only(top: 16),
+            alignment: Alignment.topLeft,
+            child: Column(
+              children: [
+                SizedBox(height: 4),
+                Hero(
+                  tag: "search",
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 8, bottom: 4),
+                    height: 40,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Theme.of(context).primaryColorLight,
                       child: TextField(
                         autofocus: false,
                         cursorColor: Theme.of(context).primaryColor,
@@ -50,31 +52,34 @@ class SearchList extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorLight,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: ListView.separated(
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return CryptoRow(
-                        currency: currencyList[index],
-                        onItemTapCallback: onItemTapCallback,
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        SizedBox(height: 16),
-                    itemCount: currencyList.length,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColorLight,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
+                    child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: CryptoRow(
+                            currency: currencyList[index],
+                            onItemTapCallback: onItemTapCallback,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          SizedBox(height: 16),
+                      itemCount: currencyList.length,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

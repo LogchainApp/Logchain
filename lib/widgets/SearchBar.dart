@@ -25,23 +25,20 @@ class SearchBar extends StatelessWidget {
           child: Container(
             height: 40,
             width: double.infinity,
-            child: Stack(
-              alignment: AlignmentDirectional.centerStart,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Icon(
-                        Icons.search,
-                        color: Theme.of(context).primaryColor,
-                        size: 24,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Text("Search crypto", style: TextStyles.regular),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Icon(
+                    Icons.search,
+                    color: Theme.of(context).primaryColor,
+                    size: 24,
+                  ),
                 ),
+                SizedBox(width: 8),
+                Text("Search crypto", style: TextStyles.regular),
+                SizedBox(width: 32),
               ],
             ),
           ),

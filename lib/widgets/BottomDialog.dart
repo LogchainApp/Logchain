@@ -1,11 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class BottomDialog {
   static void show(BuildContext context, {Widget? title, Widget? body, double height: 0.5}) {
 
     showMaterialModalBottomSheet(
+      barrierColor: Theme.of(context).shadowColor.withOpacity(0.1),
       elevation: 0.5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

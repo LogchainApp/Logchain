@@ -44,3 +44,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/lib/models/dao/coingecko_dao.freezed.dart
+/lib/models/crypto_currency.freezed.dart
+/lib/models/dao/coingecko_dao.g.dart

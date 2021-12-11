@@ -1,11 +1,19 @@
 import 'dart:ui';
 
+typedef Comparator<T> = int Function(T, T);
+
 extension ListExtension<T> on List<T> {
   List<T> copy() => this.toList();
 
   List<T> shuffled() {
     var it = this.copy();
     it.shuffle();
+    return it;
+  }
+
+  List<T> sorted(Comparator comparator) {
+    var it = this.copy();
+    it.sort(comparator);
     return it;
   }
 }
