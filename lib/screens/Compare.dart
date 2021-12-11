@@ -10,7 +10,7 @@ import 'package:logchain/widgets/PeriodPicker.dart';
 class _CustomScrollBehavior extends MaterialScrollBehavior {
 
   ScrollPhysics getScrollPhysics(BuildContext context) {
-    return _CustomScrollPhysics(parent: super.getScrollPhysics(context));
+    return _CustomScrollPhysics(parent: BouncingScrollPhysics());
   }
 }
 

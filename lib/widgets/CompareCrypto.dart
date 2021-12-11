@@ -12,7 +12,7 @@ class CompareCrypto extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Image.network(currency.link, width: 48, height: 48),
+          Image.network(currency.pictureLink, width: 48, height: 48),
           SizedBox(height: 8),
           Text(
             currency.symbol,
