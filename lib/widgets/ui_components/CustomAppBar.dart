@@ -54,7 +54,6 @@ class CustomAppBar extends StatelessWidget {
                           "${currency.name} (${currency.symbol})",
                         ),
                         body: CryptoPage(currency: currency),
-                        height: 0.8,
                       );
                     },
                   ),

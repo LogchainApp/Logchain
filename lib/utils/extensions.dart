@@ -28,27 +28,3 @@ extension ColorExtension on Color {
     );
   }
 }
-
-extension StringExtension on String {
-  bool isSubsequence(String other) {
-    if (this.length == 0) {
-      return true;
-    }
-
-    if (other.length == 0) {
-      return false;
-    }
-
-    var result = "";
-    for (final char in other.runes) {
-      if (String.fromCharCode(char) == this[result.length]) {
-        result += String.fromCharCode(char);
-      }
-
-      if (result == this) {
-        return true;
-      }
-    }
-    return false;
-  }
-}
