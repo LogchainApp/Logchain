@@ -31,7 +31,10 @@ class Compare extends StatefulWidget {
   final CryptoCurrency cryptoCurrencyLeft;
   final CryptoCurrency cryptoCurrencyRight;
 
-  const Compare(
+  late double exchangeLeftValue = cryptoCurrencyRight.price;
+  late double exchangeRightValue = cryptoCurrencyLeft.price;
+
+  Compare(
       {required this.cryptoCurrencyLeft,
       required this.cryptoCurrencyRight,
       Key? key})
@@ -42,8 +45,6 @@ class Compare extends StatefulWidget {
 }
 
 class _CompareState extends State<Compare> {
-  double exchangeLeftValue = 0;
-  double exchangeRightValue = 0;
 
   String calcChange(CryptoCurrency currency) {
     return (currency.change > 0 ? "\$" : "-\$") +
@@ -140,17 +141,17 @@ class _CompareState extends State<Compare> {
             Exchange(
               firstCryptoCurrency: widget.cryptoCurrencyLeft,
               secondCryptoCurrency: widget.cryptoCurrencyRight,
-              firstValue: this.exchangeLeftValue,
-              secondValue: this.exchangeRightValue,
+              firstValue: widget.exchangeLeftValue,
+              secondValue: widget.exchangeRightValue,
               onFirstValueChanged: (value) {
                 setState(() {
                   // this.exchangeLeftValue = value;
-                  this.exchangeRightValue = calcExchange(value, widget.cryptoCurrencyLeft.price, widget.cryptoCurrencyRight.price);
+                  widget.exchangeRightValue = calcExchange(value, widget.cryptoCurrencyLeft.price, widget.cryptoCurrencyRight.price);
                 });
               },
               onSecondValueChanged: (value) {
                 setState(() {
-                  this.exchangeLeftValue = calcExchange(value, widget.cryptoCurrencyRight.price, widget.cryptoCurrencyLeft.price);
+                  widget.exchangeLeftValue = calcExchange(value, widget.cryptoCurrencyRight.price, widget.cryptoCurrencyLeft.price);
                   // this.exchangeRightValue = value;
                 });
               },
