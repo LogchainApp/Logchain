@@ -3,10 +3,13 @@ import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
-import 'package:logchain/styles/themes.dart';
+import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/utils/extensions.dart';
 import 'package:logchain/widgets/BottomDialog.dart';
 import 'package:logchain/widgets/CustomAppBar.dart';
 import 'package:provider/provider.dart';
+import 'network/network_provider.dart';
+import 'package:skeletons/skeletons.dart';
 import 'screens/CryptoPage.dart';
 import 'styles/themes.dart';
 
@@ -23,12 +26,25 @@ class MyApp extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Logchain',
-            theme: context.watch<ThemeProvider>().getTheme,
-            darkTheme: dark,
-            home: MainPage(title: 'Logchain'),
+          return SkeletonTheme(
+            shimmerGradient: LinearGradient(
+              colors: [
+                ColorResources.lightGrey.avgWith(ColorResources.grey),
+                ColorResources.grey,
+                ColorResources.lightGrey.avgWith(ColorResources.grey),
+              ],
+              stops: [0.1, 0.5, 0.9],
+            ),
+            themeMode: context.watch<ThemeProvider>().getTheme == dark
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Logchain',
+              theme: context.watch<ThemeProvider>().getTheme,
+              darkTheme: dark,
+              home: MainPage(title: 'Logchain'),
+            ),
           );
         },
       ),
@@ -51,10 +67,17 @@ class _MainPageState extends State<MainPage> {
   PeriodType periodType = PeriodType.Hours24;
 
   @override
+  void initState() {
+    super.initState();
+    NetworkProvider.init();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             CustomAppBar(

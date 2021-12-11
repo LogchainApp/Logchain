@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
+import 'package:logchain/network/network_provider.dart';
+import 'package:skeletons/skeletons.dart';
 
-import 'package:logchain/utils/extensions.dart';
-
+import '../utils/extensions.dart';
 import '../widgets/CryptoCard.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
@@ -22,20 +21,14 @@ class MainGrid extends StatelessWidget {
         buildTitle(context, "Favourites"),
         buildGrid(
           context,
-          CryptoCurrency.presets
-              .shuffled()
-              .take(2)
-              .map((it) => it.copyWith(isFavourite: true))
-              .toList(),
+          CryptoCurrency.presets.where((it) => it.isFavourite).toList(),
         ),
         buildTitle(context, "Trending"),
         buildGrid(
           context,
-          CryptoCurrency.presets
-              .shuffled()
-              .take(4)
-              .map((it) => it.copyWith(isFavourite: false))
-              .toList(),
+          CryptoCurrency.presets.sorted(
+            (a, b) => -a.change.compareTo(b.change),
+          ),
         ),
       ],
     );
@@ -58,38 +51,34 @@ class MainGrid extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
-          (context, index) => CryptoCard(
-            currency: currencyList[index],
-            onItemTapCallback: onItemTapCallback,
+          (context, index) => FutureBuilder<CryptoCurrency>(
+            future: NetworkProvider.instance.fetchCurrency(currencyList[index]),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return CryptoCard(
+                  currency: snapshot.data!,
+                  onItemTapCallback: onItemTapCallback,
+                );
+              }
+
+              return SkeletonAvatar(
+                style: SkeletonAvatarStyle(
+                  borderRadius: BorderRadius.circular(32),
+                  shape: BoxShape.rectangle,
+                  width: 96,
+                  height: 96,
+                ),
+              );
+            },
           ),
           childCount: currencyList.length,
+          addAutomaticKeepAlives: true,
+          addSemanticIndexes: false,
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 24,
           crossAxisSpacing: 24,
-        ),
-      ),
-    );
-  }
-
-  Widget buildCurrencyCard(BuildContext context, CryptoCurrency currency) {
-    return GestureDetector(
-      onTap: () => onItemTapCallback?.call(currency),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor,
-            borderRadius: BorderRadius.all(Radius.circular(32)),
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).shadowColor.withOpacity(0.1),
-                blurRadius: 8,
-                spreadRadius: 0,
-              )
-            ]),
-        child: Center(
-          child: Text(currency.symbol,
-              style: Theme.of(context).textTheme.headline6),
         ),
       ),
     );

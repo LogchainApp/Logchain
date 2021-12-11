@@ -1,10 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class BottomDialog {
   static void show(BuildContext context, {Widget? title, Widget? body}) {
     showModalBottomSheet(
+      barrierColor: Theme.of(context).shadowColor.withOpacity(0.1),
       elevation: 0.5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

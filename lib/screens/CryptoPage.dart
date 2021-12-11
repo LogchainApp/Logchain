@@ -14,9 +14,9 @@ class CryptoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var change = (currency.change > 0 ? "\$" : "-\$") +
+    var change = (currency.change > 0 ? "+\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
-        " (${(currency.change / currency.price).toStringAsFixed(2)}%)";
+        " (${(currency.change / currency.price * 100).toStringAsFixed(2)}%)";
     return Container(
       height: 596,
       child: Column(
@@ -28,7 +28,7 @@ class CryptoPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network(currency.link, width: 64, height: 64),
+                  Image.network(currency.pictureLink, width: 64, height: 64),
                   SizedBox(width: 24),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,29 +57,35 @@ class CryptoPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "\$${currency.price}",
-                              style:
-                                  Theme.of(context).textTheme.bodyText2!.copyWith(
-                                        color: Theme.of(context).primaryColorDark,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              "\$${currency.price.toStringAsFixed(2)}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                             Text(
                               change,
-                              style:
-                                  Theme.of(context).textTheme.bodyText2!.copyWith(
-                                        color: currency.change >= 0
-                                            ? ColorResources.green
-                                            : ColorResources.red,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                    color: currency.change >= 0
+                                        ? ColorResources.green
+                                        : ColorResources.red,
+                                  ),
                             ),
                             Text(
                               "2.60B",
-                              style:
-                                  Theme.of(context).textTheme.bodyText2!.copyWith(
-                                        color: Theme.of(context).primaryColorDark,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ],
                         ),
