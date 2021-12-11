@@ -7,6 +7,8 @@ import 'package:logchain/utils/extensions.dart';
 import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
 
+import 'Compare.dart';
+
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class CryptoPage extends StatelessWidget {
@@ -100,6 +102,22 @@ class CryptoPage extends StatelessWidget {
           ),
           Container(height: 64, child: PeriodPicker()),
           Divider(),
+          GestureDetector(
+            onTap: () {
+              CryptoCurrency cryptoCurrencyFirst = CryptoCurrency.presets.shuffled().first;
+              CryptoCurrency cryptoCurrencySecond = CryptoCurrency.presets.shuffled().first;
+              BottomDialog.show(
+                  context,
+                  title: Text("Compare"),
+                  body: Compare(
+                      cryptoCurrencyLeft: cryptoCurrencyFirst,
+                      cryptoCurrencyRight: cryptoCurrencySecond
+                  ),
+                height: 0.6,
+              );
+            },
+            child: Text("compare")
+          )
         ],
       ),
     );
