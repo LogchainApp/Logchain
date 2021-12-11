@@ -7,6 +7,8 @@ import 'package:logchain/widgets/MenuItem.dart';
 import 'package:logchain/widgets/MenuButton.dart';
 import 'package:provider/provider.dart';
 
+import 'about.dart';
+
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);
 
@@ -70,8 +72,15 @@ class _MenuState extends State<Menu> {
             ],
           ),
           SizedBox(height: 16),
-          MenuButton(icon: Icons.data_usage, title: "Data Usage"),
-          MenuButton(icon: Icons.info_outlined, title: "About")
+          MenuButton(icon: Icons.data_usage, title: "Data Usage", onPressed: () {
+
+          }),
+          MenuButton(icon: Icons.info_outlined, title: "About", onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+                  return About();
+            }));
+          })
         ],
       ),
     );
