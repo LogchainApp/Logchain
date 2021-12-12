@@ -13,14 +13,14 @@ class CryptoCurrency with _$CryptoCurrency {
       "${this.customName == "" ? this.name.replaceAll(" ", "-").toLowerCase() : this.customName}" +
       "-${this.symbol.toLowerCase()}-logo.png";
 
-  double get changePercents => change * 100 / price;
+  double get change => changePercents * price / 100;
 
   factory CryptoCurrency({
     @Default("") String name,
     @Default("") String symbol,
     @Default(false) bool isFavourite,
     @Default(0) double price,
-    @Default(0) double change,
+    @Default(0) double changePercents,
     @Default("ethereum") String id,
     @Default("") String customName,
   }) = _CryptoCurrency;
@@ -53,7 +53,6 @@ class CryptoCurrency with _$CryptoCurrency {
       symbol: "DOT",
       isFavourite: false,
       price: 23.04,
-      change: -3.78,
       customName: "polkadot-new",
       id: "polkadot",
     ),
@@ -62,7 +61,6 @@ class CryptoCurrency with _$CryptoCurrency {
       symbol: "DOGE",
       isFavourite: true,
       price: 0.73,
-      change: 0.1,
       id: "dogecoin",
     ),
     CryptoCurrency(
@@ -70,7 +68,6 @@ class CryptoCurrency with _$CryptoCurrency {
       symbol: "SHIB",
       isFavourite: false,
       price: 0.02,
-      change: -0.008,
       id: "shiba-inu",
     ),
     CryptoCurrency(
@@ -78,7 +75,6 @@ class CryptoCurrency with _$CryptoCurrency {
       symbol: "UNI",
       isFavourite: false,
       price: 34.2,
-      change: 2.5,
       id: "uniswap",
     ),
     CryptoCurrency(
@@ -86,7 +82,6 @@ class CryptoCurrency with _$CryptoCurrency {
       symbol: "XMR",
       isFavourite: false,
       price: 75.4,
-      change: 4.9,
       id: "monero",
     ),
     CryptoCurrency(
@@ -94,7 +89,6 @@ class CryptoCurrency with _$CryptoCurrency {
       symbol: "CAKE",
       isFavourite: false,
       price: 32.45,
-      change: -2.9,
       id: "pancakeswap-token",
     ),
     CryptoCurrency(name: "Cosmos", symbol: "ATOM", id: "cosmos"),

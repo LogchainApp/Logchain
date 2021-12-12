@@ -51,7 +51,10 @@ class NetworkProvider {
     _savedData = decoded.map(
       (key, value) => MapEntry(
         key,
-        CryptoCurrency.byId(key).copyWith(price: value.usd),
+        CryptoCurrency.byId(key).copyWith(
+          price: value.usd,
+          changePercents: value.usd24hChange,
+        ),
       ),
     );
     return _savedData;
@@ -64,7 +67,7 @@ class NetworkProvider {
 
     return currency.copyWith(
       price: _savedData[currency.id]!.price,
-      change: _savedData[currency.id]!.change,
+      changePercents: _savedData[currency.id]!.changePercents,
     );
   }
 }

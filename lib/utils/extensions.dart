@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 typedef Comparator<T> = int Function(T, T);
@@ -50,5 +51,24 @@ extension StringExtension on String {
       }
     }
     return false;
+  }
+
+  int maxCommonSubsequence(String other) {
+    int n = this.length, m = other.length;
+    List<List<int>> dp =
+        List.generate(n + 1, (index) => List.generate(m + 1, (index) => 0));
+    for (var i = 0; i <= n; ++i) {
+      for (var j = 0; j <= m; ++j) {
+        if (i == 0 || j == 0) {
+          dp[i][j] = 0;
+        } else if (this[i - 1] == other[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        } else {
+          dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+    }
+
+    return dp[n][m];
   }
 }

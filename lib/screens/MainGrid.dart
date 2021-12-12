@@ -18,82 +18,109 @@ class MainGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: BouncingScrollPhysics(),
-      slivers: [
-        ...(UserDataProvider.instance.favourites.isNotEmpty
-            ? [
-                buildTitle(context, "Favourites"),
-                buildGrid(
-                  context,
-                  UserDataProvider.instance.favourites,
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 5,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: NestedScrollView(
+          physics: BouncingScrollPhysics(),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                toolbarHeight: 28,
+                pinned: false,
+                shadowColor: Colors.transparent,
+                backgroundColor: Theme.of(context).backgroundColor,
+                bottom: TabBar(
+                  indicatorColor: Colors.transparent,
+                  labelColor: Theme.of(context).shadowColor,
+                  unselectedLabelColor: Theme.of(context).primaryColor,
+                  physics: BouncingScrollPhysics(),
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  isScrollable: true,
+                  tabs: [
+                    Text("Favourite"),
+                    Text("Trending"),
+                    Text("Custom1"),
+                    Text("Custom2"),
+                    Text("Custom3"),
+                  ],
+                  labelStyle: Theme.of(context).textTheme.headline1,
+                  unselectedLabelStyle: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(
+                          color: Theme.of(context).primaryColor, fontSize: 24),
                 ),
-              ]
-            : [SliverToBoxAdapter(child: SizedBox())]),
-        buildTitle(context, "Trending"),
-        buildGrid(
-          context,
-          CryptoCurrency.presets
-              .sorted((a, b) => a.changePercents.compareTo(b.changePercents))
-              .reversed
-              .toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget buildTitle(BuildContext context, String text) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.only(left: 16, top: 32),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.headline1,
+              ),
+            ];
+          },
+          body: TabBarView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              buildGrid(context, UserDataProvider.instance.favourites),
+              buildGrid(
+                  context,
+                  CryptoCurrency.presets.sorted(
+                    (a, b) => -a.changePercents.compareTo(b.changePercents),
+                  )),
+              buildGrid(context, []),
+              buildGrid(context, []),
+              buildGrid(context, []),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget buildGrid(BuildContext context, List<CryptoCurrency> currencyList) {
-    return SliverPadding(
-      padding: EdgeInsets.all(16.0),
-      sliver: SliverGrid(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) => FutureBuilder<CryptoCurrency>(
-            future: NetworkProvider.instance.fetchCurrency(currencyList[index]),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return AnimatedContainer(
-                  curve: Curves.easeInBack,
-                  duration: Duration(milliseconds: 600),
-                  child: CryptoCard(
-                    currency: snapshot.data!,
-                    onItemTapCallback: onItemTapCallback,
-                    onFavouriteTapCallback: onFavouriteTapCallback,
-                  ),
-                );
-              }
+    return CustomScrollView(
+      physics: BouncingScrollPhysics(),
+      slivers: [
+        SliverPadding(
+          padding: EdgeInsets.all(16.0),
+          sliver: SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => FutureBuilder<CryptoCurrency>(
+                future:
+                    NetworkProvider.instance.fetchCurrency(currencyList[index]),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return AnimatedContainer(
+                      curve: Curves.easeInBack,
+                      duration: Duration(milliseconds: 600),
+                      child: CryptoCard(
+                        currency: snapshot.data!,
+                        onItemTapCallback: onItemTapCallback,
+                        onFavouriteTapCallback: onFavouriteTapCallback,
+                      ),
+                    );
+                  }
 
-              return SkeletonAvatar(
-                style: SkeletonAvatarStyle(
-                  borderRadius: BorderRadius.circular(32),
-                  shape: BoxShape.rectangle,
-                  width: 96,
-                  height: 96,
-                ),
-              );
-            },
+                  return SkeletonAvatar(
+                    style: SkeletonAvatarStyle(
+                      borderRadius: BorderRadius.circular(32),
+                      shape: BoxShape.rectangle,
+                      width: 96,
+                      height: 96,
+                    ),
+                  );
+                },
+              ),
+              childCount: currencyList.length,
+              addAutomaticKeepAlives: true,
+              addSemanticIndexes: false,
+            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 24,
+              crossAxisSpacing: 24,
+            ),
           ),
-          childCount: currencyList.length,
-          addAutomaticKeepAlives: true,
-          addSemanticIndexes: false,
         ),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 24,
-          crossAxisSpacing: 24,
-        ),
-      ),
+      ],
     );
   }
 }

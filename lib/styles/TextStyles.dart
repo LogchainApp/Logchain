@@ -23,6 +23,5 @@ class TextStyles {
   );
 
   static final bold = title.copyWith(fontSize: 18);
-
   static final small = regular.copyWith(fontSize: 13);
 }

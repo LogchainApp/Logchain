@@ -1,12 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:logchain/screens/SearchList.dart';
+import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
+import '../../screens/search_screen.dart';
 import '../../utils/page_routes/fade_page_route.dart';
 
 typedef OnSearchCallback = void Function();
+typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class SearchBar extends StatelessWidget {
   final OnSearchCallback? onSearchCallback;
@@ -47,10 +49,8 @@ class SearchBar extends StatelessWidget {
           onTap: () {
             onSearchCallback?.call();
             Navigator.of(context).push(
-              FadePageRoute(
-                SearchList(onItemTapCallback: onItemTapCallback),
-                context: context
-              ),
+              FadePageRoute(SearchList(onItemTapCallback: onItemTapCallback),
+                  context: context),
             );
           },
         ),
