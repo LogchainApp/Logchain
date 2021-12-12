@@ -1,33 +1,40 @@
-import 'dart:ui';
-
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
+import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/styles/ColorResources.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
+typedef OnFavouriteTapCallback = void Function(CryptoCurrency currency);
 
 class CryptoRow extends StatelessWidget {
   final CryptoCurrency currency;
   final OnItemTapCallback? onItemTapCallback;
+  final OnFavouriteTapCallback? onFavouriteTapCallback;
 
-  CryptoRow({required this.currency, this.onItemTapCallback});
+  CryptoRow({
+    required this.currency,
+    this.onItemTapCallback,
+    this.onFavouriteTapCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var change = (currency.change > 0 ? "+\$" : "-\$") +
+    var change = (currency.change >= 0 ? "+\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
         " (${(currency.change / currency.price * 100).toStringAsFixed(2)}%)";
+
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).shadowColor.withOpacity(0.1),
-              blurRadius: 8,
-              spreadRadius: 0,
-            )
-          ]),
+        color: Theme.of(context).canvasColor,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor.withOpacity(0.1),
+            blurRadius: 8,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
       child: Material(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
@@ -44,7 +51,7 @@ class CryptoRow extends StatelessWidget {
                   SizedBox(width: 16),
                   Expanded(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,6 +67,7 @@ class CryptoRow extends StatelessWidget {
                             ),
                           ],
                         ),
+                        Spacer(),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,6 +87,23 @@ class CryptoRow extends StatelessWidget {
                                         : ColorResources.red,
                                   ),
                             ),
+                          ],
+                        ),
+                        SizedBox(width: 8),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () =>
+                                  onFavouriteTapCallback?.call(currency),
+                              child: Icon(
+                                Icons.star,
+                                color: UserDataProvider.instance
+                                        .isFavourite(currency)
+                                    ? ColorResources.yellow
+                                    : Theme.of(context).primaryColorLight,
+                              ),
+                            )
                           ],
                         ),
                       ],

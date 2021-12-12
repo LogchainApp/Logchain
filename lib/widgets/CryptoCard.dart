@@ -20,9 +20,10 @@ class CryptoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var change = (currency.change > 0 ? "+\$" : "-\$") +
+    var change = (currency.change >= 0 ? "+\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
         " (${(currency.change / currency.price * 100).toStringAsFixed(2)}%)";
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).canvasColor,
@@ -63,6 +64,7 @@ class CryptoCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      SizedBox(height: 4),
                       Image.network(currency.pictureLink,
                           width: 48, height: 48),
                       Text(
@@ -85,6 +87,7 @@ class CryptoCard extends StatelessWidget {
                                   : ColorResources.red,
                             ),
                       ),
+                      SizedBox(height: 4),
                     ],
                   ),
                 ),

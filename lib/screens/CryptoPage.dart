@@ -18,7 +18,7 @@ class CryptoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var change = (currency.change > 0 ? "+\$" : "-\$") +
+    var change = (currency.change >= 0 ? "+\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
         " (${(currency.change / currency.price * 100).toStringAsFixed(2)}%)";
     return Container(
@@ -117,7 +117,7 @@ class CryptoPage extends StatelessWidget {
               );
             },
             child: Text("compare")
-          )
+          ),
         ],
       ),
     );
