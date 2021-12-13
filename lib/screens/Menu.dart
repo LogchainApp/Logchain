@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logchain/models/currency.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/MenuItem.dart';
 import 'package:logchain/widgets/MenuButton.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'about.dart';
 
@@ -28,7 +28,7 @@ class _MenuState extends State<Menu> {
     this.isNightModeOn = _themeProvider.getTheme == dark;
 
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Column(
         children: [
           Row(
@@ -72,15 +72,19 @@ class _MenuState extends State<Menu> {
             ],
           ),
           SizedBox(height: 16),
-          MenuButton(icon: Icons.data_usage, title: "Data Usage", onPressed: () {
-
-          }),
-          MenuButton(icon: Icons.info_outlined, title: "About", onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+          MenuButton(
+              icon: Icons.data_usage, title: "Data Usage", onPressed: () {}),
+          MenuButton(
+            icon: Icons.info_outlined,
+            title: "About",
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
                   return About();
-            }));
-          })
+                }),
+              );
+            },
+          )
         ],
       ),
     );

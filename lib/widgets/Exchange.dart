@@ -37,35 +37,41 @@ class Exchange extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   color: Theme.of(context).primaryColorLight,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          autofocus: false,
-                          style: Theme.of(context).textTheme.headline6,
-                          onChanged: (String value) {
-                            double? doubleValue = double.tryParse(value);
-                            if (doubleValue != null) {
-                              onFirstValueChanged?.call(doubleValue);
-                            } else if (value == "") {
-                              onFirstValueChanged?.call(1);
-                            }
-                          },
-                          cursorColor: Theme.of(context).primaryColor,
-                          decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: InputBorder.none,
-                            hintText: "1"
-                          ))),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      autofocus: false,
+                      style: Theme.of(context).textTheme.headline6,
+                      onChanged: (String value) {
+                        double? doubleValue = double.tryParse(value);
+                        if (doubleValue != null) {
+                          onFirstValueChanged?.call(doubleValue);
+                        } else if (value == "") {
+                          onFirstValueChanged?.call(1);
+                        }
+                      },
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: InputDecoration(
+                        focusColor: Theme.of(context).primaryColor,
+                        border: InputBorder.none,
+                        hintText: "1",
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.all(16), child: Icon(Icons.arrow_right)),
+                padding: EdgeInsets.all(16),
+                child: Icon(Icons.arrow_right),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(secondValue.toStringAsFixed(FRACTION_DIGITS),
-                      style: Theme.of(context).textTheme.headline6,
-                      maxLines: 1),
+                  child: Text(
+                    secondValue.toStringAsFixed(FRACTION_DIGITS),
+                    style: Theme.of(context).textTheme.headline6,
+                    maxLines: 1,
+                  ),
                 ),
               ),
             ],
@@ -89,24 +95,27 @@ class Exchange extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                   color: Theme.of(context).primaryColorLight,
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: TextFormField(
-                          autofocus: false,
-                          style: Theme.of(context).textTheme.headline6,
-                          onChanged: (String value) {
-                            double? doubleValue = double.tryParse(value);
-                            if (doubleValue != null) {
-                              onSecondValueChanged?.call(doubleValue);
-                            } else if (value == "") {
-                              onSecondValueChanged?.call(1);
-                            }
-                          },
-                          cursorColor: Theme.of(context).primaryColor,
-                          decoration: InputDecoration(
-                            focusColor: Theme.of(context).primaryColor,
-                            border: InputBorder.none,
-                            hintText: "1"
-                          ))),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      autofocus: false,
+                      style: Theme.of(context).textTheme.headline6,
+                      onChanged: (String value) {
+                        double? doubleValue = double.tryParse(value);
+                        if (doubleValue != null) {
+                          onSecondValueChanged?.call(doubleValue);
+                        } else if (value == "") {
+                          onSecondValueChanged?.call(1);
+                        }
+                      },
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: InputDecoration(
+                        focusColor: Theme.of(context).primaryColor,
+                        border: InputBorder.none,
+                        hintText: "1",
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

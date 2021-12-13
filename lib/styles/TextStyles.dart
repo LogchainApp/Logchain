@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logchain/styles/ColorResources.dart';
 
 class TextStyles {
+  // maybe Heebo
   static const fontFamily = 'Inter';
 
   static final title = GoogleFonts.getFont(

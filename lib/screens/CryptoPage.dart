@@ -1,9 +1,9 @@
-import 'dart:ui';
-
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
+import 'package:logchain/screens/search_screen.dart';
 import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/utils/extensions.dart';
+import 'package:logchain/utils/page_routes/fade_page_route.dart';
+import 'package:logchain/widgets/MenuButton.dart';
 import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
 
@@ -103,20 +103,32 @@ class CryptoPage extends StatelessWidget {
           Container(height: 64, child: PeriodPicker()),
           Divider(),
           GestureDetector(
-            onTap: () {
-              CryptoCurrency cryptoCurrencyFirst = CryptoCurrency.presets.shuffled().first;
-              CryptoCurrency cryptoCurrencySecond = CryptoCurrency.presets.shuffled().first;
-              BottomDialog.show(
-                  context,
-                  title: Text("Compare"),
-                  body: Compare(
-                      cryptoCurrencyLeft: cryptoCurrencyFirst,
-                      cryptoCurrencyRight: cryptoCurrencySecond
+            onTap: () {},
+            child: MenuButton(
+              icon: Icons.sync_alt,
+              title: "Compare",
+              onPressed: () {
+                Navigator.of(context).push(
+                  FadePageRoute(
+                    SearchList(
+                      hintText: "Compare with ${currency.symbol}",
+                      onItemTapCallback: (other) {
+                        BottomDialog.show(
+                          context,
+                          title: Text("Compare"),
+                          body: Compare(
+                            cryptoCurrencyLeft: currency,
+                            cryptoCurrencyRight: other,
+                          ),
+                          height: 0.8,
+                        );
+                      },
+                    ),
+                    context: context,
                   ),
-                height: 0.6,
-              );
-            },
-            child: Text("compare")
+                );
+              },
+            ),
           ),
         ],
       ),

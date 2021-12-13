@@ -8,6 +8,7 @@ import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/utils/extensions.dart';
 import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/CustomAppBar.dart';
+import 'package:cupertino_back_gesture/cupertino_back_gesture.dart';
 import 'package:provider/provider.dart';
 import 'network/network_provider.dart';
 import 'package:skeletons/skeletons.dart';
@@ -40,12 +41,15 @@ class MyApp extends StatelessWidget {
             themeMode: context.watch<ThemeProvider>().getTheme == dark
                 ? ThemeMode.dark
                 : ThemeMode.light,
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Logchain',
-              theme: context.watch<ThemeProvider>().getTheme,
-              darkTheme: dark,
-              home: MainPage(title: 'Logchain'),
+            child: BackGestureWidthTheme(
+              backGestureWidth: BackGestureWidth.fraction(1 / 2),
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Logchain',
+                theme: context.watch<ThemeProvider>().getTheme,
+                darkTheme: dark,
+                home: MainPage(title: 'Logchain'),
+              ),
             ),
           );
         },
