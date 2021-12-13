@@ -9,12 +9,18 @@ import '../widgets/CryptoCard.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 typedef OnFavouriteTapCallback = void Function(CryptoCurrency currency);
+typedef OnLongPressCallback = void Function(CryptoCurrency currency);
 
 class MainGrid extends StatelessWidget {
   final OnItemTapCallback? onItemTapCallback;
   final OnFavouriteTapCallback? onFavouriteTapCallback;
+  final OnLongPressCallback? onLongPressCallback;
 
-  MainGrid({this.onItemTapCallback, this.onFavouriteTapCallback});
+  MainGrid({
+    this.onItemTapCallback,
+    this.onFavouriteTapCallback,
+    this.onLongPressCallback
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +102,7 @@ class MainGrid extends StatelessWidget {
                         currency: snapshot.data!,
                         onItemTapCallback: onItemTapCallback,
                         onFavouriteTapCallback: onFavouriteTapCallback,
+                        onLongPressCallback: onLongPressCallback,
                       ),
                     );
                   }

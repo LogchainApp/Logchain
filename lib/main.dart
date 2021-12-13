@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
+import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
+import 'package:logchain/screens/actions_menu.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/utils/extensions.dart';
 import 'package:logchain/widgets/ui_components/BottomDialog.dart';
@@ -77,6 +79,27 @@ class _MainPageState extends State<MainPage> {
     super.initState();
   }
 
+  void onFavouritesTapped(CryptoCurrency currency) {
+    setState(() {
+      UserDataProvider.instance.isFavourite(currency)
+          ? UserDataProvider.instance.removeFromFavourite(currency)
+          : UserDataProvider.instance.addToFavourite(currency);
+    });
+  }
+
+  void showDetails(CryptoCurrency currency) {
+    setState(() {
+      BottomDialog.show(
+        context,
+        title: Text(
+          "${currency.name} (${currency.symbol})",
+        ),
+        body: CryptoPage(currency: currency),
+        height: 0.8,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,22 +140,36 @@ class _MainPageState extends State<MainPage> {
                 decoration:
                     BoxDecoration(color: Theme.of(context).backgroundColor),
                 child: MainGrid(
-                  onItemTapCallback: (currency) {
-                    BottomDialog.show(
-                      context,
-                      title: Text(
-                        "${currency.name} (${currency.symbol})",
-                      ),
-                      body: CryptoPage(currency: currency),
-                      height: 0.8,
-                    );
-                  },
+                  onItemTapCallback: (currency) => showDetails(currency),
                   onFavouriteTapCallback: (currency) {
+                    onFavouritesTapped(currency);
+                  },
+                  onLongPressCallback: (currency) {
                     setState(() {
-                      UserDataProvider.instance.isFavourite(currency)
-                          ? UserDataProvider.instance
-                              .removeFromFavourite(currency)
-                          : UserDataProvider.instance.addToFavourite(currency);
+                      BottomDialog.show(
+                          context,
+                          // title: Text("Actions"),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Actions"),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: Image.network(currency.pictureLink, width: 44, height: 44),
+                              )
+                            ],
+                          ),
+                          body: ActionsMenu(
+                              cryptoCurrency: currency,
+                              onFavouriteTapCallback: (currency) {
+                                onFavouritesTapped(currency);
+                              },
+                              onShowDetailsCallback: (currency) {
+                                showDetails(currency);
+                              }
+                          ),
+                            height: 0.35
+                        );
                     });
                   },
                 ),
