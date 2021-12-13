@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/TextStyles.dart';
 
+import '../../network/network_provider.dart';
 import '../../screens/search_screen.dart';
 import '../../utils/page_routes/fade_page_route.dart';
 
@@ -50,7 +51,10 @@ class SearchBar extends StatelessWidget {
             onSearchCallback?.call();
             Navigator.of(context).push(
               FadePageRoute(
-                SearchList(onItemTapCallback: onItemTapCallback),
+                SearchList(
+                  data: NetworkProvider.instance.fetchPrices(),
+                  onItemTapCallback: onItemTapCallback,
+                ),
                 context: context,
               ),
             );

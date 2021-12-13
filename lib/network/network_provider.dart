@@ -20,8 +20,8 @@ class NetworkProvider {
   List<CryptoCurrency> get currencyList => CryptoCurrency.presets
       .map((e) => _savedData.containsKey(e.symbol)
           ? e.copyWith(
-              price: _savedData[e.id]!.price,
-              changePercents: _savedData[e.id]!.changePercents,
+              price: _savedData[e.id]?.price ?? 0,
+              changePercents: _savedData[e.id]?.changePercents ?? 0,
             )
           : e)
       .toList();
@@ -55,11 +55,9 @@ class NetworkProvider {
     Map<String, CoingeckoDao> decoded = (response.data as Map<String, dynamic>)
         .map((key, value) => MapEntry(key, CoingeckoDao.fromJson(value)));
 
-    print(response.realUri);
-
     _savedData = decoded.map(
       (key, value) => MapEntry(
-        key,
+        CryptoCurrency.byId(key).symbol,
         CryptoCurrency.byId(key).copyWith(
           price: value.usd,
           changePercents: value.usd24hChange,
