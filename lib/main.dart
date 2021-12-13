@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
+import 'package:logchain/network/network_provider.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
@@ -10,7 +11,6 @@ import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/CustomAppBar.dart';
 import 'package:cupertino_back_gesture/cupertino_back_gesture.dart';
 import 'package:provider/provider.dart';
-import 'network/network_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'screens/CryptoPage.dart';
 import 'styles/themes.dart';
@@ -117,12 +117,11 @@ class _MainPageState extends State<MainPage> {
                 decoration:
                     BoxDecoration(color: Theme.of(context).backgroundColor),
                 child: MainGrid(
+                  data: NetworkProvider.instance.fetchPrices(),
                   onItemTapCallback: (currency) {
                     BottomDialog.show(
                       context,
-                      title: Text(
-                        "${currency.name} (${currency.symbol})",
-                      ),
+                      title: Text("${currency.name} (${currency.symbol})"),
                       body: CryptoPage(currency: currency),
                       height: 0.8,
                     );

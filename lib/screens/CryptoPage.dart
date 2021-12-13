@@ -10,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:skeletons/skeletons.dart';
 
+import '../network/network_provider.dart';
 import '../providers/UserDataProvider.dart';
 import 'Compare.dart';
 
@@ -154,6 +155,7 @@ class _CryptoPageState extends State<CryptoPage> {
               Navigator.of(context).push(
                 FadePageRoute(
                   SearchList(
+                    data: NetworkProvider.instance.fetchPrices(),
                     hintText: "Compare ${widget.currency.symbol} with...",
                     onItemTapCallback: (other) {
                       BottomDialog.show(

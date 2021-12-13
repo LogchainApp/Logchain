@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:logchain/models/crypto_currency.dart';
 
 class CompareCrypto extends StatelessWidget {
@@ -12,7 +13,27 @@ class CompareCrypto extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Image.network(currency.pictureLink, width: 48, height: 48),
+          CachedNetworkImage(
+            width: 48,
+            height: 48,
+            imageBuilder: (context, imageProvider) =>
+                Image(image: imageProvider),
+            imageUrl: currency.pictureLink,
+            placeholder: (context, url) => SkeletonAvatar(
+              style: SkeletonAvatarStyle(
+                shape: BoxShape.circle,
+                width: 48,
+                height: 48,
+              ),
+            ),
+            errorWidget: (context, url, error) => SkeletonAvatar(
+              style: SkeletonAvatarStyle(
+                shape: BoxShape.circle,
+                width: 48,
+                height: 48,
+              ),
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             currency.symbol,
