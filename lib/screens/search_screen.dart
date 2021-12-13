@@ -6,6 +6,7 @@ import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/styles/TextStyles.dart';
 import 'package:logchain/utils/extensions.dart';
 
+import 'package:skeletons/skeletons.dart';
 import '../widgets/CryptoRow.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
@@ -93,7 +94,7 @@ class _SearchListState extends State<SearchList> {
                   ),
                 ),
               ),
-              SizedBox(width: 16),
+              SizedBox(width: 4),
               TextButton(
                 style: ButtonStyle(
                   overlayColor: MaterialStateColor.resolveWith(
@@ -102,7 +103,10 @@ class _SearchListState extends State<SearchList> {
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   "Cancel",
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontSize: 14),
                 ),
               )
             ],
@@ -114,56 +118,58 @@ class _SearchListState extends State<SearchList> {
         backgroundColor: Theme.of(context).backgroundColor,
         automaticallyImplyLeading: false,
       ),
-      body: ListView.separated(
+      body: CustomScrollView(
         physics: BouncingScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              bottom: (index + 1 == widget.currencyList.length ? 16 : 0),
-              top: 16,
-            ),
-            child: FutureBuilder<CryptoCurrency>(
-              future: NetworkProvider.instance
-                  .fetchCurrency(widget.currencyList[index]),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return CryptoRow(
-                    currency: snapshot.data!,
-                    onItemTapCallback: widget.onItemTapCallback,
-                    onFavouriteTapCallback: (currency) {
-                      setState(() {
-                        UserDataProvider.instance.isFavourite(currency)
-                            ? UserDataProvider.instance
-                            .removeFromFavourite(currency)
-                            : UserDataProvider.instance
-                            .addToFavourite(currency);
-                      });
-                    },
-                  );
+        slivers: [
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                if (index == widget.currencyList.length) {
+                  return SizedBox(height: 48);
                 }
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    bottom: (index + 1 == widget.currencyList.length ? 16 : 0),
+                    top: 16,
+                  ),
+                  child: FutureBuilder<CryptoCurrency>(
+                    future: NetworkProvider.instance
+                        .fetchCurrency(widget.currencyList[index]),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return CryptoRow(
+                          currency: snapshot.data!,
+                          onItemTapCallback: widget.onItemTapCallback,
+                          onFavouriteTapCallback: (currency) {
+                            setState(() {
+                              UserDataProvider.instance.isFavourite(currency)
+                                  ? UserDataProvider.instance
+                                      .removeFromFavourite(currency)
+                                  : UserDataProvider.instance
+                                      .addToFavourite(currency);
+                            });
+                          },
+                        );
+                      }
 
-                return CryptoRow(
-                  currency: widget.currencyList[index],
-                  onItemTapCallback: widget.onItemTapCallback,
-                  onFavouriteTapCallback: (currency) {
-                    setState(() {
-                      UserDataProvider.instance.isFavourite(currency)
-                          ? UserDataProvider.instance
-                          .removeFromFavourite(currency)
-                          : UserDataProvider.instance
-                          .addToFavourite(currency);
-                    });
-                  },
+                      return SkeletonAvatar(
+                        style: SkeletonAvatarStyle(
+                          borderRadius: BorderRadius.circular(16),
+                          shape: BoxShape.rectangle,
+                          height: 56,
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
+              childCount: widget.currencyList.length + 1,
+              addAutomaticKeepAlives: true,
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) =>
-            SizedBox(height: 0),
-        itemCount: widget.currencyList.length,
+          )
+        ],
       ),
     );
   }

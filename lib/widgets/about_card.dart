@@ -4,22 +4,16 @@ class AboutBlock {
   final String title;
   final List<String> about;
 
-  AboutBlock({
-    required this.title,
-    required this.about
-  }) {
-
-  }
+  AboutBlock({required this.title, required this.about}) {}
 
   static List<AboutBlock> Defaults = [
     AboutBlock(title: "Version", about: ["0.0.1"]),
-    AboutBlock(title: "Developers",
-        about: [
-          "Bogdan Lukin",
-          "Egor Baranov",
-          "Ilya Zakoulov",
-          "Konstantin Fedotov"
-        ]),
+    AboutBlock(title: "Developers", about: [
+      "Bogdan Lukin",
+      "Egor Baranov",
+      "Ilya Zakoulov",
+      "Konstantin Fedotov"
+    ]),
     AboutBlock(title: "Send Feedback", about: ["github.com/Logchain"]),
     AboutBlock(title: "Made Using", about: ["Flutter in Sirius"]),
   ];
@@ -45,9 +39,10 @@ class AboutCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(16)),
               boxShadow: [
                 BoxShadow(
-                    color: Theme.of(context).shadowColor.withOpacity(0.1),
-                    spreadRadius: 0,
-                    blurRadius: 4)
+                  color: Theme.of(context).shadowColor.withOpacity(0.1),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                )
               ],
             ),
             child: Padding(

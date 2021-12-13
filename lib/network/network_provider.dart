@@ -17,6 +17,15 @@ class NetworkProvider {
 
   late Map<String, CryptoCurrency> _savedData = {};
 
+  List<CryptoCurrency> get currencyList => CryptoCurrency.presets
+      .map((e) => _savedData.containsKey(e.symbol)
+          ? e.copyWith(
+              price: _savedData[e.id]!.price,
+              changePercents: _savedData[e.id]!.changePercents,
+            )
+          : e)
+      .toList();
+
   NetworkProvider._({required dio, required userDataProvider})
       : this._dio = dio,
         this._userDataProvider = userDataProvider;
