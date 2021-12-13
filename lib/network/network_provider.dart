@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:dio/dio.dart';
+import 'package:logchain/models/currency.dart';
+import 'package:logchain/models/period.dart';
 
 import '../models/dao/coingecko_dao.dart';
 import '../providers/UserDataProvider.dart';
@@ -78,5 +80,25 @@ class NetworkProvider {
       price: _savedData[currency.id]!.price,
       changePercents: _savedData[currency.id]!.changePercents,
     );
+  }
+
+  Future<List<double>> fetchMarketChart({
+    required CryptoCurrency cryptoCurrency,
+    required Currency currency,
+    int days = 1,
+    String dataInterval = "hourly"
+  }) async {
+    var response = await _dio.get(
+        '/coins/${cryptoCurrency.id}/market_chart',
+        queryParameters: {
+          'vs_currency': currency.apiId,
+          'days': days,
+          'interval': dataInterval
+        }
+    );
+
+    return response.data['prices'].map((data) {
+      return data[1];
+    });
   }
 }
