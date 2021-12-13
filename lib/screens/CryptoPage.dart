@@ -6,21 +6,29 @@ import 'package:logchain/utils/page_routes/fade_page_route.dart';
 import 'package:logchain/widgets/MenuButton.dart';
 import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:skeletons/skeletons.dart';
 
+import '../providers/UserDataProvider.dart';
 import 'Compare.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
-class CryptoPage extends StatelessWidget {
+class CryptoPage extends StatefulWidget {
   final CryptoCurrency currency;
 
   CryptoPage({required this.currency});
 
   @override
+  State<CryptoPage> createState() => _CryptoPageState();
+}
+
+class _CryptoPageState extends State<CryptoPage> {
+  @override
   Widget build(BuildContext context) {
-    var change = (currency.change >= 0 ? "+\$" : "-\$") +
-        currency.change.abs().toStringAsFixed(2) +
-        " (${(currency.change / currency.price * 100).toStringAsFixed(2)}%)";
+    var change = (widget.currency.change >= 0 ? "+\$" : "-\$") +
+        widget.currency.change.abs().toStringAsFixed(2) +
+        " (${(widget.currency.change / widget.currency.price * 100).toStringAsFixed(2)}%)";
     return Container(
       height: 596,
       child: Column(
@@ -32,7 +40,27 @@ class CryptoPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network(currency.pictureLink, width: 64, height: 64),
+                  CachedNetworkImage(
+                    width: 64,
+                    height: 64,
+                    imageBuilder: (context, imageProvider) =>
+                        Image(image: imageProvider),
+                    imageUrl: widget.currency.pictureLink,
+                    placeholder: (context, url) => SkeletonAvatar(
+                      style: SkeletonAvatarStyle(
+                        shape: BoxShape.circle,
+                        width: 64,
+                        height: 64,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => SkeletonAvatar(
+                      style: SkeletonAvatarStyle(
+                        shape: BoxShape.circle,
+                        width: 64,
+                        height: 64,
+                      ),
+                    ),
+                  ),
                   SizedBox(width: 24),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +89,7 @@ class CryptoPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "\$${currency.price.toStringAsFixed(2)}",
+                              "\$${widget.currency.price.toStringAsFixed(2)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -76,7 +104,7 @@ class CryptoPage extends StatelessWidget {
                                   .textTheme
                                   .bodyText2!
                                   .copyWith(
-                                    color: currency.change >= 0
+                                    color: widget.currency.change >= 0
                                         ? ColorResources.green
                                         : ColorResources.red,
                                   ),
@@ -102,33 +130,46 @@ class CryptoPage extends StatelessWidget {
           ),
           Container(height: 64, child: PeriodPicker()),
           Divider(),
-          GestureDetector(
-            onTap: () {},
-            child: MenuButton(
-              icon: Icons.sync_alt,
-              title: "Compare",
-              onPressed: () {
-                Navigator.of(context).push(
-                  FadePageRoute(
-                    SearchList(
-                      hintText: "Compare with ${currency.symbol}",
-                      onItemTapCallback: (other) {
-                        BottomDialog.show(
-                          context,
-                          title: Text("Compare"),
-                          body: Compare(
-                            cryptoCurrencyLeft: currency,
-                            cryptoCurrencyRight: other,
-                          ),
-                          height: 0.8,
-                        );
-                      },
-                    ),
-                    context: context,
+          MenuButton(
+            icon: UserDataProvider.instance.isFavourite(widget.currency)
+                ? Icons.star_border_rounded
+                : Icons.star_rounded,
+            title: UserDataProvider.instance.isFavourite(widget.currency)
+                ? "Remove from favourites"
+                : "Add to favourites",
+            onPressed: () {
+              setState(() {
+                UserDataProvider.instance.isFavourite(widget.currency)
+                    ? UserDataProvider.instance
+                        .removeFromFavourite(widget.currency)
+                    : UserDataProvider.instance.addToFavourite(widget.currency);
+              });
+            },
+          ),
+          MenuButton(
+            icon: Icons.sync_alt,
+            title: "Compare",
+            onPressed: () {
+              Navigator.of(context).push(
+                FadePageRoute(
+                  SearchList(
+                    hintText: "Compare ${widget.currency.symbol} with...",
+                    onItemTapCallback: (other) {
+                      BottomDialog.show(
+                        context,
+                        title: Text("Compare"),
+                        body: Compare(
+                          cryptoCurrencyLeft: widget.currency,
+                          cryptoCurrencyRight: other,
+                        ),
+                        height: 0.8,
+                      );
+                    },
                   ),
-                );
-              },
-            ),
+                  context: context,
+                ),
+              );
+            },
           ),
         ],
       ),

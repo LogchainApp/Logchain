@@ -12,13 +12,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  cached_network_image: ^3.2.0
+  candlesticks: ^1.1.1
   flutter_launcher_icons: ^0.9.2
   flutter_native_splash: 1.2.3
   google_fonts: ^2.1.0

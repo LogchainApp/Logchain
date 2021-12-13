@@ -74,7 +74,7 @@ class CustomAppBar extends StatelessWidget {
                       context,
                       title: Text("Menu"),
                       body: Menu(),
-                      height: 0.5,
+                      height: 0.55,
                     );
                   },
                 ),

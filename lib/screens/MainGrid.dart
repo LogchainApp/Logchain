@@ -20,7 +20,7 @@ class MainGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 1,
-      length: 5,
+      length: 2,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: NestedScrollView(
@@ -43,9 +43,6 @@ class MainGrid extends StatelessWidget {
                   tabs: [
                     Text("Favourite"),
                     Text("Trending"),
-                    Text("Custom1"),
-                    Text("Custom2"),
-                    Text("Custom3"),
                   ],
                   labelStyle: Theme.of(context).textTheme.headline1,
                   unselectedLabelStyle: Theme.of(context)
@@ -62,13 +59,11 @@ class MainGrid extends StatelessWidget {
             children: [
               buildGrid(context, UserDataProvider.instance.favourites),
               buildGrid(
-                  context,
-                  CryptoCurrency.presets.sorted(
-                    (a, b) => -a.changePercents.compareTo(b.changePercents),
-                  )),
-              buildGrid(context, []),
-              buildGrid(context, []),
-              buildGrid(context, []),
+                context,
+                NetworkProvider.instance.currencyList.sorted(
+                  (a, b) => -a.changePercents.compareTo(b.changePercents),
+                ),
+              ),
             ],
           ),
         ),

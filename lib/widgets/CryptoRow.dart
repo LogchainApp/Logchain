@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/styles/ColorResources.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:skeletons/skeletons.dart';
+
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 typedef OnFavouriteTapCallback = void Function(CryptoCurrency currency);
 
@@ -47,7 +50,27 @@ class CryptoRow extends StatelessWidget {
             child: Center(
               child: Row(
                 children: [
-                  Image.network(currency.pictureLink, width: 36, height: 36),
+                  CachedNetworkImage(
+                    width: 36,
+                    height: 48,
+                    imageBuilder: (context, imageProvider) =>
+                        Image(image: imageProvider),
+                    imageUrl: currency.pictureLink,
+                    placeholder: (context, url) => SkeletonAvatar(
+                      style: SkeletonAvatarStyle(
+                        shape: BoxShape.circle,
+                        width: 36,
+                        height: 36,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => SkeletonAvatar(
+                      style: SkeletonAvatarStyle(
+                        shape: BoxShape.circle,
+                        width: 36,
+                        height: 36,
+                      ),
+                    ),
+                  ),
                   SizedBox(width: 16),
                   Expanded(
                     child: Row(
@@ -97,7 +120,9 @@ class CryptoRow extends StatelessWidget {
                               onTap: () =>
                                   onFavouriteTapCallback?.call(currency),
                               child: Icon(
-                                Icons.star,
+                                UserDataProvider.instance.isFavourite(currency)
+                                    ? Icons.star_rounded
+                                    : Icons.star_border_rounded,
                                 color: UserDataProvider.instance
                                         .isFavourite(currency)
                                     ? ColorResources.yellow

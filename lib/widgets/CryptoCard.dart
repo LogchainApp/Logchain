@@ -2,6 +2,8 @@ import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
 
+import 'package:skeletons/skeletons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/UserDataProvider.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
@@ -52,7 +54,9 @@ class CryptoCard extends StatelessWidget {
                     GestureDetector(
                       onTap: () => onFavouriteTapCallback?.call(currency),
                       child: Icon(
-                        Icons.star,
+                        UserDataProvider.instance.isFavourite(currency)
+                            ? Icons.star_rounded
+                            : Icons.star_border_rounded,
                         color: UserDataProvider.instance.isFavourite(currency)
                             ? ColorResources.yellow
                             : Theme.of(context).primaryColorLight,
@@ -65,8 +69,27 @@ class CryptoCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(height: 4),
-                      Image.network(currency.pictureLink,
-                          width: 48, height: 48),
+                      CachedNetworkImage(
+                        width: 48,
+                        height: 48,
+                        imageBuilder: (context, imageProvider) =>
+                            Image(image: imageProvider),
+                        imageUrl: currency.pictureLink,
+                        placeholder: (context, url) => SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            shape: BoxShape.circle,
+                            width: 48,
+                            height: 48,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            shape: BoxShape.circle,
+                            width: 48,
+                            height: 48,
+                          ),
+                        ),
+                      ),
                       Text(
                         currency.symbol,
                         style: Theme.of(context).textTheme.headline6,

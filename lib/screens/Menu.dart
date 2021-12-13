@@ -28,9 +28,10 @@ class _MenuState extends State<Menu> {
     this.isNightModeOn = _themeProvider.getTheme == dark;
 
     return Padding(
-      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
+      padding: EdgeInsets.all(16),
       child: Column(
         children: [
+          Spacer(),
           Row(
             children: [
               MenuItem(
@@ -71,9 +72,13 @@ class _MenuState extends State<Menu> {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          Spacer(),
           MenuButton(
-              icon: Icons.data_usage, title: "Data Usage", onPressed: () {}),
+            icon: Icons.folder_outlined,
+            title: "Folders",
+            onPressed: () {},
+          ),
+          Spacer(),
           MenuButton(
             icon: Icons.info_outlined,
             title: "About",
