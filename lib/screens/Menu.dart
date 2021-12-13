@@ -28,7 +28,7 @@ class _MenuState extends State<Menu> {
     this.isNightModeOn = _themeProvider.getTheme == dark;
 
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Column(
         children: [
           Spacer(),

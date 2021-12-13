@@ -8,8 +8,12 @@ import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../network/network_provider.dart';
+import '../providers/UserDataProvider.dart';
 import '../providers/UserDataProvider.dart';
 import 'Compare.dart';
 
@@ -173,6 +177,13 @@ class _CryptoPageState extends State<CryptoPage> {
               );
             },
           ),
+          MenuButton(
+            icon: Icons.share,
+            title: "Share",
+            onPressed: () {
+              Share.share('https://www.coingecko.com/en/coins/${widget.currency.id}');
+            },
+          )
         ],
       ),
     );
