@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget {
                 flex: 5,
                 fit: FlexFit.tight,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: EdgeInsets.only(left: 16),
                   child: SearchBar(
                     onItemTapCallback: (currency) {
                       BottomDialog.show(
@@ -54,7 +54,7 @@ class CustomAppBar extends StatelessWidget {
                           "${currency.name} (${currency.symbol})",
                         ),
                         body: CryptoPage(currency: currency),
-                        height: 0.6,
+                        height: 0.8,
                       );
                     },
                   ),
@@ -74,7 +74,7 @@ class CustomAppBar extends StatelessWidget {
                       context,
                       title: Text("Menu"),
                       body: Menu(),
-                      height: 0.55,
+                      height: 0.5,
                     );
                   },
                 ),

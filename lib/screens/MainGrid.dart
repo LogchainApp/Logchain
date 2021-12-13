@@ -33,11 +33,12 @@ class MainGrid extends StatelessWidget {
                 shadowColor: Colors.transparent,
                 backgroundColor: Theme.of(context).backgroundColor,
                 bottom: TabBar(
+                  overlayColor: MaterialStateColor.resolveWith(
+                      (states) => Colors.transparent),
                   indicatorColor: Colors.transparent,
                   labelColor: Theme.of(context).shadowColor,
                   unselectedLabelColor: Theme.of(context).primaryColor,
                   physics: BouncingScrollPhysics(),
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
                   isScrollable: true,
                   tabs: [
                     Text("Favourite"),

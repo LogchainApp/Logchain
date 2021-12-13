@@ -3,8 +3,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'TextStyles.dart';
+import 'package:cupertino_back_gesture/cupertino_back_gesture.dart';
 
 final light = ThemeData(
+  pageTransitionsTheme: PageTransitionsTheme(
+    builders: {
+      TargetPlatform.android: CupertinoPageTransitionsBuilderCustomBackGestureWidth(),
+      TargetPlatform.iOS:
+          CupertinoPageTransitionsBuilderCustomBackGestureWidth(),
+    },
+  ),
   brightness: Brightness.light,
   visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
   shadowColor: ColorResources.black,
@@ -23,6 +31,13 @@ final light = ThemeData(
 );
 
 final dark = ThemeData(
+  pageTransitionsTheme: PageTransitionsTheme(
+    builders: {
+      TargetPlatform.android: CupertinoPageTransitionsBuilderCustomBackGestureWidth(),
+      TargetPlatform.iOS:
+          CupertinoPageTransitionsBuilderCustomBackGestureWidth(),
+    },
+  ),
   brightness: Brightness.dark,
   visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
   shadowColor: ColorResources.white,

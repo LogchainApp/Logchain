@@ -6,27 +6,6 @@ import 'package:logchain/widgets/CompareRow.dart';
 import 'package:logchain/widgets/Exchange.dart';
 import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
 
-class _CustomScrollBehavior extends MaterialScrollBehavior {
-
-  ScrollPhysics getScrollPhysics(BuildContext context) {
-    return _CustomScrollPhysics(parent: BouncingScrollPhysics());
-  }
-}
-
-class _CustomScrollPhysics extends ScrollPhysics {
-  _CustomScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
-  @override
-  double applyBoundaryConditions(ScrollMetrics position, double value) {
-    final parent = this.parent;
-    if (parent == null)
-      return 0.0;
-
-    if (value < position.pixels && position.pixels <= position.minScrollExtent) // underscroll
-      return value - position.pixels;
-    return parent.applyBoundaryConditions(position, value);
-  }
-}
-
 class Compare extends StatefulWidget {
   final CryptoCurrency cryptoCurrencyLeft;
   final CryptoCurrency cryptoCurrencyRight;
@@ -45,7 +24,6 @@ class Compare extends StatefulWidget {
 }
 
 class _CompareState extends State<Compare> {
-
   String calcChange(CryptoCurrency currency) {
     return (currency.change > 0 ? "\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
@@ -109,33 +87,21 @@ class _CompareState extends State<Compare> {
               rightValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6)),
           CompareRow(
-              title: "24h High",
+              title: "24h Low",
               leftValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6),
               rightValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6)),
           CompareRow(
-              title: "24h High",
+              title: "24h Average",
               leftValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6),
               rightValue:
                   Text("todo", style: Theme.of(context).textTheme.headline6)),
-          CompareRow(
-              title: "24h High",
-              leftValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6),
-              rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6)),
-          CompareRow(
-            title: "24h Low",
-            leftValue:
-                Text("todo", style: Theme.of(context).textTheme.headline6),
-            rightValue:
-                Text("todo", style: Theme.of(context).textTheme.headline6)
-          ),
           Padding(
             padding: const EdgeInsets.only(top: 0),
-            child: Text("Exchange cryptos", style: Theme.of(context).textTheme.bodyText1),
+            child:
+                Text("Exchange", style: Theme.of(context).textTheme.bodyText1),
           ),
           Exchange(
             firstCryptoCurrency: widget.cryptoCurrencyLeft,
@@ -144,14 +110,20 @@ class _CompareState extends State<Compare> {
             secondValue: widget.exchangeRightValue,
             onFirstValueChanged: (value) {
               setState(() {
-                // this.exchangeLeftValue = value;
-                widget.exchangeRightValue = calcExchange(value, widget.cryptoCurrencyLeft.price, widget.cryptoCurrencyRight.price);
+                widget.exchangeRightValue = calcExchange(
+                  value,
+                  widget.cryptoCurrencyLeft.price,
+                  widget.cryptoCurrencyRight.price,
+                );
               });
             },
             onSecondValueChanged: (value) {
               setState(() {
-                widget.exchangeLeftValue = calcExchange(value, widget.cryptoCurrencyRight.price, widget.cryptoCurrencyLeft.price);
-                // this.exchangeRightValue = value;
+                widget.exchangeLeftValue = calcExchange(
+                  value,
+                  widget.cryptoCurrencyRight.price,
+                  widget.cryptoCurrencyLeft.price,
+                );
               });
             },
           )
