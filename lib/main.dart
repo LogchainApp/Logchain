@@ -18,6 +18,7 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:skeletons/skeletons.dart';
 import 'screens/CryptoPage.dart';
 import 'styles/themes.dart';
+import 'package:candlesticks/candlesticks.dart';
 
 void main() async {
   await NetworkProvider.init();
