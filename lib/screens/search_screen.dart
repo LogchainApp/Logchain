@@ -114,7 +114,8 @@ class _SearchListState extends State<SearchList> {
               TextButton(
                 style: ButtonStyle(
                   overlayColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.transparent),
+                          (states) => Colors.transparent,
+                  ),
                 ),
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(
