@@ -59,8 +59,6 @@ class NetworkProvider {
     Map<String, CoingeckoDao> decoded = (response.data as Map<String, dynamic>)
         .map((key, value) => MapEntry(key, CoingeckoDao.fromJson(value)));
 
-    print(response.realUri);
-
     _savedData = decoded.map(
       (key, value) => MapEntry(
         CryptoCurrency.byId(key).symbol,
