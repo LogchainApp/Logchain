@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/currency.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
-import 'package:logchain/styles/themes.dart';
 import 'package:logchain/widgets/MenuItem.dart';
 import 'package:logchain/widgets/MenuButton.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +16,12 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  bool isNightModeOn = false;
   bool isLiveUpdateOn = false;
   int currentCurrencyIndex = 0;
   List<Currency> currencies = Currency.presets;
 
   @override
   Widget build(BuildContext context) {
-    var _themeProvider = Provider.of<ThemeProvider>(context);
-    this.isNightModeOn = _themeProvider.getTheme == dark;
-
     return Padding(
       padding: EdgeInsets.only(left: 16, right: 16, top: 16),
       child: Column(
@@ -37,14 +32,16 @@ class _MenuState extends State<Menu> {
               MenuItem(
                 icon: Icon(Icons.dark_mode_outlined),
                 title: "Night Mode",
-                subtitle: this.isNightModeOn ? "On" : "Off",
-                isActive: this.isNightModeOn,
+                subtitle: Provider.of<ThemeProvider>(context).isDarkTheme ? "On" : "Off",
+                isActive: Provider.of<ThemeProvider>(context).isDarkTheme,
                 onChanged: () {
                   setState(() {
-                    this.isNightModeOn = !this.isNightModeOn;
-                    _themeProvider.setTheme(
-                      this.isNightModeOn ? dark : light,
-                    );
+                    Provider.of<ThemeProvider>(context, listen: false).switchTheme();
+                    // this.isNightModeOn = !this.isNightModeOn;
+                    // if ()
+                    // _themeProvider.setDarkTheme(
+                    //   this.isNightModeOn ? dark : light,
+                    // );
                   });
                 },
               ),
