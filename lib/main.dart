@@ -104,36 +104,42 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: null,
+      appBar: AppBar(
+        toolbarHeight: 128,
+        automaticallyImplyLeading: false,
+        titleSpacing: 0,
+        backgroundColor: Theme.of(context).backgroundColor,
+        shadowColor: Theme.of(context).shadowColor.withOpacity(0.1),
+        title: CustomAppBar(
+          onPeriodChanged: (period) {
+            setState(() {
+              this.periodType = period.periodType;
+            });
+          },
+          onFilterChangedCallback: (filterType) {
+            setState(() {
+              if (this.filterType == filterType) {
+                if (filterOrder == FilterOrder.Increasing) {
+                  this.filterOrder = FilterOrder.Decreasing;
+                } else {
+                  this.filterOrder == FilterOrder.Increasing;
+                  this.filterType = FilterType.None;
+                }
+              } else {
+                this.filterType = filterType;
+                this.filterOrder = FilterOrder.Increasing;
+              }
+            });
+          },
+          filterType: this.filterType,
+          filterOrder: this.filterOrder,
+          periodType: this.periodType,
+        ),
+      ),
       body: SafeArea(
         bottom: false,
         child: Column(
           children: [
-            CustomAppBar(
-              onPeriodChanged: (period) {
-                setState(() {
-                  this.periodType = period.periodType;
-                });
-              },
-              onFilterChangedCallback: (filterType) {
-                setState(() {
-                  if (this.filterType == filterType) {
-                    if (filterOrder == FilterOrder.Increasing) {
-                      this.filterOrder = FilterOrder.Decreasing;
-                    } else {
-                      this.filterOrder == FilterOrder.Increasing;
-                      this.filterType = FilterType.None;
-                    }
-                  } else {
-                    this.filterType = filterType;
-                    this.filterOrder = FilterOrder.Increasing;
-                  }
-                });
-              },
-              filterType: this.filterType,
-              filterOrder: this.filterOrder,
-              periodType: this.periodType,
-            ),
             Expanded(
               child: Container(
                 decoration:
