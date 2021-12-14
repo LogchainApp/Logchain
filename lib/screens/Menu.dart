@@ -75,7 +75,7 @@ class _MenuState extends State<Menu> {
           Spacer(),
           MenuButton(
             icon: Icons.folder_outlined,
-            title: "Folders",
+            title: "Assets",
             onPressed: () {},
           ),
           Spacer(),
@@ -89,7 +89,8 @@ class _MenuState extends State<Menu> {
                 }),
               );
             },
-          )
+          ),
+          Spacer(),
         ],
       ),
     );

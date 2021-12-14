@@ -11,8 +11,6 @@ import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import '../../screens/Menu.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final String title;
-
   final FilterType filterType;
   final FilterOrder filterOrder;
   final PeriodType periodType;
@@ -20,8 +18,7 @@ class CustomAppBar extends StatelessWidget {
   final PeriodPickerOnChangeCallback? onPeriodChanged;
   final OnFilterChangedCallback? onFilterChangedCallback;
 
-  const CustomAppBar(
-    this.title, {
+  const CustomAppBar({
     this.filterType = FilterType.None,
     this.filterOrder = FilterOrder.Increasing,
     this.periodType = PeriodType.Hours24,
@@ -34,7 +31,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
-      height: 160,
+      height: 128,
       child: Column(
         children: [
           SizedBox(height: 8),
@@ -88,12 +85,12 @@ class CustomAppBar extends StatelessWidget {
               periodType: this.periodType,
             ),
           ),
-          SizedBox(height: 8),
-          FilterWidget(
-            onFilterChangedCallback: onFilterChangedCallback,
-            filterType: this.filterType,
-            filterOrder: this.filterOrder,
-          ),
+          // SizedBox(height: 8),
+          // FilterWidget(
+          //   onFilterChangedCallback: onFilterChangedCallback,
+          //   filterType: this.filterType,
+          //   filterOrder: this.filterOrder,
+          // ),
         ],
       ),
     );

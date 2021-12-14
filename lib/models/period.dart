@@ -6,8 +6,9 @@ import 'package:meta/meta.dart';
 class Period {
   final String label;
   final PeriodType periodType;
+  final int days;
 
-  Period(this.label, this.periodType);
+  Period(this.label, this.periodType, this.days);
 
   factory Period.from(PeriodType periodType) {
     return Period(
@@ -19,6 +20,7 @@ class Period {
         "Month"
       ][PeriodType.values.indexOf(periodType)],
       periodType,
+      [1, 1, 7, 7, 30][PeriodType.values.indexOf(periodType)],
     );
   }
 }

@@ -67,7 +67,12 @@ class MainGrid extends StatelessWidget {
           body: TabBarView(
             physics: BouncingScrollPhysics(),
             children: [
-              buildGrid(context, UserDataProvider.instance.favourites),
+              buildGrid(
+                context,
+                UserDataProvider.instance.favourites.sorted(
+                  (a, b) => -a.changePercents.compareTo(b.changePercents),
+                ),
+              ),
               buildGrid(
                 context,
                 NetworkProvider.instance.currencyList.sorted(
