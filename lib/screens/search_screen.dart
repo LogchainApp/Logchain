@@ -15,17 +15,23 @@ class SearchList extends StatefulWidget {
   final OnItemTapCallback? onItemTapCallback;
   final OnFavouriteTapCallback? onFavouriteTapCallback;
   final String hintText;
+  final CryptoCurrency? excludedCryptoCurrency;
 
-  var currencyList = CryptoCurrency.presets
-      .sorted((p0, p1) => -p0.changePercents.compareTo(p1.changePercents))
-      .toList();
+  late List<CryptoCurrency> currencyList;
 
   SearchList({
     required this.data,
     this.onItemTapCallback,
     this.onFavouriteTapCallback,
     this.hintText = "Search crypto",
-  });
+    this.excludedCryptoCurrency = null,
+  }) {
+    currencyList = CryptoCurrency.presets
+        .where((element) => element.id != excludedCryptoCurrency?.id)
+        .toList()
+        .sorted((p0, p1) => -p0.changePercents.compareTo(p1.changePercents))
+        .toList();
+  }
 
   @override
   State<SearchList> createState() => _SearchListState();
@@ -68,7 +74,7 @@ class _SearchListState extends State<SearchList> {
                                     element.symbol,
                                   ) >=
                                       text.length / 2,
-                            )
+                            ).where((element) => element.id != widget.excludedCryptoCurrency?.id)
                                 .toList()
                                 .sorted(
                                   (p0, p1) =>
