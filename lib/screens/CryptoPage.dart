@@ -157,6 +157,7 @@ class _CryptoPageState extends State<CryptoPage> {
                   SearchList(
                     data: NetworkProvider.instance.fetchPrices(),
                     hintText: "Compare ${widget.currency.symbol} with...",
+                    excludedCryptoCurrency: widget.currency,
                     onItemTapCallback: (other) {
                       BottomDialog.show(
                         context,
