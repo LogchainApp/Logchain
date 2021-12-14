@@ -11,16 +11,19 @@ import '../widgets/CryptoCard.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 typedef OnFavouriteTapCallback = void Function(CryptoCurrency currency);
+typedef OnLongPressCallback = void Function(CryptoCurrency currency);
 
 class MainGrid extends StatelessWidget {
   final Future<Map<String, CryptoCurrency>> data;
   final OnItemTapCallback? onItemTapCallback;
   final OnFavouriteTapCallback? onFavouriteTapCallback;
+  final OnLongPressCallback? onLongPressCallback;
 
   MainGrid({
     required this.data,
     this.onItemTapCallback,
     this.onFavouriteTapCallback,
+    this.onLongPressCallback
   });
 
   @override
@@ -101,6 +104,7 @@ class MainGrid extends StatelessWidget {
                         ),
                         onItemTapCallback: onItemTapCallback,
                         onFavouriteTapCallback: onFavouriteTapCallback,
+                        onLongPressCallback: onLongPressCallback,
                       ),
                     );
                   }
