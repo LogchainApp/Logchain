@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/network/network_provider.dart';
+import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/screens/MainGrid.dart';
+import 'package:logchain/screens/actions_menu.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/utils/extensions.dart';
 import 'package:logchain/widgets/ui_components/BottomDialog.dart';
@@ -77,69 +79,98 @@ class _MainPageState extends State<MainPage> {
     super.initState();
   }
 
+  void onFavouritesTapped(CryptoCurrency currency) {
+    setState(() {
+      UserDataProvider.instance.isFavourite(currency)
+          ? UserDataProvider.instance.removeFromFavourite(currency)
+          : UserDataProvider.instance.addToFavourite(currency);
+    });
+  }
+
+  void showDetails(CryptoCurrency currency) {
+    setState(() {
+      BottomDialog.show(
+        context,
+        title: Text(
+          "${currency.name} (${currency.symbol})",
+        ),
+        body: CryptoPage(currency: currency),
+        height: 0.8,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        toolbarHeight: 128,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        backgroundColor: Theme.of(context).backgroundColor,
-        shadowColor: Theme.of(context).shadowColor.withOpacity(0.1),
-        title: CustomAppBar(
-          onPeriodChanged: (period) {
-            setState(() {
-              this.periodType = period.periodType;
-            });
-          },
-          onFilterChangedCallback: (filterType) {
-            setState(() {
-              if (this.filterType == filterType) {
-                if (filterOrder == FilterOrder.Increasing) {
-                  this.filterOrder = FilterOrder.Decreasing;
-                } else {
-                  this.filterOrder == FilterOrder.Increasing;
-                  this.filterType = FilterType.None;
-                }
-              } else {
-                this.filterType = filterType;
-                this.filterOrder = FilterOrder.Increasing;
-              }
-            });
-          },
-          filterType: this.filterType,
-          filterOrder: this.filterOrder,
-          periodType: this.periodType,
-        ),
-      ),
+      appBar: null,
       body: SafeArea(
         bottom: false,
         child: Column(
           children: [
+            CustomAppBar(
+              "Logchain",
+              onPeriodChanged: (period) {
+                setState(() {
+                  this.periodType = period.periodType;
+                });
+              },
+              onFilterChangedCallback: (filterType) {
+                setState(() {
+                  if (this.filterType == filterType) {
+                    if (filterOrder == FilterOrder.Increasing) {
+                      this.filterOrder = FilterOrder.Decreasing;
+                    } else {
+                      this.filterOrder == FilterOrder.Increasing;
+                      this.filterType = FilterType.None;
+                    }
+                  } else {
+                    this.filterType = filterType;
+                    this.filterOrder = FilterOrder.Increasing;
+                  }
+                });
+              },
+              filterType: this.filterType,
+              filterOrder: this.filterOrder,
+              periodType: this.periodType,
+            ),
             Expanded(
               child: Container(
                 decoration:
                     BoxDecoration(color: Theme.of(context).backgroundColor),
                 child: MainGrid(
                   data: NetworkProvider.instance.fetchPrices(),
-                  onItemTapCallback: (currency) {
-                    BottomDialog.show(
-                      context,
-                      title: Text("${currency.name} (${currency.symbol})"),
-                      body: CryptoPage(
-                        currency: currency,
-                        periodType: periodType,
-                      ),
-                      height: 0.8,
-                    );
-                  },
+                  onItemTapCallback: (currency) => showDetails(currency),
                   onFavouriteTapCallback: (currency) {
+                    onFavouritesTapped(currency);
+                  },
+                  onLongPressCallback: (currency) {
                     setState(() {
-                      UserDataProvider.instance.isFavourite(currency)
-                          ? UserDataProvider.instance
-                              .removeFromFavourite(currency)
-                          : UserDataProvider.instance.addToFavourite(currency);
+                      BottomDialog.show(
+                          context,
+                          // title: Text("Actions"),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Actions"),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: Image.network(currency.pictureLink, width: 44, height: 44),
+                              )
+                            ],
+                          ),
+                          body: ActionsMenu(
+                              cryptoCurrency: currency,
+                              onFavouriteTapCallback: (currency) {
+                                onFavouritesTapped(currency);
+                              },
+                              onShowDetailsCallback: (currency) {
+                                showDetails(currency);
+                              }
+                          ),
+                            height: 0.35
+                        );
                     });
                   },
                 ),

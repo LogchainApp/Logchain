@@ -1,23 +1,23 @@
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
+import 'package:logchain/screens/MainGrid.dart';
 import 'package:logchain/styles/ColorResources.dart';
 
 import 'package:skeletons/skeletons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/UserDataProvider.dart';
 
-typedef OnItemTapCallback = void Function(CryptoCurrency currency);
-typedef OnFavouriteTapCallback = void Function(CryptoCurrency currency);
-
 class CryptoCard extends StatelessWidget {
   final CryptoCurrency currency;
   final OnItemTapCallback? onItemTapCallback;
   final OnFavouriteTapCallback? onFavouriteTapCallback;
+  final OnLongPressCallback? onLongPressCallback;
 
   CryptoCard({
     required this.currency,
     this.onItemTapCallback,
     this.onFavouriteTapCallback,
+    this.onLongPressCallback
   });
 
   @override
@@ -44,6 +44,7 @@ class CryptoCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(32)),
           splashColor: Colors.transparent,
           onTap: () => onItemTapCallback?.call(currency),
+          onLongPress: () => onLongPressCallback?.call(currency),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(
