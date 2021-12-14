@@ -95,6 +95,7 @@ class MainGrid extends StatelessWidget {
                 future: data,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    print(snapshot.data!.keys);
                     return AnimatedContainer(
                       curve: Curves.easeInBack,
                       duration: Duration(milliseconds: 600),

@@ -59,7 +59,7 @@ class CryptoCard extends StatelessWidget {
                             : Icons.star_border_rounded,
                         color: UserDataProvider.instance.isFavourite(currency)
                             ? ColorResources.yellow
-                            : Theme.of(context).primaryColorLight,
+                            : ColorResources.grey,
                       ),
                     )
                   ],
