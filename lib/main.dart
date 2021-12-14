@@ -110,7 +110,6 @@ class _MainPageState extends State<MainPage> {
         child: Column(
           children: [
             CustomAppBar(
-              "Logchain",
               onPeriodChanged: (period) {
                 setState(() {
                   this.periodType = period.periodType;

@@ -21,7 +21,6 @@ class SearchList extends StatefulWidget {
   var currencyList = NetworkProvider.instance.currencyList
       .sorted((p0, p1) => -p0.changePercents.compareTo(p1.changePercents))
       .toList();
-  late List<CryptoCurrency> currencyList;
 
   SearchList({
     required this.data,
@@ -135,9 +134,6 @@ class _SearchListState extends State<SearchList> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                if (index == widget.currencyList.length) {
-                  return SizedBox(height: 48);
-                }
                 return Padding(
                   padding: EdgeInsets.only(
                     left: 16,
@@ -145,39 +141,41 @@ class _SearchListState extends State<SearchList> {
                     bottom: (index + 1 == widget.currencyList.length ? 16 : 0),
                     top: 16,
                   ),
-                  child: FutureBuilder<Map<String, CryptoCurrency>>(
-                    future: widget.data,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return CryptoRow(
-                          currency: snapshot
-                              .data![widget.currencyList[index].symbol]!,
-                          currency: snapshot.data![widget.currencyList[index].symbol]!,
-                          onItemTapCallback: widget.onItemTapCallback,
-                          onFavouriteTapCallback: (currency) {
-                            setState(() {
-                              UserDataProvider.instance.isFavourite(currency)
-                                  ? UserDataProvider.instance
-                                  .removeFromFavourite(currency)
-                                  : UserDataProvider.instance
-                                  .addToFavourite(currency);
-                            });
-                          },
-                        );
-                      }
+                  child: Container(
+                    height: 64,
+                    child: FutureBuilder<Map<String, CryptoCurrency>>(
+                      future: widget.data,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return CryptoRow(
+                            currency: snapshot
+                                .data![widget.currencyList[index].symbol]!,
+                            onItemTapCallback: widget.onItemTapCallback,
+                            onFavouriteTapCallback: (currency) {
+                              setState(() {
+                                UserDataProvider.instance.isFavourite(currency)
+                                    ? UserDataProvider.instance
+                                    .removeFromFavourite(currency)
+                                    : UserDataProvider.instance
+                                    .addToFavourite(currency);
+                              });
+                            },
+                          );
+                        }
 
-                      return SkeletonAvatar(
-                        style: SkeletonAvatarStyle(
-                          borderRadius: BorderRadius.circular(16),
-                          shape: BoxShape.rectangle,
-                          height: 56,
-                        ),
-                      );
-                    },
+                        return SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            borderRadius: BorderRadius.circular(16),
+                            shape: BoxShape.rectangle,
+                            height: 64,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
               },
-              childCount: widget.currencyList.length + 1,
+              childCount: widget.currencyList.length,
               addAutomaticKeepAlives: true,
             ),
           )

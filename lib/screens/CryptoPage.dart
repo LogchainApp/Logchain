@@ -235,6 +235,7 @@ class _CryptoPageState extends State<CryptoPage> {
                 Navigator.of(context).push(
                   FadePageRoute(
                     SearchList(
+                      excludedCryptoCurrency: widget.currency,
                       data: NetworkProvider.instance.fetchPrices(),
                       hintText: "Compare ${widget.currency.symbol} with...",
                       onItemTapCallback: (other) {
