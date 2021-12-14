@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/network/network_provider.dart';
@@ -152,6 +153,7 @@ class _MainPageState extends State<MainPage> {
                   },
                   onLongPressCallback: (currency) {
                     setState(() {
+                      HapticFeedback.lightImpact();
                       BottomDialog.show(
                           context,
                           // title: Text("Actions"),
