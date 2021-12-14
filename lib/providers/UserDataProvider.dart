@@ -10,23 +10,30 @@ class UserDataProvider {
 
   static late final UserDataProvider _instance;
   final Box<String> _favouritesBox;
-  final Box<CryptoCurrency> _savedDataBox;
+  final _preferencesBox;
 
-  UserDataProvider._({required favouritesBox, required savedDataBox})
+  static const String PREFERENCES_DARK_MODE = "dark_mode";
+
+  UserDataProvider._({
+    required favouritesBox,
+    required preferencesBox,
+  })
       : _favouritesBox = favouritesBox,
-        _savedDataBox = savedDataBox;
+        _preferencesBox = preferencesBox;
 
   static Future<UserDataProvider> init() async {
     await Hive.initFlutter();
     return _instance = UserDataProvider._(
       favouritesBox: await Hive.openBox<String>("favourites"),
-      savedDataBox: await Hive.openBox<CryptoCurrency>("savedData"),
+      preferencesBox: await Hive.openBox("preferences")
     );
   }
 
   List<CryptoCurrency> get favourites => NetworkProvider.instance.currencyList
       .where((it) => _favouritesBox.containsKey(it.symbol))
       .toList();
+
+  bool get isDarkThemeOn => _preferencesBox.get(PREFERENCES_DARK_MODE) ?? false;
 
   bool isFavourite(CryptoCurrency cryptoCurrency) =>
       _favouritesBox.containsKey(cryptoCurrency.symbol);
@@ -45,5 +52,10 @@ class UserDataProvider {
     }
 
     _favouritesBox.delete(cryptoCurrency.symbol);
+  }
+
+  void switchTheme() {
+    print(isDarkThemeOn);
+    _preferencesBox.put(PREFERENCES_DARK_MODE, !isDarkThemeOn);
   }
 }
