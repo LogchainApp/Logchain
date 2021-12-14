@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:injectable/injectable.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:dio/dio.dart';
 import 'package:logchain/models/currency.dart';
-import 'package:logchain/models/period.dart';
+import 'package:interactive_chart/interactive_chart.dart';
 
 import '../models/dao/coingecko_dao.dart';
 import '../providers/UserDataProvider.dart';
@@ -82,23 +84,36 @@ class NetworkProvider {
     );
   }
 
-  Future<List<double>> fetchMarketChart({
+  Future<List<CandleData>> fetchMarketChart({
     required CryptoCurrency cryptoCurrency,
     required Currency currency,
     int days = 1,
-    String dataInterval = "hourly"
+    String dataInterval = "hourly",
   }) async {
     var response = await _dio.get(
-        '/coins/${cryptoCurrency.id}/market_chart',
-        queryParameters: {
-          'vs_currency': currency.apiId,
-          'days': days,
-          'interval': dataInterval
-        }
+      '/coins/${cryptoCurrency.id}/ohlc',
+      queryParameters: {
+        'id': cryptoCurrency.id,
+        'vs_currency': currency.apiId,
+        'days': days,
+      },
+      options: Options(responseType: ResponseType.json),
     );
 
-    return response.data['prices'].map((data) {
-      return data[1];
-    });
+    var result = (response.data as List<dynamic>)
+        .map(
+          (e) => CandleData(
+            timestamp: e[0] as int,
+            open: e[1] as double,
+            high: e[2] as double,
+            low: e[3] as double,
+            close: e[4] as double,
+            volume: Random().nextDouble(),
+          ),
+        )
+        .toList();
+
+    print(response.realUri);
+    return result;
   }
 }

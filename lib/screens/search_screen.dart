@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:logchain/models/crypto_currency.dart';
+import 'package:logchain/network/network_provider.dart';
 import 'package:logchain/providers/UserDataProvider.dart';
 import 'package:logchain/styles/TextStyles.dart';
 import 'package:logchain/utils/extensions.dart';
@@ -16,7 +17,7 @@ class SearchList extends StatefulWidget {
   final OnFavouriteTapCallback? onFavouriteTapCallback;
   final String hintText;
 
-  var currencyList = CryptoCurrency.presets
+  var currencyList = NetworkProvider.instance.currencyList
       .sorted((p0, p1) => -p0.changePercents.compareTo(p1.changePercents))
       .toList();
 
@@ -35,9 +36,7 @@ class _SearchListState extends State<SearchList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Container(
           height: 40,
@@ -51,60 +50,48 @@ class _SearchListState extends State<SearchList> {
                     height: 40,
                     child: Material(
                       borderRadius: BorderRadius.circular(16),
-                      color: Theme
-                          .of(context)
-                          .primaryColorLight,
+                      color: Theme.of(context).primaryColorLight,
                       child: TextFormField(
                         onChanged: (text) {
                           setState(() {
-                            widget.currencyList = CryptoCurrency.presets
+                            widget.currencyList = NetworkProvider
+                                .instance.currencyList
                                 .where(
                                   (element) =>
-                              text.toLowerCase().maxCommonSubsequence(
-                                element.name.toLowerCase(),
-                              ) >=
-                                  text.length / 2 ||
-                                  text.toUpperCase().maxCommonSubsequence(
-                                    element.symbol,
-                                  ) >=
-                                      text.length / 2,
-                            )
+                                      text.toLowerCase().maxCommonSubsequence(
+                                                element.name.toLowerCase(),
+                                              ) >=
+                                          text.length / 2 ||
+                                      text.toUpperCase().maxCommonSubsequence(
+                                                element.symbol,
+                                              ) >=
+                                          text.length / 2,
+                                )
                                 .toList()
                                 .sorted(
-                                  (p0, p1) =>
-                              -p0.changePercents
-                                  .compareTo(p1.changePercents),
-                            );
+                                  (p0, p1) => -p0.changePercents
+                                      .compareTo(p1.changePercents),
+                                );
                           });
                         },
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyles.regular,
                         autofocus: false,
-                        cursorColor: Theme
-                            .of(context)
-                            .primaryColor,
+                        cursorColor: Theme.of(context).primaryColor,
                         decoration: InputDecoration(
                           hintText: widget.hintText,
-                          fillColor: Theme
-                              .of(context)
-                              .primaryColorLight,
-                          focusColor: Theme
-                              .of(context)
-                              .primaryColor,
+                          fillColor: Theme.of(context).primaryColorLight,
+                          focusColor: Theme.of(context).primaryColor,
                           prefixIcon: Icon(
                             Icons.search,
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                           border: InputBorder.none,
                         ),
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: Theme
-                          .of(context)
-                          .primaryColorLight,
+                      color: Theme.of(context).primaryColorLight,
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
@@ -114,30 +101,23 @@ class _SearchListState extends State<SearchList> {
               TextButton(
                 style: ButtonStyle(
                   overlayColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.transparent),
+                      (states) => Colors.transparent),
                 ),
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text(
                   "Cancel",
-                  style: Theme
-                      .of(context)
+                  style: Theme.of(context)
                       .textTheme
-                      .headline6!
-                      .copyWith(fontSize: 14),
+                      .headline6!,
                 ),
               )
             ],
           ),
         ),
-        shadowColor: Theme
-            .of(context)
-            .shadowColor
-            .withOpacity(0.1),
+        shadowColor: Theme.of(context).shadowColor.withOpacity(0.1),
         elevation: 16,
         toolbarHeight: 80,
-        backgroundColor: Theme
-            .of(context)
-            .backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         automaticallyImplyLeading: false,
       ),
       body: CustomScrollView(
@@ -145,7 +125,7 @@ class _SearchListState extends State<SearchList> {
         slivers: [
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
+              (BuildContext context, int index) {
                 if (index == widget.currencyList.length) {
                   return SizedBox(height: 48);
                 }
@@ -161,15 +141,16 @@ class _SearchListState extends State<SearchList> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return CryptoRow(
-                          currency: snapshot.data![widget.currencyList[index].symbol]!,
+                          currency: snapshot
+                              .data![widget.currencyList[index].symbol]!,
                           onItemTapCallback: widget.onItemTapCallback,
                           onFavouriteTapCallback: (currency) {
                             setState(() {
                               UserDataProvider.instance.isFavourite(currency)
                                   ? UserDataProvider.instance
-                                  .removeFromFavourite(currency)
+                                      .removeFromFavourite(currency)
                                   : UserDataProvider.instance
-                                  .addToFavourite(currency);
+                                      .addToFavourite(currency);
                             });
                           },
                         );

@@ -387,6 +387,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
+  interactive_chart:
+    dependency: "direct dev"
+    description:
+      name: interactive_chart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   io:
     dependency: transitive
     description:

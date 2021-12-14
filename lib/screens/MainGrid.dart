@@ -64,7 +64,12 @@ class MainGrid extends StatelessWidget {
           body: TabBarView(
             physics: BouncingScrollPhysics(),
             children: [
-              buildGrid(context, UserDataProvider.instance.favourites),
+              buildGrid(
+                context,
+                UserDataProvider.instance.favourites.sorted(
+                  (a, b) => -a.changePercents.compareTo(b.changePercents),
+                ),
+              ),
               buildGrid(
                 context,
                 NetworkProvider.instance.currencyList.sorted(
@@ -90,7 +95,6 @@ class MainGrid extends StatelessWidget {
                 future: data,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    print(snapshot.data!.keys);
                     return AnimatedContainer(
                       curve: Curves.easeInBack,
                       duration: Duration(milliseconds: 600),
