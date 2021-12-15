@@ -64,12 +64,12 @@ class MenuItem extends StatelessWidget {
             Text(
               this.title,
               style:
-                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 16),
+                  Theme.of(context).textTheme.headline6!.copyWith(fontSize: 14),
             ),
             Text(
               this.subtitle,
               style:
-                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14),
+                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 12),
             )
           ],
         ),
