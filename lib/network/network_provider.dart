@@ -14,6 +14,7 @@ class NetworkProvider {
   static NetworkProvider get instance => _instance;
 
   static String baseUrl = "https://api.coingecko.com/api/v3";
+  static String etherscanApiKey = "4ISPC3AVM2WVYXA9CITT749CT6YY8RTX46";
 
   static late NetworkProvider _instance;
   late final Dio _dio;
