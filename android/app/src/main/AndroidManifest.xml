@@ -2,6 +2,7 @@
           package="com.logchain.logchain.logchain">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:label="Logchain"
