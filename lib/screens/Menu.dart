@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/currency.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
+import 'package:logchain/screens/request_token.dart';
 import 'package:logchain/widgets/MenuItem.dart';
 import 'package:logchain/widgets/MenuButton.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'about.dart';
+import 'assets.dart';
 
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);
@@ -32,11 +33,14 @@ class _MenuState extends State<Menu> {
               MenuItem(
                 icon: Icon(Icons.dark_mode_outlined),
                 title: "Night Mode",
-                subtitle: Provider.of<ThemeProvider>(context).isDarkTheme ? "On" : "Off",
+                subtitle: Provider.of<ThemeProvider>(context).isDarkTheme
+                    ? "On"
+                    : "Off",
                 isActive: Provider.of<ThemeProvider>(context).isDarkTheme,
                 onChanged: () {
                   setState(() {
-                    Provider.of<ThemeProvider>(context, listen: false).switchTheme();
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .switchTheme();
                     // this.isNightModeOn = !this.isNightModeOn;
                     // if ()
                     // _themeProvider.setDarkTheme(
@@ -73,7 +77,25 @@ class _MenuState extends State<Menu> {
           MenuButton(
             icon: Icons.folder_outlined,
             title: "Assets",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return Assets();
+                }),
+              );
+            },
+          ),
+          Spacer(),
+          MenuButton(
+            icon: Icons.add_box_outlined,
+            title: "Request Token",
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (BuildContext context) {
+                  return RequestToken();
+                }),
+              );
+            },
           ),
           Spacer(),
           MenuButton(
