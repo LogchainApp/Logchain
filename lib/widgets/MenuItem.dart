@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:logchain/styles/ColorResources.dart';
 
 class MenuItem extends StatelessWidget {
   final Widget icon;
@@ -7,6 +8,7 @@ class MenuItem extends StatelessWidget {
   final String subtitle;
   final VoidCallback onChanged;
   final bool isActive;
+  final bool alwaysLight;
 
   const MenuItem(
       {required this.icon,
@@ -14,6 +16,7 @@ class MenuItem extends StatelessWidget {
       required this.subtitle,
       required this.isActive,
       required this.onChanged,
+      this.alwaysLight = false,
       Key? key})
       : super(key: key);
 
@@ -38,15 +41,19 @@ class MenuItem extends StatelessWidget {
                           spreadRadius: 0,
                           blurRadius: 4),
                     ],
-                    color: this.isActive
-                        ? Theme.of(context).primaryColorDark
-                        : Theme.of(context).canvasColor,
+                    color: alwaysLight ? ColorResources.white : (
+                        this.isActive
+                            ? Theme.of(context).primaryColorDark
+                            : Theme.of(context).canvasColor
+                    ),
                   ),
                   child: IconTheme.merge(
                     data: IconThemeData(
-                      color: this.isActive
+                      color: alwaysLight ? ColorResources.black : (
+                        this.isActive
                           ? Theme.of(context).primaryColorLight
-                          : Theme.of(context).primaryColorDark,
+                          : Theme.of(context).primaryColorDark
+                      ),
                     ),
                     child: this.icon,
                   ),
