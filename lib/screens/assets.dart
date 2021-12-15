@@ -56,9 +56,7 @@ class Assets extends StatelessWidget {
                           SizedBox(height: 8),
                           Text(
                             "Manage all your assets from one place.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1,
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ],
                       ),

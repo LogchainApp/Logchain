@@ -123,10 +123,9 @@ class CryptoRow extends StatelessWidget {
                                 UserDataProvider.instance.isFavourite(currency)
                                     ? Icons.star_rounded
                                     : Icons.star_border_rounded,
-                                color: UserDataProvider.instance
-                                        .isFavourite(currency)
-                                    ? ColorResources.yellow
-                                    : Theme.of(context).primaryColorLight,
+                                  color: UserDataProvider.instance.isFavourite(currency)
+                                      ? ColorResources.yellow
+                                      : ColorResources.grey,
                               ),
                             )
                           ],

@@ -66,6 +66,7 @@ class NetworkProvider {
         CryptoCurrency.byId(key).copyWith(
           price: value.usd,
           changePercents: value.usd24hChange,
+          volume: value.usd24hVolume,
         ),
       ),
     );
@@ -87,7 +88,6 @@ class NetworkProvider {
     required CryptoCurrency cryptoCurrency,
     required Currency currency,
     int days = 1,
-    String dataInterval = "hourly",
   }) async {
     var response = await _dio.get(
       '/coins/${cryptoCurrency.id}/ohlc',
@@ -107,12 +107,27 @@ class NetworkProvider {
             high: e[2] as double,
             low: e[3] as double,
             close: e[4] as double,
-            volume: Random().nextDouble(),
+            volume: Random().nextDouble() *
+                (_savedData[cryptoCurrency.symbol]?.volume ?? 1),
           ),
         )
         .toList();
 
     print(response.realUri);
+    return result;
+  }
+
+  Future<Map<String, CandleData>> fetchMultipleDailyChanges({
+    required List<CryptoCurrency> cryptoCurrencyList,
+    required Currency currency,
+  }) async {
+    var result = Map<String, CandleData>();
+    for(var c in cryptoCurrencyList) {
+      await fetchMarketChart(cryptoCurrency: c, currency: currency, days: 365)
+          .then((value) => result[c.symbol] = value.last);
+    }
+
+    print(result);
     return result;
   }
 }

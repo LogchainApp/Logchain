@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/src/iterable_extensions.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/models/crypto_currency.dart';
@@ -162,7 +164,9 @@ class _CryptoPageState extends State<CryptoPage> {
                                       ),
                                 ),
                                 Text(
-                                  "2.60B",
+                                  (widget.currency.volume.toInt() / pow(10, 9))
+                                          .toStringAsFixed(2) +
+                                      "B",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!

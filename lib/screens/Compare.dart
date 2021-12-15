@@ -1,10 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:interactive_chart/interactive_chart.dart';
+
 import 'package:logchain/models/crypto_currency.dart';
+import 'package:logchain/models/currency.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'package:logchain/widgets/CompareCrypto.dart';
 import 'package:logchain/widgets/CompareRow.dart';
 import 'package:logchain/widgets/Exchange.dart';
 import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
+
+import '../network/network_provider.dart';
 
 class Compare extends StatefulWidget {
   final CryptoCurrency cryptoCurrencyLeft;
@@ -55,49 +62,107 @@ class _CompareState extends State<Compare> {
             child: Container(child: PeriodPicker(), height: 80),
           ),
           CompareRow(
-              title: "Price",
-              leftValue: Text("\$${widget.cryptoCurrencyLeft.price}",
-                  style: Theme.of(context).textTheme.headline6),
-              rightValue: Text("\$${widget.cryptoCurrencyRight.price}",
-                  style: Theme.of(context).textTheme.headline6)),
+            title: "Price",
+            leftValue: Text("\$${widget.cryptoCurrencyLeft.price}",
+                style: Theme.of(context).textTheme.headline6),
+            rightValue: Text("\$${widget.cryptoCurrencyRight.price}",
+                style: Theme.of(context).textTheme.headline6),
+          ),
           CompareRow(
-              title: "Change",
-              leftValue: Text("${changeLeft}",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: widget.cryptoCurrencyLeft.change >= 0
-                            ? ColorResources.green
-                            : ColorResources.red,
-                      )),
-              rightValue: Text("${changeRight}",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: widget.cryptoCurrencyRight.change >= 0
-                            ? ColorResources.green
-                            : ColorResources.red,
-                      ))),
+            title: "Change",
+            leftValue: Text(
+              "${changeLeft}",
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: widget.cryptoCurrencyLeft.change >= 0
+                        ? ColorResources.green
+                        : ColorResources.red,
+                  ),
+            ),
+            rightValue: Text(
+              "${changeRight}",
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: widget.cryptoCurrencyRight.change >= 0
+                        ? ColorResources.green
+                        : ColorResources.red,
+                  ),
+            ),
+          ),
           CompareRow(
-              title: "Volume (USDT)",
-              leftValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6),
-              rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6)),
-          CompareRow(
-              title: "24h High",
-              leftValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6),
-              rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6)),
-          CompareRow(
-              title: "24h Low",
-              leftValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6),
-              rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6)),
-          CompareRow(
-              title: "24h Average",
-              leftValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6),
-              rightValue:
-                  Text("todo", style: Theme.of(context).textTheme.headline6)),
+            title: "Volume (USDT)",
+            leftValue: Text(
+              (widget.cryptoCurrencyLeft.volume.toInt() / pow(10, 9))
+                      .toStringAsFixed(2) +
+                  "B",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            rightValue: Text(
+              (widget.cryptoCurrencyRight.volume.toInt() / pow(10, 9))
+                      .toStringAsFixed(2) +
+                  "B",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          FutureBuilder<Map<String, CandleData>>(
+              future: NetworkProvider.instance.fetchMultipleDailyChanges(
+                cryptoCurrencyList: [
+                  widget.cryptoCurrencyLeft,
+                  widget.cryptoCurrencyRight,
+                ],
+                currency: Currency.usd,
+              ),
+              builder: (context, snapshot) {
+                var leftData = snapshot.hasData
+                        ? snapshot.data![widget.cryptoCurrencyLeft.symbol]
+                        : null,
+                    rightData = snapshot.hasData
+                        ? snapshot.data![widget.cryptoCurrencyRight.symbol]
+                        : null;
+
+                print(leftData);
+                return Column(
+                  children: [
+                    CompareRow(
+                      title: "24h High",
+                      leftValue: Text(
+                        leftData?.high?.toString() ?? "0.00",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      rightValue: Text(
+                        rightData?.high?.toString() ?? "0.00",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                    CompareRow(
+                      title: "24h Low",
+                      leftValue: Text(
+                        leftData?.low?.toString() ?? "0.00",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      rightValue: Text(
+                        rightData?.low?.toString() ?? "0.00",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                    CompareRow(
+                      title: "24h Average",
+                      leftValue: Text(
+                        leftData != null
+                            ? ((leftData.low! + leftData.high!) / 2)
+                                .toStringAsFixed(2)
+                            : "0.00",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      rightValue: Text(
+                        rightData != null
+                            ? ((rightData.low! + rightData.high!) / 2)
+                            .toStringAsFixed(2)
+                            : "0.00",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                  ],
+                );
+              }),
           Padding(
             padding: const EdgeInsets.only(top: 0),
             child:
