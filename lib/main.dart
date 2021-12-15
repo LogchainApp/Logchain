@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:logchain/models/FilterType.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/network/network_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/providers/ThemeProvider.dart';
 import 'package:logchain/providers/UserDataProvider.dart';
@@ -14,6 +14,7 @@ import 'package:logchain/widgets/ui_components/BottomDialog.dart';
 import 'package:logchain/widgets/ui_components/CustomAppBar.dart';
 import 'package:cupertino_back_gesture/cupertino_back_gesture.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:skeletons/skeletons.dart';
 import 'screens/CryptoPage.dart';
 import 'styles/themes.dart';
@@ -95,7 +96,7 @@ class _MainPageState extends State<MainPage> {
         title: Text(
           "${currency.name} (${currency.symbol})",
         ),
-        body: CryptoPage(currency: currency),
+        body: CryptoPage(currency: currency, periodType: periodType),
         height: 0.8,
       );
     });
@@ -104,6 +105,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 128,
@@ -143,8 +145,9 @@ class _MainPageState extends State<MainPage> {
           children: [
             Expanded(
               child: Container(
-                decoration:
-                    BoxDecoration(color: Theme.of(context).backgroundColor),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                ),
                 child: MainGrid(
                   data: NetworkProvider.instance.fetchPrices(),
                   onItemTapCallback: (currency) => showDetails(currency),
@@ -153,31 +156,51 @@ class _MainPageState extends State<MainPage> {
                   },
                   onLongPressCallback: (currency) {
                     setState(() {
-                      HapticFeedback.lightImpact();
+                      Vibrate.feedback(FeedbackType.medium);
                       BottomDialog.show(
-                          context,
-                          // title: Text("Actions"),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Actions"),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 16),
-                                child: Image.network(currency.pictureLink, width: 44, height: 44),
-                              )
-                            ],
-                          ),
-                          body: ActionsMenu(
-                              cryptoCurrency: currency,
-                              onFavouriteTapCallback: (currency) {
-                                onFavouritesTapped(currency);
-                              },
-                              onShowDetailsCallback: (currency) {
-                                showDetails(currency);
-                              }
-                          ),
-                            height: 0.35
-                        );
+                        context,
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Actions"),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: CachedNetworkImage(
+                                width: 36,
+                                height: 36,
+                                imageBuilder: (context, imageProvider) =>
+                                    Image(image: imageProvider),
+                                imageUrl: currency.pictureLink,
+                                placeholder: (context, url) => SkeletonAvatar(
+                                  style: SkeletonAvatarStyle(
+                                    shape: BoxShape.circle,
+                                    width: 36,
+                                    height: 36,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    SkeletonAvatar(
+                                  style: SkeletonAvatarStyle(
+                                    shape: BoxShape.circle,
+                                    width: 36,
+                                    height: 36,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        body: ActionsMenu(
+                          cryptoCurrency: currency,
+                          onFavouriteTapCallback: (currency) {
+                            onFavouritesTapped(currency);
+                          },
+                          onShowDetailsCallback: (currency) {
+                            showDetails(currency);
+                          },
+                        ),
+                        height: 0.35,
+                      );
                     });
                   },
                 ),
