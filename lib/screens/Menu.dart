@@ -37,15 +37,10 @@ class _MenuState extends State<Menu> {
                     ? "On"
                     : "Off",
                 isActive: Provider.of<ThemeProvider>(context).isDarkTheme,
+                alwaysLight: true,
                 onChanged: () {
                   setState(() {
-                    Provider.of<ThemeProvider>(context, listen: false)
-                        .switchTheme();
-                    // this.isNightModeOn = !this.isNightModeOn;
-                    // if ()
-                    // _themeProvider.setDarkTheme(
-                    //   this.isNightModeOn ? dark : light,
-                    // );
+                    Provider.of<ThemeProvider>(context, listen: false).switchTheme();
                   });
                 },
               ),
