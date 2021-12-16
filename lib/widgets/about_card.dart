@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 
-class AboutBlock {
+class TextBlock {
   final String title;
-  final List<String> about;
+  final List<String> body;
 
-  AboutBlock({required this.title, required this.about}) {}
+  TextBlock({required this.title, required this.body});
 
-  static List<AboutBlock> Defaults = [
-    AboutBlock(title: "Version", about: ["0.0.1"]),
-    AboutBlock(title: "Developers", about: [
+  static List<TextBlock> Defaults = [
+    TextBlock(title: "Version", body: ["0.0.1"]),
+    TextBlock(title: "Developers", body: [
       "Bogdan Lukin",
       "Egor Baranov",
       "Ilya Zakoulov",
       "Konstantin Fedotov"
     ]),
-    AboutBlock(title: "Send Feedback", about: ["github.com/Logchain"]),
-    AboutBlock(title: "Made Using", about: ["Flutter in Sirius"]),
+    TextBlock(title: "Send Feedback", body: ["github.com/Logchain"]),
+    TextBlock(title: "Made Using", body: ["Flutter in Sirius"]),
   ];
 }
 
-class AboutCard extends StatelessWidget {
-  final AboutBlock aboutBlock;
+class TextCard extends StatelessWidget {
+  final TextBlock textBlock;
 
-  const AboutCard({
-    required this.aboutBlock,
+  const TextCard({
+    required this.textBlock,
     Key? key,
   }) : super(key: key);
 
@@ -50,10 +50,10 @@ class AboutCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(aboutBlock.title,
+                  Text(textBlock.title,
                       style: Theme.of(context).textTheme.headline6),
                   SizedBox(height: 8),
-                  Text(aboutBlock.about.join("\n"),
+                  Text(textBlock.body.join("\n"),
                       style: Theme.of(context).textTheme.bodyText1)
                 ],
               ),

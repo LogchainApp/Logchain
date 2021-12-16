@@ -52,7 +52,7 @@ class CryptoRow extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     width: 36,
-                    height: 48,
+                    height: 36,
                     imageBuilder: (context, imageProvider) =>
                         Image(image: imageProvider),
                     imageUrl: currency.pictureLink,

@@ -71,7 +71,7 @@ class CustomAppBar extends StatelessWidget {
                       context,
                       title: Text("Menu"),
                       body: Menu(),
-                      height: 0.5,
+                      height: 0.64,
                     );
                   },
                 ),
@@ -85,12 +85,6 @@ class CustomAppBar extends StatelessWidget {
               periodType: this.periodType,
             ),
           ),
-          // SizedBox(height: 8),
-          // FilterWidget(
-          //   onFilterChangedCallback: onFilterChangedCallback,
-          //   filterType: this.filterType,
-          //   filterOrder: this.filterOrder,
-          // ),
         ],
       ),
     );
