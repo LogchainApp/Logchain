@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logchain/widgets/MenuButton.dart';
+import 'package:logchain/widgets/menu_button.dart';
 import '../widgets/about_card.dart';
 
 class About extends StatelessWidget {

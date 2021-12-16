@@ -7,7 +7,7 @@ import 'package:logchain/models/currency.dart';
 import 'package:interactive_chart/interactive_chart.dart';
 
 import '../models/dao/coingecko_dao.dart';
-import '../providers/UserDataProvider.dart';
+import '../providers/user_data_provider.dart';
 
 @singleton
 class NetworkProvider {
@@ -18,7 +18,6 @@ class NetworkProvider {
 
   static late NetworkProvider _instance;
   late final Dio _dio;
-  late final UserDataProvider _userDataProvider;
 
   late Map<String, CryptoCurrency> _savedData = {};
 
@@ -32,8 +31,7 @@ class NetworkProvider {
       .toList();
 
   NetworkProvider._({required dio, required userDataProvider})
-      : this._dio = dio,
-        this._userDataProvider = userDataProvider;
+      : this._dio = dio;
 
   static Future<NetworkProvider> init() async {
     return _instance = NetworkProvider._(

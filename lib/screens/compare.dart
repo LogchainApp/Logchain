@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/widgets/CompareCrypto.dart';
-import 'package:logchain/widgets/CompareRow.dart';
-import 'package:logchain/widgets/Exchange.dart';
-import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
+import 'package:logchain/styles/color_resources.dart';
+import 'package:logchain/widgets/compare_crypto.dart';
+import 'package:logchain/widgets/compare_row.dart';
+import 'package:logchain/widgets/cxchange.dart';
+import 'package:logchain/widgets/ui_components/period_picker.dart';
 
 class Compare extends StatefulWidget {
   final CryptoCurrency cryptoCurrencyLeft;
   final CryptoCurrency cryptoCurrencyRight;
-
-  late double exchangeLeftValue = cryptoCurrencyRight.price;
-  late double exchangeRightValue = cryptoCurrencyLeft.price;
 
   Compare(
       {required this.cryptoCurrencyLeft,
@@ -24,6 +21,17 @@ class Compare extends StatefulWidget {
 }
 
 class _CompareState extends State<Compare> {
+  late double exchangeLeftValue;
+  late double exchangeRightValue;
+
+  @override
+  void initState() {
+    super.initState();
+    exchangeLeftValue = widget.cryptoCurrencyRight.price;
+    exchangeRightValue = widget.cryptoCurrencyLeft.price;
+  }
+
+
   String calcChange(CryptoCurrency currency) {
     return (currency.change > 0 ? "\$" : "-\$") +
         currency.change.abs().toStringAsFixed(2) +
@@ -106,11 +114,11 @@ class _CompareState extends State<Compare> {
           Exchange(
             firstCryptoCurrency: widget.cryptoCurrencyLeft,
             secondCryptoCurrency: widget.cryptoCurrencyRight,
-            firstValue: widget.exchangeLeftValue,
-            secondValue: widget.exchangeRightValue,
+            firstValue: exchangeLeftValue,
+            secondValue: exchangeRightValue,
             onFirstValueChanged: (value) {
               setState(() {
-                widget.exchangeRightValue = calcExchange(
+                exchangeRightValue = calcExchange(
                   value,
                   widget.cryptoCurrencyLeft.price,
                   widget.cryptoCurrencyRight.price,
@@ -119,7 +127,7 @@ class _CompareState extends State<Compare> {
             },
             onSecondValueChanged: (value) {
               setState(() {
-                widget.exchangeLeftValue = calcExchange(
+                exchangeLeftValue = calcExchange(
                   value,
                   widget.cryptoCurrencyRight.price,
                   widget.cryptoCurrencyLeft.price,

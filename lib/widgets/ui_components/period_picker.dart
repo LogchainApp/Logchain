@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logchain/models/period.dart';
-import 'package:logchain/models/PeriodType.dart';
-import 'package:logchain/styles/TextStyles.dart';
+import 'package:logchain/models/period_type.dart';
+import 'package:logchain/styles/text_styles.dart';
 
 typedef PeriodPickerOnChangeCallback = Function(Period priod);
 

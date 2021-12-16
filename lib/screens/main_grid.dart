@@ -6,9 +6,9 @@ import 'package:logchain/network/network_provider.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 
-import '../providers/UserDataProvider.dart';
+import '../providers/user_data_provider.dart';
 import '../utils/extensions.dart';
-import '../widgets/CryptoCard.dart';
+import '../widgets/crypto_card.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 typedef OnFavouriteTapCallback = void Function(CryptoCurrency currency);

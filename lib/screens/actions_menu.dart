@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/providers/UserDataProvider.dart';
-import 'package:logchain/widgets/MenuButton.dart';
+import 'package:logchain/providers/user_data_provider.dart';
+import 'package:logchain/widgets/menu_button.dart';
 
-import 'MainGrid.dart';
+import 'main_grid.dart';
 
 typedef OnShowDetailsCallback = void Function(CryptoCurrency currency);
 
