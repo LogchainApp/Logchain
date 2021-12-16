@@ -1,7 +1,7 @@
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
-import 'package:logchain/providers/UserDataProvider.dart';
-import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/providers/user_data_provider.dart';
+import 'package:logchain/styles/color_resources.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:skeletons/skeletons.dart';

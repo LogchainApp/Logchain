@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logchain/widgets/MenuButton.dart';
+import 'package:logchain/widgets/menu_button.dart';
 
 import '../utils/text_formatted/upper_case_text_formatter.dart';
 

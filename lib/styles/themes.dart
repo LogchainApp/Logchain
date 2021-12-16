@@ -1,8 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'TextStyles.dart';
+import 'package:logchain/styles/color_resources.dart';
+import 'text_styles.dart';
 import 'package:cupertino_back_gesture/cupertino_back_gesture.dart';
 
 final light = ThemeData(

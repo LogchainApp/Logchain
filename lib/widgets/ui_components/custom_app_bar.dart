@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:logchain/models/FilterType.dart';
-import 'package:logchain/models/PeriodType.dart';
-import 'package:logchain/screens/CryptoPage.dart';
+import 'package:logchain/models/filter_type.dart';
+import 'package:logchain/models/period_type.dart';
+import 'package:logchain/screens/crypto_page.dart';
 
-import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
-import 'package:logchain/widgets/ui_components/FilterWidget.dart';
-import 'package:logchain/widgets/ui_components/SearchBar.dart';
-import 'package:logchain/widgets/ui_components/BottomDialog.dart';
+import 'package:logchain/widgets/ui_components/period_picker.dart';
+import 'package:logchain/widgets/ui_components/filter_widget.dart';
+import 'package:logchain/widgets/ui_components/search_bar.dart';
+import 'package:logchain/widgets/ui_components/bottom_dialog.dart';
 
-import '../../screens/Menu.dart';
+import '../../screens/menu.dart';
 
 class CustomAppBar extends StatelessWidget {
   final FilterType filterType;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/network/network_provider.dart';
-import 'package:logchain/providers/UserDataProvider.dart';
+import 'package:logchain/providers/user_data_provider.dart';
 import 'package:logchain/screens/search_screen.dart';
 import 'package:logchain/utils/page_routes/fade_page_route.dart';
-import 'package:logchain/widgets/CryptoRow.dart';
-import 'package:logchain/widgets/MenuButton.dart';
+import 'package:logchain/widgets/crypto_row.dart';
+import 'package:logchain/widgets/menu_button.dart';
 import 'package:logchain/widgets/about_card.dart';
 import 'package:skeletons/skeletons.dart';
 

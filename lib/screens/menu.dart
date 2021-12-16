@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/currency.dart';
-import 'package:logchain/providers/ThemeProvider.dart';
+import 'package:logchain/providers/theme_provider.dart';
 import 'package:logchain/screens/request_token.dart';
-import 'package:logchain/widgets/MenuItem.dart';
-import 'package:logchain/widgets/MenuButton.dart';
+import 'package:logchain/widgets/menu_item.dart';
+import 'package:logchain/widgets/menu_button.dart';
 import 'package:provider/provider.dart';
 
 import 'about.dart';

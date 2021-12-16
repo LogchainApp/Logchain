@@ -1,8 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:logchain/models/FilterType.dart';
-import 'package:logchain/styles/TextStyles.dart';
+import 'package:logchain/models/filter_type.dart';
+import 'package:logchain/styles/text_styles.dart';
 
 typedef OnFilterChangedCallback = void Function(FilterType filterType);
 

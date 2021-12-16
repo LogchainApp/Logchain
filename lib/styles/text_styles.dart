@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/styles/color_resources.dart';
 
 class TextStyles {
   // maybe Heebo
