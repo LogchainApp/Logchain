@@ -7,7 +7,7 @@ import 'package:logchain/models/currency.dart';
 import 'package:interactive_chart/interactive_chart.dart';
 
 import '../models/dao/coingecko_dao.dart';
-import '../providers/UserDataProvider.dart';
+import '../providers/user_data_provider.dart';
 
 @singleton
 class NetworkProvider {

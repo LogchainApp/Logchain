@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/styles/ColorResources.dart';
-import 'package:logchain/widgets/CompareCrypto.dart';
-import 'package:logchain/widgets/CompareRow.dart';
-import 'package:logchain/widgets/Exchange.dart';
-import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
+import 'package:logchain/styles/color_resources.dart';
+import 'package:logchain/widgets/compare_crypto.dart';
+import 'package:logchain/widgets/compare_row.dart';
+import 'package:logchain/widgets/cxchange.dart';
+import 'package:logchain/widgets/ui_components/period_picker.dart';
 
 class Compare extends StatefulWidget {
   final CryptoCurrency cryptoCurrencyLeft;

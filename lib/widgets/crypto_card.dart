@@ -1,11 +1,11 @@
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
-import 'package:logchain/screens/MainGrid.dart';
-import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/screens/main_grid.dart';
+import 'package:logchain/styles/color_resources.dart';
 
 import 'package:skeletons/skeletons.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../providers/UserDataProvider.dart';
+import '../providers/user_data_provider.dart';
 
 class CryptoCard extends StatelessWidget {
   final CryptoCurrency currency;

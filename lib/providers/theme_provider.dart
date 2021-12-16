@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logchain/providers/UserDataProvider.dart';
+import 'package:logchain/providers/user_data_provider.dart';
 import 'package:logchain/styles/themes.dart';
 
 class ThemeProvider extends ChangeNotifier {

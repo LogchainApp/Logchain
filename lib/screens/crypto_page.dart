@@ -1,16 +1,16 @@
 import 'package:collection/src/iterable_extensions.dart';
-import 'package:logchain/models/PeriodType.dart';
+import 'package:logchain/models/period_type.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:flutter/material.dart';
 import 'package:logchain/models/currency.dart';
 import 'package:logchain/models/period.dart';
 import 'package:logchain/screens/search_screen.dart';
-import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/styles/color_resources.dart';
 import 'package:logchain/utils/page_routes/fade_page_route.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
-import 'package:logchain/widgets/MenuButton.dart';
-import 'package:logchain/widgets/ui_components/BottomDialog.dart';
-import 'package:logchain/widgets/ui_components/PeriodPicker.dart';
+import 'package:logchain/widgets/menu_button.dart';
+import 'package:logchain/widgets/ui_components/bottom_dialog.dart';
+import 'package:logchain/widgets/ui_components/period_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:interactive_chart/interactive_chart.dart';
@@ -18,8 +18,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../network/network_provider.dart';
-import '../providers/UserDataProvider.dart';
-import 'Compare.dart';
+import '../providers/user_data_provider.dart';
+import 'compare.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 

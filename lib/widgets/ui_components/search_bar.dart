@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
-import 'package:logchain/styles/TextStyles.dart';
+import 'package:logchain/styles/text_styles.dart';
 
 import '../../network/network_provider.dart';
 import '../../screens/search_screen.dart';

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/network/network_provider.dart';
-import 'package:logchain/providers/UserDataProvider.dart';
-import 'package:logchain/styles/TextStyles.dart';
+import 'package:logchain/providers/user_data_provider.dart';
+import 'package:logchain/styles/text_styles.dart';
 import 'package:logchain/utils/extensions.dart';
 
 import 'package:skeletons/skeletons.dart';
-import '../widgets/CryptoRow.dart';
+import '../widgets/crypto_row.dart';
 
 typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 

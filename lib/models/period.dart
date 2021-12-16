@@ -1,4 +1,4 @@
-import 'package:logchain/models/PeriodType.dart';
+import 'package:logchain/models/period_type.dart';
 
 import 'package:meta/meta.dart';
 

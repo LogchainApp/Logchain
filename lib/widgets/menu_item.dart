@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logchain/styles/ColorResources.dart';
+import 'package:logchain/styles/color_resources.dart';
 
 class MenuItem extends StatelessWidget {
   final Widget icon;
