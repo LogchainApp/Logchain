@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logchain/models/crypto_currency.dart';
 
 typedef OnValueChangedCallback = void Function(double value);

@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
         title: Text(
           "${currency.name} (${currency.symbol})",
         ),
-        body: CryptoPage(currency: currency, periodType: periodType),
+        body: CryptoPage(currency: currency, defaultPeriodType: periodType),
         height: 0.8,
       );
     });

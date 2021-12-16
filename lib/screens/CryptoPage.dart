@@ -25,15 +25,24 @@ typedef OnItemTapCallback = void Function(CryptoCurrency currency);
 
 class CryptoPage extends StatefulWidget {
   final CryptoCurrency currency;
-  PeriodType periodType;
+  final PeriodType defaultPeriodType;
 
-  CryptoPage({required this.currency, this.periodType = PeriodType.Hours24});
+  CryptoPage({required this.currency, this.defaultPeriodType = PeriodType.Hours24});
 
   @override
   State<CryptoPage> createState() => _CryptoPageState();
 }
 
 class _CryptoPageState extends State<CryptoPage> {
+
+  PeriodType periodType = PeriodType.Hours24;
+
+  @override
+  void initState() {
+    super.initState();
+    periodType = widget.defaultPeriodType;
+  }
+
   List<CandleData> _computeTrendLines(List<CandleData> data) {
     final ma7 = CandleData.computeMA(data, 7);
 
@@ -185,10 +194,10 @@ class _CryptoPageState extends State<CryptoPage> {
               Container(
                 height: 64,
                 child: PeriodPicker(
-                  periodType: widget.periodType,
+                  periodType: periodType,
                   onPeriodChanged: (period) {
                     setState(() {
-                      widget.periodType = period.periodType;
+                      periodType = period.periodType;
                     });
                   },
                 ),
@@ -200,7 +209,7 @@ class _CryptoPageState extends State<CryptoPage> {
                   future: NetworkProvider.instance.fetchMarketChart(
                     cryptoCurrency: widget.currency,
                     currency: Currency.usd,
-                    days: Period.from(widget.periodType).days,
+                    days: Period.from(widget.defaultPeriodType).days,
                   ),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {

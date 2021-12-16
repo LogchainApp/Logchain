@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:logchain/models/crypto_currency.dart';
 import 'package:logchain/styles/TextStyles.dart';

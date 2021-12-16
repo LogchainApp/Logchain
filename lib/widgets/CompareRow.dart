@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:logchain/models/crypto_currency.dart';
 
 class CompareRow extends StatelessWidget {
   final String title;

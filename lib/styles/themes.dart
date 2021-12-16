@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:logchain/styles/ColorResources.dart';
 import 'TextStyles.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:logchain/models/period.dart';
 import 'package:logchain/models/PeriodType.dart';
 import 'package:logchain/styles/TextStyles.dart';

@@ -18,9 +18,7 @@ class SearchList extends StatefulWidget {
   final String hintText;
   final CryptoCurrency? excludedCryptoCurrency;
 
-  var currencyList = NetworkProvider.instance.currencyList
-      .sorted((p0, p1) => -p0.changePercents.compareTo(p1.changePercents))
-      .toList();
+  late final currencyList;
 
   SearchList({
     required this.data,
