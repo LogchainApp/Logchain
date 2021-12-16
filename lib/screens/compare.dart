@@ -27,8 +27,16 @@ class _CompareState extends State<Compare> {
   @override
   void initState() {
     super.initState();
-    exchangeLeftValue = widget.cryptoCurrencyRight.price;
-    exchangeRightValue = widget.cryptoCurrencyLeft.price;
+    exchangeLeftValue = calcExchange(
+      1,
+      widget.cryptoCurrencyRight.price,
+      widget.cryptoCurrencyLeft.price,
+    );
+    exchangeRightValue = calcExchange(
+      1,
+      widget.cryptoCurrencyLeft.price,
+      widget.cryptoCurrencyRight.price,
+    );
   }
 
 
