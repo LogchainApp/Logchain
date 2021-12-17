@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
               backGestureWidth: BackGestureWidth.fraction(1 / 2),
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
-                title: 'Logchain',
+                title: 'Logchain_1',
                 theme: context.watch<ThemeProvider>().getTheme,
                 darkTheme: dark,
                 home: MainPage(title: 'Logchain'),
