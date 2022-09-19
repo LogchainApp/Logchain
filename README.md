@@ -28,4 +28,8 @@ Our app uses two APIs:
 You can run tests to ensure everything is working correctly via command: `flutter test`.  
 If it is you'll see: `+2: All tests passed!`.
 
+### Presentation
+Project been presented at Sirius at Dec 2021, figma link:
+https://www.figma.com/proto/ocaQs3ubzicTcZD2AKYTT7/Logchain-Presentation?node-id=0%3A1
+
 
